@@ -15,111 +15,158 @@ const roles = [
   title="About"
   description="Shannon Suttles is an ordained pastor, organisational leader, business strategist, and writer whose life and work have been shaped by restoration."
 >
-  <!-- Opening.
-       The new President portrait, shown square and whole — no crop. A gold
-       ornament column runs the left margin: cut-stone facets, fine botanical
-       linework and sparkle, drawn as vector so it stays crisp and weighs
-       nothing. Roses bleed behind it. -->
-  <section class="ground-blush relative overflow-hidden">
 
-    <img src="/brand/art/ornament-column.svg" alt="" aria-hidden="true"
-      class="botanical parallax parallax-slow -left-2 top-0 hidden h-full w-[8rem] opacity-90 xl:block 2xl:-left-4 2xl:w-[10rem]" />
-    <img src="/brand/art/botanical-corner-left.webp" alt="" aria-hidden="true"
-      class="botanical botanical-quiet parallax parallax-slow -left-24 -top-20 w-[22rem] lg:w-[32rem]" />
-    <img src="/brand/art/rose-accent.webp" alt="" aria-hidden="true"
-      class="botanical botanical-quiet parallax parallax-slow-r -right-20 bottom-0 w-[18rem] lg:w-[26rem]" />
+  <!-- ═══════════════════════════════════════════════════════════════════
+       I. THE PORTRAIT
+       Obsidian. Pearls fall the left margin, roses the right, diamonds
+       scattered between. Her portrait carries the page; type sits beside it.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-obsidian-graded relative overflow-hidden">
+    <img src="/brand/art/pearl-t1-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-near parallax parallax-slow -left-10 -top-10 w-[13rem] sm:w-[17rem] lg:w-[23rem]" />
+    <img src="/brand/art/rose-champagne-a.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid -left-16 top-[52%] w-[14rem] lg:w-[21rem]" />
+    <img src="/brand/art/rose-champagne-b.webp" alt="" aria-hidden="true"
+      class="rose rose-near parallax parallax-slow -right-20 top-[8%] w-[16rem] sm:w-[21rem] lg:w-[28rem]" />
+    <img src="/brand/art/pearl-t3-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid -right-12 bottom-0 w-[12rem] lg:w-[18rem]" />
+    <img src="/brand/art/diamond-t1-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid left-[4%] bottom-[10%] w-[7rem] lg:w-[10rem]" />
+    <img src="/brand/art/diamond-t3-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-deep parallax parallax-slow right-[6%] top-[22%] w-[6rem] lg:w-[9rem]" />
 
-    <div class="relative z-10 mx-auto max-w-[92rem] px-5 pt-14 pb-20 sm:px-8 lg:px-12 lg:pt-20 lg:pb-28">
-      <p class="label label-gold reveal mb-8">About Shannon</p>
+    <div class="layer-content mx-auto max-w-[94rem] px-6 pt-16 pb-24 sm:px-10 lg:px-16 lg:pt-24 lg:pb-32">
+      <p class="label label-champagne reveal mb-12 lg:mb-16">About Shannon</p>
 
-      <div class="ground-champagne-deep reveal relative mb-14 py-8 lg:py-10"
-        style="margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); padding-left:max(1.25rem,calc(50vw - 46rem + 1.25rem)); padding-right:max(1.25rem,calc(50vw - 46rem + 1.25rem));">
-        <h1>
-          <span class="mask-line">
-            <span class="type-name type-fill-cream block font-display">A Life Restored</span>
-          </span>
-          <span class="mask-line">
-            <span class="type-name type-fill-cream block pl-[6vw] font-display italic"
-              style="transition-delay:140ms">and Given Back to God</span>
-          </span>
-        </h1>
-      </div>
-
-      <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
         <div class="lg:col-span-5">
-          <figure class="veil-slow frame-offset relative mx-auto max-w-[26rem] lg:mx-0 lg:max-w-none">
-            <img src="/brand/art/portrait-president.webp"
-              alt="Shannon Suttles" width="1000" height="1000"
-              class="block h-auto w-full" loading="eager" fetchpriority="high" decoding="async" />
+          <figure class="veil-slow photo-frame reveal">
+            <img src="/brand/art/portrait-president.webp" alt="Shannon Suttles"
+              width="1000" height="1000" class="photo w-full"
+              loading="eager" fetchpriority="high" decoding="async" />
           </figure>
-          <p class="label reveal mt-5">Shannon Suttles · President &amp; CEO, Firebrand Revivalists</p>
         </div>
 
         <div class="lg:col-span-6 lg:col-start-7">
-          <p class="reveal font-display text-[clamp(1.35rem,1.05rem+1.2vw,2.1rem)] leading-[1.45] font-light text-ink-800">
+          <h1 class="reveal">
+            <span class="display block text-ivory-50">A Life Restored</span>
+            <span class="display block text-champagne-300 italic">and Given Back to God</span>
+          </h1>
+          <hr class="rule-hair rule-short reveal my-10" />
+          <p class="reveal max-w-lg font-body text-[clamp(1.2rem,1rem+0.8vw,1.6rem)] leading-[1.7] text-champagne-200/85">
             Shannon Suttles is an ordained pastor, organisational leader, business strategist, and
             writer whose life and work have been shaped by restoration.
           </p>
-          <hr class="rule-gold-solid reveal mt-8 w-24" />
+          <p class="reveal mt-8 font-body text-lede leading-[1.8] text-champagne-200/60">
+            More than 17 years in full-time ministry. More than 20 years in leadership. She has
+            served families, businesses, ministries, schools, and public institutions through
+            seasons of crisis, transition, rebuilding, and restoration.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lede + roles -->
-  <section class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12">
-    <hr class="rule-gold reveal mb-16" />
+  <!-- ═══════════════════════════════════════════════════════════════════
+       II. THE OFFICES — a credit list, ruled in champagne hairline
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-ink relative overflow-hidden">
+    <img src="/brand/art/diamond-t2-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow -right-16 top-8 w-[10rem] lg:w-[15rem]" />
 
-    <div class="grid gap-12 lg:grid-cols-12">
-      <div class="lg:col-span-7">
-        <div class="prose-editorial reveal">
-          <p>
-            More than 17 years in full-time ministry. More than 20 years in leadership.
-          </p>
-          <p>
-            She has served families, businesses, ministries, schools, and public institutions
-            through seasons of crisis, transition, rebuilding, and restoration.
-          </p>
-        </div>
-      </div>
-
-      <!-- Roles as an editorial list, not a paragraph of commas. -->
-      <div class="lg:col-span-4 lg:col-start-9">
-        <h2 class="label mb-6">Roles</h2>
-        <ul>
-          {
-            roles.map((role, i) => (
-              <li class="reveal border-b border-champagne-200/70 py-4 first:border-t" style={`--delay: ${i * 80}ms`}>
-                <p class="label label-gold">{role.title}</p>
-                <p class="mt-1 font-display text-xl leading-snug font-light text-ink-800">
-                  {role.org}
-                </p>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+    <div class="layer-content mx-auto max-w-[94rem] px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
+      <p class="label label-champagne reveal mb-14">She Serves As</p>
+      <ul class="stagger">
+        {roles.map((role, i) => (
+          <li class="reveal grid items-baseline gap-2 border-t border-champagne-600/25 py-7 sm:grid-cols-12 sm:gap-8 lg:py-9"
+            style={`--i:${i}`}>
+            <p class="label label-champagne sm:col-span-3">{role.title}</p>
+            <p class="font-display text-[clamp(1.25rem,1rem+1.1vw,2rem)] leading-tight font-normal text-ivory-50 sm:col-span-9">
+              {role.org}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <!-- Before ministry -->
-  <section class="border-y border-champagne-200 bg-cream-50">
-    <div class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12">
-      <div class="grid gap-10 lg:grid-cols-12">
+  <!-- ═══════════════════════════════════════════════════════════════════
+       III. BEFORE MINISTRY — ivory paper
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-ivory relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-d.webp" alt="" aria-hidden="true"
+      class="rose parallax parallax-slow -right-20 -top-10 w-[15rem] lg:w-[22rem]" />
+
+    <div class="layer-content mx-auto max-w-[94rem] px-6 py-24 sm:px-10 lg:px-16 lg:py-36">
+      <div class="grid gap-12 lg:grid-cols-12">
         <div class="lg:col-span-3">
-          <h2 class="reveal label">Before Ministry</h2>
+          <p class="label reveal" style="color: var(--color-champagne-600)">Before Ministry</p>
+          <hr class="rule-hair-ivory rule-short reveal mt-6" />
         </div>
-        <div class="lg:col-span-7">
-          <div class="prose-editorial reveal">
+        <div class="lg:col-span-7 lg:col-start-5">
+          <p class="reveal font-body text-[clamp(1.15rem,1rem+0.7vw,1.5rem)] leading-[1.8] text-ink-800">
+            Shannon worked extensively in property management and commercial leasing, leading
+            operations for a Class A asset valued at approximately $400 million — overseeing large
+            teams, administering multimillion-dollar contracts, and managing leasing, maintenance,
+            security, budgets, and operational performance.
+          </p>
+          <p class="reveal mt-8 font-body text-lede leading-[1.85] text-ink-600">
+            That experience taught her to see beyond a visible problem and recognise what is
+            happening underneath it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       IV. THE LIFE BEHIND THE WORK — obsidian, roses close
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-obsidian relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-a.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow -left-20 top-8 w-[15rem] lg:w-[23rem]" />
+    <img src="/brand/art/rose-champagne-b-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-deep parallax parallax-mid -left-12 bottom-[10%] w-[12rem] lg:w-[18rem]" />
+    <img src="/brand/art/rose-champagne-b.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow -right-20 bottom-4 w-[16rem] lg:w-[24rem]" />
+
+    <div class="layer-content mx-auto max-w-[94rem] px-6 py-24 sm:px-10 lg:px-16 lg:py-40">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <h2 class="title reveal text-ivory-50">
+            The Life<br /><span class="text-champagne-300 italic">Behind the Work</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-7 lg:col-start-6">
+          <div class="reveal space-y-7 font-body text-lede leading-[1.9] text-champagne-200/75">
             <p>
-              Shannon worked extensively in property management and commercial leasing, leading
-              operations for a Class A asset valued at approximately $400 million — overseeing
-              large teams, administering multimillion-dollar contracts, and managing leasing,
-              maintenance, security, budgets, and operational performance.
+              Shannon's early life was marked by severe abuse, rejection, instability,
+              homelessness, the impact of addiction, and deep emotional wounds.
+            </p>
+            <p class="text-ivory-100 italic">
+              Before she knew how to rest, trust, or feel safe, she learned how to survive.
             </p>
             <p>
-              That experience taught her to see beyond a visible problem and recognise what is
-              happening underneath it.
+              As a teenager and young mother, Shannon was pressured to relinquish her daughter,
+              Anne, for adoption. What appeared to be a permanent separation became a story of
+              extraordinary restoration. Mother and daughter were reunited, their relationship was
+              rebuilt, and Anne is now an integral part of the family, its businesses, and its
+              ministry work.
+            </p>
+            <p>
+              Shannon also endured an abusive marriage and the painful separation from her son.
+              After years of perseverance through family court, he was restored to her care and was
+              later adopted by Jason.
+            </p>
+            <p>
+              These experiences gave Shannon a lasting conviction: that children deserve safe and
+              loving families, that healthy restoration should be supported, and that no one should
+              walk through overwhelming circumstances alone.
+            </p>
+            <p>
+              Jesus did more than help Shannon survive. He restored her identity, rebuilt her
+              capacity to love and trust, and transformed places of pain into places of hope for
+              others.
             </p>
           </div>
         </div>
@@ -127,90 +174,55 @@ const roles = [
     </div>
   </section>
 
-  <!-- The life behind the work -->
-  <section class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-    <div class="grid gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-3">
-        <h2 class="reveal font-display text-display-sm leading-tight font-light text-ink-900">
-          The Life<br /><span class="italic">Behind the Work</span>
-        </h2>
-      </div>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       V. PULL QUOTE — the diamond signature behind it
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-obsidian-graded relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-b.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow -left-20 top-0 w-[16rem] lg:w-[24rem]" />
+    <img src="/brand/art/pearl-t3-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-deep parallax parallax-mid -right-14 bottom-0 w-[12rem] lg:w-[18rem]" />
 
-      <div class="lg:col-span-7">
-        <div class="prose-editorial reveal">
-          <p>
-            Shannon's early life was marked by severe abuse, rejection, instability, homelessness,
-            the impact of addiction, and deep emotional wounds.
-          </p>
-          <p>Before she knew how to rest, trust, or feel safe, she learned how to survive.</p>
-          <p>
-            As a teenager and young mother, Shannon was pressured to relinquish her daughter, Anne,
-            for adoption. What appeared to be a permanent separation became a story of
-            extraordinary restoration. Mother and daughter were reunited, their relationship was
-            rebuilt, and Anne is now an integral part of the family, its businesses, and its
-            ministry work.
-          </p>
-          <p>
-            Shannon also endured an abusive marriage and the painful separation from her son. After
-            years of perseverance through family court, he was restored to her care and was later
-            adopted by Jason.
-          </p>
-          <p>
-            These experiences gave Shannon a lasting conviction: that children deserve safe and
-            loving families, that healthy restoration should be supported, and that no one should
-            walk through overwhelming circumstances alone.
-          </p>
-          <p>
-            Jesus did more than help Shannon survive. He restored her identity, rebuilt her
-            capacity to love and trust, and transformed places of pain into places of hope for
-            others.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pull quote -->
-  <section class="bg-ink-900 text-cream-100">
-    <div class="mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 lg:py-32">
-      <p
-        class="reveal font-display text-[clamp(1.75rem,1.2rem+2.4vw,3.25rem)] leading-[1.35] font-light"
-      >
+    <div class="layer-content mx-auto max-w-4xl px-6 py-32 text-center sm:px-10 lg:py-44">
+      <p class="reveal font-display text-[clamp(1.6rem,1.15rem+2.2vw,3rem)] leading-[1.35] font-normal text-ivory-50">
         These experiences are not side notes to the work.
       </p>
-      <p
-        class="type-fill-cream reveal mt-3 font-display text-[clamp(1.75rem,1.2rem+2.4vw,3.25rem)] leading-[1.35] font-light italic"
-        style="--delay: 140ms"
-      >
+      <p class="reveal mt-4 font-display text-[clamp(1.6rem,1.15rem+2.2vw,3rem)] leading-[1.35] font-normal text-champagne-300 italic"
+        style="--delay:140ms">
         They explain why the work exists.
       </p>
     </div>
   </section>
 
-  <!-- Closing -->
-  <section class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-    <div class="grid gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-3">
-        <h2 class="reveal label">One Calling, Expressed in Many Ways</h2>
-      </div>
-      <div class="lg:col-span-7">
-        <p class="prose-editorial reveal">
-          Whether Shannon is writing poetry, praying with a family, supporting a school chaplain,
-          advising an organisation, or helping create a place of restoration for weary leaders, the
-          calling remains the same:
-        </p>
-        <p
-          class="reveal mt-8 font-display text-[clamp(1.5rem,1.15rem+1.5vw,2.25rem)] leading-[1.45] font-light text-ink-900"
-        >
-          To recognise what God is restoring, help bring it into order, and create room for others
-          to become whole.
-        </p>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       VI. ONE CALLING
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-ivory relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-e.webp" alt="" aria-hidden="true"
+      class="rose parallax parallax-slow -left-16 top-10 w-[13rem] lg:w-[19rem]" />
 
-        <div class="reveal mt-14 flex flex-wrap gap-x-10 gap-y-4">
-          <a href="/poetry" class="label link-editorial text-ink-900">Read the Poetry</a>
-          <a href="/work" class="label link-editorial">Explore Her Work</a>
+    <div class="layer-content mx-auto max-w-[94rem] px-6 py-24 sm:px-10 lg:px-16 lg:py-36">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-3">
+          <p class="label reveal" style="color: var(--color-champagne-600)">One Calling</p>
+        </div>
+        <div class="lg:col-span-7 lg:col-start-5">
+          <p class="reveal font-body text-lede leading-[1.85] text-ink-600">
+            Whether Shannon is writing poetry, praying with a family, supporting a school chaplain,
+            advising an organisation, or helping create a place of restoration for weary leaders,
+            the calling remains the same:
+          </p>
+          <p class="reveal mt-10 font-display text-[clamp(1.4rem,1.05rem+1.5vw,2.4rem)] leading-[1.4] font-normal text-ink-900">
+            To recognise what God is restoring, help bring it into order, and create room for
+            others to become whole.
+          </p>
+          <div class="reveal mt-14 flex flex-wrap gap-5">
+            <a href="/poetry" class="btn btn-ivory">Read Her Poetry</a>
+            <a href="/work" class="btn btn-ivory">Explore Her Work</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
 </BaseLayout>

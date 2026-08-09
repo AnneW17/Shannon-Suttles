@@ -20,17 +20,29 @@ const describe = (title: string, existing?: string) =>
   description="Prayers, remembrances, laments, acts of gratitude, and honest conversations with God — the poetry of Shannon Suttles."
 >
   <!-- Opening -->
-  <section class="mx-auto max-w-[88rem] px-5 pt-16 pb-16 sm:px-8 lg:px-12 lg:pt-24">
+  <section class="ground-obsidian-graded relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-a-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-near parallax parallax-slow -left-20 -top-12 w-[16rem] lg:w-[26rem]" />
+    <img src="/brand/art/rose-champagne-c-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid -right-20 bottom-0 w-[15rem] lg:w-[23rem]" />
+    <img src="/brand/art/pearl-t1-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow -left-8 bottom-[8%] w-[9rem] lg:w-[13rem]" />
+    <img src="/brand/art/trickle-a-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-deep parallax parallax-mid right-[14%] top-[16%] w-[8rem] lg:w-[11rem]" />
+    <img src="/brand/art/diamond-t1-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid right-[8%] top-[22%] w-[7rem] lg:w-[10rem]" />
+    <div class="layer-content mx-auto max-w-[94rem] px-6 pt-20 pb-20 sm:px-10 lg:px-16 lg:pt-28 lg:pb-28">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <p class="label reveal mb-7">Poetry</p>
-        <h1 class="reveal font-display text-display-lg leading-[1.02] font-light text-ink-900">
-          Every Word,<br /><span class="italic">Back to Him</span>
+        <p class="label label-champagne reveal mb-8">Poetry</p>
+        <h1 class="reveal">
+          <span class="display block text-ivory-50">Every Word,</span>
+          <span class="display block text-champagne-300 italic">Back to Him</span>
         </h1>
       </div>
 
       <div class="lg:col-span-4 lg:col-start-9 lg:pt-4">
-        <div class="reveal prose-editorial" style="--delay: 180ms">
+        <div class="reveal space-y-6 font-body text-lede leading-[1.85] text-champagne-200/75" style="--delay: 180ms">
           <p>
             These poems are not written for performance. They are prayers, remembrances, laments,
             acts of gratitude, and honest conversations with God.
@@ -43,6 +55,7 @@ const describe = (title: string, existing?: string) =>
         </div>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- Filters + search.
@@ -71,7 +84,7 @@ const describe = (title: string, existing?: string) =>
               type="search"
               placeholder="Search"
               autocomplete="off"
-              class="w-full border-0 border-b border-champagne-300 bg-transparent px-0 py-2 font-body text-lg text-ink-800 placeholder:text-ink-300 focus:border-gold-500 focus:outline-none"
+              class="w-full border-0 border-b border-ink-900/20 bg-transparent px-0 py-2 font-body text-lg text-ink-900 placeholder:text-ink-500/60 focus:border-champagne-600 focus:outline-none"
             />
           </div>
         </div>
@@ -83,11 +96,11 @@ const describe = (title: string, existing?: string) =>
   {
     activeCategories.length > 0 && (
       <section class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
-        <div class="grid gap-8 border-y border-champagne-200 py-10 sm:grid-cols-3">
+        <div class="grid gap-10 border-y border-ink-900/12 py-12 sm:grid-cols-3">
           {activeCategories.slice(0, 3).map((cat) => (
             <div class="reveal">
               <h2 class="label label-gold mb-3">{cat.title}</h2>
-              <p class="prose-editorial text-base">{describe(cat.title, cat.description)}</p>
+              <p class="font-body text-base leading-relaxed text-ink-600">{describe(cat.title, cat.description)}</p>
             </div>
           ))}
         </div>
@@ -147,7 +160,7 @@ const describe = (title: string, existing?: string) =>
     bottom: 0;
     width: 100%;
     height: 1px;
-    background: var(--color-gold-500);
+    background: var(--color-champagne-600);
   }
 </style>
 

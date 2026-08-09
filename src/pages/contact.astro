@@ -3,47 +3,35 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { SITE } from '@lib/site';
 ---
 
-<BaseLayout
-  title="Contact"
-  description={`For inquiries, speaking requests, or to reach the team: ${SITE.email}`}
->
-  <!-- Deliberately the quietest page on the site. One address, no form,
-       no contact database, nothing to administer. -->
-  <section class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
-    <div class="grid gap-14 lg:grid-cols-12 lg:items-center">
-      <div class="lg:col-span-6">
-        <p class="label reveal mb-7">Contact</p>
-        <h1 class="reveal font-display text-display-lg leading-[1.02] font-light text-ink-900">
-          Get in <span class="italic">Touch</span>
-        </h1>
+<BaseLayout title="Contact" description={`For inquiries, speaking requests, or to reach the team: ${SITE.email}`}>
+  <section class="ground-obsidian-graded relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-a.webp" alt="" aria-hidden="true"
+      class="rose rose-near parallax parallax-slow -left-20 -top-12 w-[16rem] sm:w-[21rem] lg:w-[28rem]" />
+    <img src="/brand/art/pearl-t3-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid -left-8 bottom-0 w-[11rem] lg:w-[16rem]" />
+    <img src="/brand/art/trickle-c-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-deep parallax parallax-slow left-[22%] top-[12%] w-[8rem] lg:w-[11rem]" />
+    <img src="/brand/art/rose-champagne-b.webp" alt="" aria-hidden="true"
+      class="rose rose-near parallax parallax-slow -right-24 bottom-[6%] w-[17rem] sm:w-[22rem] lg:w-[29rem]" />
+    <img src="/brand/art/diamond-t2-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow right-[10%] top-[18%] w-[7rem] lg:w-[10rem]" />
 
-        <p class="prose-editorial reveal mt-10">
-          For inquiries, speaking requests, or to reach the team:
-        </p>
-
-        <p class="reveal mt-8">
-          <a
-            href={`mailto:${SITE.email}`}
-            class="link-editorial font-display text-[clamp(1.25rem,0.95rem+1.5vw,2.25rem)] leading-tight font-light break-words text-ink-900"
-          >
-            {SITE.email}
-          </a>
-        </p>
-      </div>
-
-      <div class="lg:col-span-4 lg:col-start-9">
-        <figure class="veil">
-          <img
-            src="/brand/logo.png"
-            alt="Shannon Suttles"
-            width="640"
-            height="427"
-            class="w-full object-contain"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-      </div>
+    <div class="layer-content mx-auto max-w-[94rem] px-6 py-32 sm:px-10 lg:px-16 lg:py-48">
+      <p class="label label-champagne reveal mb-12">Contact</p>
+      <h1 class="reveal">
+        <span class="display block text-ivory-50">Get in</span>
+        <span class="display block text-champagne-300 italic">Touch</span>
+      </h1>
+      <hr class="rule-hair rule-short reveal my-12" />
+      <p class="reveal max-w-md font-body text-lede leading-[1.85] text-champagne-200/75">
+        For inquiries, speaking requests, or to reach the team:
+      </p>
+      <p class="reveal mt-10">
+        <a href={`mailto:${SITE.email}`}
+          class="link-editorial font-display text-[clamp(1.35rem,1rem+1.6vw,2.5rem)] leading-tight font-normal break-words text-ivory-50">
+          {SITE.email}
+        </a>
+      </p>
     </div>
   </section>
 </BaseLayout>

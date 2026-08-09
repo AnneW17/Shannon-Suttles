@@ -9,22 +9,23 @@ import { editorialNumber } from '@lib/format';
   description="Sophion Media & Consulting Group, Jesus Loves the Little Children Chaplaincy, Generational Legacy Foundation, Ember Ridge, and Firebrand Revivalists — different expressions of one life and one calling."
 >
   <!-- Opening -->
-  <section class="ground-blush-deep relative overflow-hidden">
-    <img src="/brand/art/botanical-corner-right.webp" alt="" aria-hidden="true"
-      class="botanical botanical-medium parallax parallax-slow -top-10 -right-16 w-[20rem] lg:w-[30rem]" />
+  <section class="ground-obsidian-graded relative overflow-hidden">
+    <img src="/brand/art/rose-champagne-a.webp" alt="" aria-hidden="true"
+      class="rose rose-near parallax parallax-slow -left-20 -top-12 w-[16rem] lg:w-[26rem]" />
+    <img src="/brand/art/rose-champagne-b-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-mid -right-20 bottom-0 w-[15rem] lg:w-[23rem]" />
+    <img src="/brand/art/pearl-t3-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-mid parallax parallax-slow left-[10%] bottom-[14%] w-[9rem] lg:w-[13rem]" />
+    <img src="/brand/art/diamond-t2-dark.webp" alt="" aria-hidden="true"
+      class="rose rose-deep parallax parallax-mid right-[16%] top-[20%] w-[7rem] lg:w-[10rem]" />
     <div class="relative z-10 mx-auto max-w-[92rem] px-5 pt-16 pb-20 sm:px-8 lg:px-12 lg:pt-24 lg:pb-28">
-      <p class="label label-gold reveal mb-8">Beyond the Poetry</p>
+      <p class="label label-champagne reveal mb-10">Beyond the Poetry</p>
       <h1 class="reveal">
         <span class="mask-line">
-          <span class="block font-display text-display-lg leading-[1.02] font-light text-ink-900">
-            What the Story
-          </span>
+          <span class="display block text-ivory-50">What the Story</span>
         </span>
         <span class="mask-line">
-          <span class="type-fill-cream block font-display text-display-lg leading-[1.02] italic"
-            style="transition-delay:130ms">
-            Became
-          </span>
+          <span class="display block text-champagne-300 italic" style="transition-delay:130ms">Became</span>
         </span>
       </h1>
     </div>
@@ -72,7 +73,7 @@ import { editorialNumber } from '@lib/format';
   <section class="border-t border-champagne-200">
     {
       ORGANISATIONS.map((org, i) => (
-        <div class={i % 2 === 1 ? 'border-b border-champagne-200 ground-texture-soft' : 'border-b border-champagne-200 ground-cream'}>
+        <div class={i % 2 === 1 ? 'border-b border-ink-900/10 ground-ivory-warm' : 'border-b border-ink-900/10 ground-ivory'}>
           <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
             <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
               <!-- Number -->
@@ -82,12 +83,12 @@ import { editorialNumber } from '@lib/format';
 
               <!-- Text -->
               <div class="lg:col-span-6">
-                <h2 class="reveal font-display text-display-sm leading-[1.1] font-light text-ink-900">
+                <h2 class="reveal font-display text-display-sm leading-[1.1] font-normal text-ink-900">
                   {org.name}
                 </h2>
 
                 {org.descriptor && (
-                  <p class="reveal mt-3 font-body text-lg text-ink-500 italic">{org.descriptor}</p>
+                  <p class="reveal mt-3 font-body text-lg text-ink-600 italic">{org.descriptor}</p>
                 )}
 
                 {org.role && <p class="label reveal mt-5">{org.role}</p>}
@@ -113,8 +114,9 @@ import { editorialNumber } from '@lib/format';
                 <div class="lg:col-span-4 lg:col-start-9">
                   <a href={org.href} target="_blank" rel="noopener noreferrer"
                     class="reveal block" aria-label={`Visit ${org.name}`}>
-                    <div class={`medallion mx-auto w-44 lg:w-56 ${org.markTone === 'light' ? 'medallion-light' : ''}`}>
-                      <img src={org.logo} alt={`${org.name} mark`} loading="lazy" decoding="async" />
+                    <div class="mx-auto flex w-full items-center justify-center border border-ink-900/12 bg-ink-950 p-10">
+                      <img src={org.logo} alt={`${org.name} mark`} class="max-h-32 w-auto object-contain"
+                        loading="lazy" decoding="async" />
                     </div>
                   </a>
                 </div>
@@ -124,6 +126,17 @@ import { editorialNumber } from '@lib/format';
         </div>
       ))
     }
+  </section>
+
+  <!-- A plate of pearls and diamond bands before the closing statement -->
+  <section class="ground-obsidian relative overflow-hidden">
+    <figure class="veil-slow photo-frame photo-scrim-light relative">
+      <img src="/brand/art/pearl-band.webp" alt="Pearls and diamond bands"
+        width="1422" height="900"
+        class="photo w-full object-cover"
+        style="height: clamp(15rem, 40vh, 26rem); object-position: 50% 50%;"
+        loading="lazy" decoding="async" />
+    </figure>
   </section>
 
   <!-- Closing -->
