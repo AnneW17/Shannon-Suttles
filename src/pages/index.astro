@@ -1,0 +1,297 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PoemBody from '@components/PoemBody.astro';
+import PoemListItem from '@components/PoemListItem.astro';
+import { getFeaturedPoem, getRecentPoems, getSiteSettings } from '@lib/sanity/queries';
+import { ORGANISATIONS, SITE } from '@lib/site';
+import { formatDate, isoDate, editorialNumber } from '@lib/format';
+
+const [featured, recent] = await Promise.all([getFeaturedPoem(), getRecentPoems(4)]);
+const recentPoems = recent.filter((p) => p._id !== featured?._id).slice(0, 3);
+
+const orgIndex = ORGANISATIONS.filter((o) =>
+  ['Sophion Media & Consulting Group', 'Jesus Loves the Little Children Chaplaincy',
+   'Generational Legacy Foundation', 'Ember Ridge', 'Firebrand Revivalists',
+   'Nehemiah Alliance'].includes(o.name)
+);
+
+const homeOrgLines: Record<string, string> = {
+  'Sophion Media & Consulting Group':
+    'Where discernment and practical wisdom bring organisations clarity and order.',
+  'Jesus Loves the Little Children Chaplaincy':
+    'The presence, love, and wisdom of Jesus, brought wherever children are hurting.',
+  'Generational Legacy Foundation':
+    'So that financial barriers never determine whether a child belongs to a safe and loving family.',
+  'Ember Ridge':
+    'A house that ministers first to the Lord — where weary leaders rest, heal, and remember the fire.',
+  'Firebrand Revivalists':
+    'Igniting hearts, awakening destiny, reviving glory — the ministry through which this work is carried.',
+  'Nehemiah Alliance':
+    'The 52-Day National Rebuild Initiative — rebuild, restore, renew.',
+};
+---
+
+<BaseLayout description={SITE.description}>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       I. THE OPENING
+       Blush ground, botanicals bleeding off both corners, her portrait
+       framed in gold, and her name set colossal in cream with a fine black
+       outline — overlapping the photograph rather than sitting beside it.
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden ground-blush">
+
+    <img src="/brand/art/botanical-corner-left.webp" alt="" aria-hidden="true"
+      class="botanical botanical-quiet parallax parallax-slow -top-32 -left-28 w-[26rem] sm:w-[34rem] lg:w-[46rem]" />
+    <img src="/brand/art/botanical-corner-right.webp" alt="" aria-hidden="true"
+      class="botanical botanical-quiet parallax parallax-slow-r -right-28 -bottom-16 w-[20rem] sm:w-[28rem] lg:w-[36rem]" />
+
+    <div class="relative z-10 mx-auto max-w-[92rem] px-5 pt-12 pb-20 sm:px-8 lg:px-12 lg:pt-16 lg:pb-28">
+
+      <p class="label label-gold reveal mb-8">Poetry · Testimony · Living Legacy</p>
+
+      <!-- Her name, cream-filled and held by a fine black outline. It runs
+           across a deeper champagne band, which is what lets the cream fill
+           read as fill rather than vanishing into the page. -->
+      <div class="ground-champagne-deep reveal relative mb-14 py-9 lg:py-12"
+        style="margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); padding-left:max(1.25rem,calc(50vw - 46rem + 1.25rem)); padding-right:max(1.25rem,calc(50vw - 46rem + 1.25rem));">
+        <img src="/brand/art/rose-accent.webp" alt="" aria-hidden="true"
+          class="botanical botanical-quiet parallax parallax-slow-r -right-16 -top-24 w-[18rem] lg:w-[26rem]" />
+        <h1 class="relative z-10">
+          <span class="mask-line">
+            <span class="type-name type-fill-cream block font-display">Shannon</span>
+          </span>
+          <span class="mask-line">
+            <span class="type-name type-fill-cream block pl-[7vw] font-display italic"
+              style="transition-delay:140ms">Suttles</span>
+          </span>
+        </h1>
+      </div>
+
+      <div class="grid items-start gap-12 lg:grid-cols-12 lg:gap-10">
+
+        <!-- Portrait, shown whole. No viewport-height cap, no forced crop. -->
+        <div class="lg:col-span-5">
+          <figure class="veil-slow frame-offset hover-breathe relative mx-auto max-w-[21rem] sm:max-w-sm lg:mx-0 lg:max-w-none">
+            <img src="/brand/art/portrait-editorial.webp"
+              alt="Shannon Suttles" width="760" height="942"
+              class="portrait" loading="eager" fetchpriority="high" decoding="async" />
+          </figure>
+          <p class="label reveal mt-5">Shannon Suttles · Poet, Pastor, Founder</p>
+        </div>
+
+        <div class="lg:col-span-6 lg:col-start-7 lg:pt-6">
+          <div class="reveal max-w-lg" style="--delay:320ms">
+            <hr class="rule-gold-solid mb-7 w-20" />
+            <p class="font-display text-[clamp(1.35rem,1rem+1.1vw,2rem)] leading-[1.45] font-light text-ink-800">
+              This is first and foremost a place where I write poetry to God.
+            </p>
+            <p class="prose-editorial mt-6 text-base text-ink-700">
+              Nothing surrendered to God is wasted. The places that once carried pain can become
+              places of refuge. The fire that nearly went out can become warmth for someone still
+              finding their way home.
+            </p>
+            <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
+              <a href="/poetry" class="label link-editorial text-ink-900">Read Shannon&rsquo;s Poetry</a>
+              <a href="/about" class="label link-editorial">The Story Behind the Work</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       II. THE FEATURED POEM
+       Cream, quiet, textured. After the noise of the opening the design
+       gets out of the way and lets the poem hold the page.
+       ══════════════════════════════════════════════════════════════════ -->
+  {featured && (
+    <section class="ground-texture-soft edge-gold-top relative overflow-hidden">
+      <img src="/brand/art/rose-accent.webp" alt="" aria-hidden="true"
+        class="botanical botanical-quiet parallax parallax-slow -right-24 top-8 w-[20rem] lg:w-[30rem]" />
+
+      <div class="relative z-10 mx-auto max-w-[92rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
+        <div class="grid gap-10 lg:grid-cols-12">
+
+          <div class="lg:col-span-3">
+            <p class="label label-gold reveal">Featured Poem</p>
+            <hr class="rule-gold reveal mt-6 w-24" />
+            <p class="reveal mt-8 hidden lg:block">
+              <span class="type-vertical text-ink-300">From the collection</span>
+            </p>
+          </div>
+
+          <div class="lg:col-span-8 xl:col-span-7">
+            <h2 class="reveal">
+              <span class="mask-line">
+                <span class="block font-display text-display-md leading-[1.04] font-light text-ink-900">
+                  {featured.title}
+                </span>
+              </span>
+            </h2>
+
+            <p class="reveal mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
+              <time datetime={isoDate(featured.publishedAt)} class="label">
+                {formatDate(featured.publishedAt)}
+              </time>
+              {featured.category && <span class="label label-gold">{featured.category.title}</span>}
+            </p>
+
+            <PoemBody body={featured.body} class="reveal mt-14" />
+
+            <p class="reveal mt-14">
+              <a href={`/poetry/${featured.slug}`} class="label link-editorial text-ink-900">
+                Read this poem on its own
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       III. RECENT — an index, set plainly
+       ══════════════════════════════════════════════════════════════════ -->
+  {recentPoems.length > 0 && (
+    <section class="ground-cream">
+      <div class="mx-auto max-w-[92rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div class="mb-12 flex items-end justify-between gap-6">
+          <h2 class="reveal font-display text-display-sm leading-tight font-light text-ink-900">
+            Recent <span class="italic">Poems</span>
+          </h2>
+          <a href="/poetry" class="label link-editorial shrink-0">All Poetry</a>
+        </div>
+        <div class="stagger">
+          {recentPoems.map((poem, i) => <PoemListItem poem={poem} index={i} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       IV. ONE LIFE, MANY EXPRESSIONS
+       A full-bleed champagne spread. Oversized cream-filled lettering held
+       by a black outline, roses bleeding through the margins, and the
+       organisations set as a numbered index rather than a grid of tiles.
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-champagne relative overflow-hidden">
+
+    <img src="/brand/art/botanical-corner-left.webp" alt="" aria-hidden="true"
+      class="botanical botanical-quiet parallax parallax-slow top-[26rem] -left-32 w-[24rem] lg:w-[36rem]" />
+    <img src="/brand/art/botanical-corner-right.webp" alt="" aria-hidden="true"
+      class="botanical botanical-quiet parallax parallax-slow-r -right-24 bottom-0 w-[22rem] lg:w-[34rem]" />
+
+    <div class="relative z-10 mx-auto max-w-[92rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+
+      <!-- The heading, oversized and running toward the trim -->
+      <p class="label label-gold reveal mb-8">Beyond the Poetry</p>
+
+      <h2 class="reveal mb-4">
+        <span class="mask-line">
+          <span class="type-colossal type-fill-cream block font-display">One Life,</span>
+        </span>
+        <span class="mask-line">
+          <span class="type-colossal type-fill-cream block pl-[10vw] font-display italic"
+            style="transition-delay:130ms">Many Expressions</span>
+        </span>
+      </h2>
+
+      <div class="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12">
+        <div class="lg:col-span-6">
+          <blockquote class="reveal">
+            <p class="font-display text-[clamp(1.4rem,1.05rem+1.5vw,2.35rem)] leading-[1.4] font-light text-ink-800 italic">
+              The work represented here is what that same story became
+            </p>
+            <p class="font-display text-[clamp(1.4rem,1.05rem+1.5vw,2.35rem)] leading-[1.4] font-light text-gold-600 italic">
+              when love required form and structure.
+            </p>
+          </blockquote>
+        </div>
+        <div class="lg:col-span-4 lg:col-start-9">
+          <hr class="rule-gold-solid reveal mb-6 w-24" />
+          <p class="prose-editorial reveal text-ink-700">
+            None of these began as a portfolio. Each one was born from something I lived through
+            with God. They share a common thread: restoration, family, prayer, wisdom, and service.
+          </p>
+        </div>
+      </div>
+
+      <!-- The index. Numbered, ruled in gold, medallion at the left.
+           An index in a book, not a grid of cards. -->
+      <ul class="stagger mt-20 lg:mt-28">
+        {orgIndex.map((org, i) => (
+          <li class="reveal" style={`--i:${i}`}>
+            <a href={org.href} target="_blank" rel="noopener noreferrer"
+              class="group grid items-center gap-6 border-t border-ink-900/15 py-8 sm:grid-cols-12 sm:gap-8 lg:py-10">
+
+              <span class="label label-gold sm:col-span-1">{editorialNumber(i + 1)}</span>
+
+              {org.logo && (
+                <div class="sm:col-span-2 lg:col-span-1">
+                  <div class={`medallion w-20 lg:w-24 ${org.markTone === 'light' ? 'medallion-light' : ''}`}>
+                    <img src={org.logo} alt={`${org.name} mark`} loading="lazy" decoding="async" />
+                  </div>
+                </div>
+              )}
+
+              <div class="sm:col-span-5 lg:col-span-5">
+                <h3 class="font-display text-[clamp(1.4rem,1.05rem+1.35vw,2.4rem)] leading-[1.1] font-light text-ink-900 transition-colors duration-700 group-hover:text-gold-600">
+                  {org.name}
+                </h3>
+                {org.role && <p class="label label-gold mt-3">{org.role}</p>}
+              </div>
+
+              <p class="prose-editorial text-[1.0625rem] leading-relaxed sm:col-span-4 lg:col-span-4">
+                {homeOrgLines[org.name]}
+              </p>
+
+              <span class="label link-editorial hidden justify-self-end lg:col-span-1 lg:block">↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <p class="reveal mt-14 border-t border-ink-900/15 pt-10">
+        <a href="/work" class="label link-editorial text-ink-900">Explore her work in full</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       V. THE DEDICATION
+       The quietest and most ornamented moment. Champagne ground, roses
+       full strength, her monogram set above the text like a colophon.
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="ground-champagne relative overflow-hidden">
+    <img src="/brand/art/botanical-corner-left.webp" alt="" aria-hidden="true"
+      class="botanical botanical-full parallax parallax-slow -top-10 -left-10 w-[20rem] sm:w-[26rem] lg:w-[34rem]" />
+    <img src="/brand/art/botanical-corner-right.webp" alt="" aria-hidden="true"
+      class="botanical botanical-full parallax parallax-slow-r -right-10 -bottom-10 w-[18rem] sm:w-[24rem] lg:w-[30rem]" />
+
+    <div class="relative z-10 mx-auto max-w-3xl px-5 py-28 text-center sm:px-8 lg:py-40">
+      <img src="/brand/emblem.png" alt="" aria-hidden="true"
+        class="reveal mx-auto mb-10 h-24 w-24 object-contain sm:h-28 sm:w-28" loading="lazy" decoding="async" />
+
+      <p class="label label-gold reveal">A Dedication</p>
+      <hr class="rule-gold reveal mx-auto mt-7 w-28" />
+
+      <div class="reveal mt-14" style="--delay:180ms">
+        <p class="font-display text-[clamp(1.5rem,1.1rem+1.7vw,2.4rem)] leading-[1.5] font-light text-ink-900">
+          Every word gathered here returns to You.
+        </p>
+        <p class="mt-10 font-display text-[clamp(1.35rem,1rem+1.5vw,2.1rem)] leading-[1.7] font-light text-ink-700 italic">
+          For the breath You gave back to me,<br />
+          for the family You gathered from the fragments,<br />
+          for every wounded place You taught to shelter another —
+        </p>
+        <p class="mt-10 font-display text-[clamp(1.5rem,1.1rem+1.7vw,2.4rem)] leading-[1.5] font-light text-ink-900">
+          Jesus, let these pages be an altar.
+        </p>
+        <p class="mt-12 font-display text-3xl font-light text-gold-600 italic">— Shannon</p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 1200" fill="none"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <!-- Luxury editorial ornament: a fine gold column with cut-diamond
+       facets and delicate botanical linework. Drawn as vector so it stays
+       crisp at any size and weighs almost nothing. Deliberately low
+       contrast — it frames the page, it does not compete with the text. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#C6A667" stop-opacity="0"/>
+      <stop offset="0.14" stop-color="#C6A667" stop-opacity="0.85"/>
+      <stop offset="0.86" stop-color="#B08D57" stop-opacity="0.85"/>
+      <stop offset="1"    stop-color="#B08D57" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="facet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"   stop-color="#EBD5CA" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#D9C08A" stop-opacity="0.55"/>
+      <stop offset="1"   stop-color="#B08D57" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <!-- One cut stone, reused down the column -->
+    <g id="stone">
+      <path d="M0,-19 L15,-6 L0,19 L-15,-6 Z" fill="url(#facet)" stroke="#B08D57" stroke-width="0.9"/>
+      <path d="M-15,-6 L15,-6" stroke="#B08D57" stroke-width="0.6" opacity="0.75"/>
+      <path d="M0,-19 L-7,-6 L0,19 L7,-6 Z" stroke="#FDFBF7" stroke-width="0.5" opacity="0.65" fill="none"/>
+    </g>
+
+    <!-- A four-point sparkle -->
+    <g id="spark">
+      <path d="M0,-9 C1.1,-2.6 2.6,-1.1 9,0 C2.6,1.1 1.1,2.6 0,9 C-1.1,2.6 -2.6,1.1 -9,0 C-2.6,-1.1 -1.1,-2.6 0,-9 Z"
+            fill="#C6A667"/>
+    </g>
+  </defs>
+
+  <!-- The spine -->
+  <line x1="110" y1="40" x2="110" y2="1160" stroke="url(#g)" stroke-width="1"/>
+
+  <!-- Botanical filigree, mirrored -->
+  <g stroke="#B08D57" stroke-width="0.85" opacity="0.5" fill="none">
+    <path d="M110,150 C74,186 66,232 84,286 C48,262 40,208 66,168"/>
+    <path d="M110,150 C146,186 154,232 136,286 C172,262 180,208 154,168"/>
+    <path d="M110,560 C78,596 72,640 88,690 C56,668 48,618 72,580"/>
+    <path d="M110,560 C142,596 148,640 132,690 C164,668 172,618 148,580"/>
+    <path d="M110,960 C76,996 68,1042 86,1096 C50,1072 42,1018 68,978"/>
+    <path d="M110,960 C144,996 152,1042 134,1096 C170,1072 178,1018 152,978"/>
+  </g>
+
+  <!-- Fine leaves along the spine -->
+  <g stroke="#C6A667" stroke-width="0.7" opacity="0.42" fill="none">
+    <path d="M110,330 C92,344 84,366 88,392 C104,380 112,356 110,330 Z"/>
+    <path d="M110,330 C128,344 136,366 132,392 C116,380 108,356 110,330 Z"/>
+    <path d="M110,740 C92,754 84,776 88,802 C104,790 112,766 110,740 Z"/>
+    <path d="M110,740 C128,754 136,776 132,802 C116,790 108,766 110,740 Z"/>
+  </g>
+
+  <!-- The stones -->
+  <use href="#stone" x="110" y="120" opacity="0.92"/>
+  <use href="#stone" x="110" y="470" opacity="0.8" transform="translate(0,0) scale(1)"/>
+  <use href="#stone" x="110" y="880" opacity="0.86"/>
+
+  <!-- Sparkle -->
+  <g opacity="0.75">
+    <use href="#spark" x="110" y="250" transform="scale(0.72) translate(43,97)"/>
+    <use href="#spark" x="110" y="640"/>
+    <use href="#spark" x="110" y="1050" transform="scale(0.66) translate(57,541)"/>
+  </g>
+
+  <!-- Terminal flourishes -->
+  <g stroke="#B08D57" stroke-width="0.9" opacity="0.65" fill="none">
+    <path d="M96,60 C104,48 116,48 124,60"/>
+    <path d="M96,1140 C104,1152 116,1152 124,1140"/>
+  </g>
+</svg>

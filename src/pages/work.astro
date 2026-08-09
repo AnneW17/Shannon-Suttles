@@ -1,0 +1,147 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ORGANISATIONS } from '@lib/site';
+import { editorialNumber } from '@lib/format';
+---
+
+<BaseLayout
+  title="Her Work"
+  description="Sophion Media & Consulting Group, Jesus Loves the Little Children Chaplaincy, Generational Legacy Foundation, Ember Ridge, and Firebrand Revivalists — different expressions of one life and one calling."
+>
+  <!-- Opening -->
+  <section class="ground-blush-deep relative overflow-hidden">
+    <img src="/brand/art/botanical-corner-right.webp" alt="" aria-hidden="true"
+      class="botanical botanical-medium parallax parallax-slow -top-10 -right-16 w-[20rem] lg:w-[30rem]" />
+    <div class="relative z-10 mx-auto max-w-[92rem] px-5 pt-16 pb-20 sm:px-8 lg:px-12 lg:pt-24 lg:pb-28">
+      <p class="label label-gold reveal mb-8">Beyond the Poetry</p>
+      <h1 class="reveal">
+        <span class="mask-line">
+          <span class="block font-display text-display-lg leading-[1.02] font-light text-ink-900">
+            What the Story
+          </span>
+        </span>
+        <span class="mask-line">
+          <span class="type-fill-cream block font-display text-display-lg leading-[1.02] italic"
+            style="transition-delay:130ms">
+            Became
+          </span>
+        </span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- Pull quote: the strongest line in everything Shannon supplied. -->
+  <section class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+    <hr class="rule-gold reveal mb-14" />
+    <div class="grid lg:grid-cols-12">
+      <div class="lg:col-span-8 lg:col-start-3">
+        <blockquote
+          class="reveal font-display text-[clamp(1.4rem,1.05rem+1.7vw,2.5rem)] leading-[1.45] font-light text-ink-800"
+        >
+          <p>Poetry is the language through which I give those experiences back to Him.</p>
+          <p class="mt-4 italic">
+            The work represented here is what that same story became when love required form and
+            structure.
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="mx-auto max-w-[88rem] px-5 pb-16 sm:px-8 lg:px-12">
+    <div class="grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-7 lg:col-start-3">
+        <div class="prose-editorial reveal">
+          <p>
+            None of these began as a portfolio. Each one was born from something I lived through
+            with God. They share a common thread: restoration, family, prayer, wisdom, and service.
+          </p>
+          <p class="italic">
+            The questions that once kept us awake can become wisdom for another person's journey.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ ORGANISATIONS
+       Each one is a full-width editorial entry: number, name, descriptor,
+       paragraph, link, and its logo given room on its own. Deliberately not
+       a grid of logo cards — see the note in src/lib/site.ts. -->
+  <section class="border-t border-champagne-200">
+    {
+      ORGANISATIONS.map((org, i) => (
+        <div class={i % 2 === 1 ? 'border-b border-champagne-200 ground-texture-soft' : 'border-b border-champagne-200 ground-cream'}>
+          <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+            <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+              <!-- Number -->
+              <div class="lg:col-span-1">
+                <span class="label label-gold reveal">{editorialNumber(i + 1)}</span>
+              </div>
+
+              <!-- Text -->
+              <div class="lg:col-span-6">
+                <h2 class="reveal font-display text-display-sm leading-[1.1] font-light text-ink-900">
+                  {org.name}
+                </h2>
+
+                {org.descriptor && (
+                  <p class="reveal mt-3 font-body text-lg text-ink-500 italic">{org.descriptor}</p>
+                )}
+
+                {org.role && <p class="label reveal mt-5">{org.role}</p>}
+
+                <p class="prose-editorial reveal mt-7">{org.body}</p>
+
+                <p class="reveal mt-8">
+                  <a
+                    href={org.href}
+                    class="label link-editorial text-ink-900"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit {org.name} ↗
+                  </a>
+                </p>
+              </div>
+
+              <!-- The mark, given real presence: a full panel, on an ink
+                   plate when the logo was drawn for black, monochrome at rest
+                   so five clashing palettes can share one page. -->
+              {org.logo && (
+                <div class="lg:col-span-4 lg:col-start-9">
+                  <a href={org.href} target="_blank" rel="noopener noreferrer"
+                    class="reveal block" aria-label={`Visit ${org.name}`}>
+                    <div class={`medallion mx-auto w-44 lg:w-56 ${org.markTone === 'light' ? 'medallion-light' : ''}`}>
+                      <img src={org.logo} alt={`${org.name} mark`} loading="lazy" decoding="async" />
+                    </div>
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Closing -->
+  <section class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+    <div class="grid lg:grid-cols-12">
+      <div class="lg:col-span-8 lg:col-start-3">
+        <p
+          class="reveal font-display text-[clamp(1.4rem,1.1rem+1.4vw,2.25rem)] leading-[1.5] font-light text-ink-900"
+        >
+          These are not separate projects or accomplishments. They are different expressions of one
+          life and one calling, each giving form to something God has placed within us.
+        </p>
+
+        <div class="reveal mt-12 flex flex-wrap gap-x-10 gap-y-4">
+          <a href="/poetry" class="label link-editorial text-ink-900">Read the Poetry</a>
+          <a href="/support" class="label link-editorial">Support the Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

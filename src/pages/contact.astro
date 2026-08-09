@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@lib/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description={`For inquiries, speaking requests, or to reach the team: ${SITE.email}`}
+>
+  <!-- Deliberately the quietest page on the site. One address, no form,
+       no contact database, nothing to administer. -->
+  <section class="mx-auto max-w-[88rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+    <div class="grid gap-14 lg:grid-cols-12 lg:items-center">
+      <div class="lg:col-span-6">
+        <p class="label reveal mb-7">Contact</p>
+        <h1 class="reveal font-display text-display-lg leading-[1.02] font-light text-ink-900">
+          Get in <span class="italic">Touch</span>
+        </h1>
+
+        <p class="prose-editorial reveal mt-10">
+          For inquiries, speaking requests, or to reach the team:
+        </p>
+
+        <p class="reveal mt-8">
+          <a
+            href={`mailto:${SITE.email}`}
+            class="link-editorial font-display text-[clamp(1.25rem,0.95rem+1.5vw,2.25rem)] leading-tight font-light break-words text-ink-900"
+          >
+            {SITE.email}
+          </a>
+        </p>
+      </div>
+
+      <div class="lg:col-span-4 lg:col-start-9">
+        <figure class="veil">
+          <img
+            src="/brand/logo.png"
+            alt="Shannon Suttles"
+            width="640"
+            height="427"
+            class="w-full object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

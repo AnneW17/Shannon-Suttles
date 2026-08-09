@@ -1,0 +1,130 @@
+---
+import { NAV, SITE } from '@lib/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header
+  class="sticky top-0 z-50 bg-transparent backdrop-blur-[3px] transition-colors duration-700" id="site-header"
+>
+  <a
+    href="#main"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-cream-50 focus:px-4 focus:py-2 focus:text-ink-900"
+  >
+    Skip to content
+  </a>
+
+  <div class="mx-auto flex max-w-[92rem] items-center justify-between px-5 py-3 sm:px-8 sm:py-4 lg:px-12">
+    <!-- The emblem is cropped tight from the master logo (which carries a
+         large transparent margin and the wordmark baked in). Sizing that
+         original by height rendered the actual mark at roughly half the
+         stated size and repeated her name. This is the emblem alone, square,
+         so height sizing is honest at every breakpoint. -->
+    <a href="/" class="group flex items-center gap-3 sm:gap-4" aria-label={`${SITE.name} — home`}>
+      <img
+        src="/brand/emblem.png"
+        alt=""
+        width="512"
+        height="512"
+        class="h-11 w-11 shrink-0 object-contain transition-transform duration-700 group-hover:scale-[1.06] sm:h-14 sm:w-14 lg:h-16 lg:w-16"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <span
+        class="font-display text-base leading-none font-light tracking-[0.18em] text-ink-900 uppercase sm:text-xl sm:tracking-[0.2em] lg:text-2xl"
+      >
+        Shannon Suttles
+      </span>
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class="label relative py-1 transition-colors duration-500 hover:text-ink-900"
+            style={isActive(item.href) ? 'color: var(--color-ink-900);' : ''}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+            {isActive(item.href) && (
+              <span class="absolute -bottom-0.5 left-0 h-px w-full bg-gold-500" aria-hidden="true" />
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Mobile toggle -->
+    <button
+      id="menu-toggle"
+      type="button"
+      class="flex h-11 w-11 items-center justify-center md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <span class="relative block h-3 w-6" aria-hidden="true">
+        <span
+          class="menu-bar absolute left-0 top-0 h-px w-full bg-ink-900 transition-transform duration-500"
+        ></span>
+        <span
+          class="menu-bar absolute bottom-0 left-0 h-px w-full bg-ink-900 transition-transform duration-500"
+        ></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-champagne-200/60 bg-cream-50 md:hidden"
+    aria-label="Primary"
+  >
+    <ul class="px-5 py-3 sm:px-8">
+      {
+        NAV.map((item) => (
+          <li class="border-b border-champagne-200/50 last:border-0">
+            <a
+              href={item.href}
+              class="block py-4 font-display text-2xl font-light text-ink-900"
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+    menu?.classList.toggle('hidden', open);
+
+    const [top, bottom] = toggle.querySelectorAll<HTMLElement>('.menu-bar');
+    if (top && bottom) {
+      top.style.transform = open ? '' : 'translateY(5.5px) rotate(45deg)';
+      bottom.style.transform = open ? '' : 'translateY(-5.5px) rotate(-45deg)';
+    }
+  });
+
+  // Close the menu when a link is chosen, so back-navigation feels correct.
+  menu?.querySelectorAll('a').forEach((link) =>
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+    })
+  );
+</script>

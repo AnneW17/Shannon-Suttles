@@ -1,0 +1,203 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PoemListItem from '@components/PoemListItem.astro';
+import { getAllPoems, getAllCategories } from '@lib/sanity/queries';
+import { CATEGORY_FALLBACKS } from '@lib/site';
+
+const [poems, categories] = await Promise.all([getAllPoems(), getAllCategories()]);
+
+// Categories only appear once they actually hold a published poem, so the
+// page never advertises an empty section.
+const activeCategories = categories.filter((c) => (c.poemCount ?? 0) > 0);
+
+// Shannon's three descriptions, used when a category has none written yet.
+const describe = (title: string, existing?: string) =>
+  existing || CATEGORY_FALLBACKS.find((c) => c.title === title)?.description || '';
+---
+
+<BaseLayout
+  title="Poetry"
+  description="Prayers, remembrances, laments, acts of gratitude, and honest conversations with God — the poetry of Shannon Suttles."
+>
+  <!-- Opening -->
+  <section class="mx-auto max-w-[88rem] px-5 pt-16 pb-16 sm:px-8 lg:px-12 lg:pt-24">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <p class="label reveal mb-7">Poetry</p>
+        <h1 class="reveal font-display text-display-lg leading-[1.02] font-light text-ink-900">
+          Every Word,<br /><span class="italic">Back to Him</span>
+        </h1>
+      </div>
+
+      <div class="lg:col-span-4 lg:col-start-9 lg:pt-4">
+        <div class="reveal prose-editorial" style="--delay: 180ms">
+          <p>
+            These poems are not written for performance. They are prayers, remembrances, laments,
+            acts of gratitude, and honest conversations with God.
+          </p>
+          <p>
+            Some were born in seasons of grief. Others came through restoration, family, fire, and
+            surrender.
+          </p>
+          <p class="italic">This space is dedicated to Jesus. May every word become worship.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters + search.
+       Client-side, operating on markup that is already in the page, so the
+       archive works with JavaScript disabled and filtering costs no request. -->
+  {
+    poems.length > 0 && (
+      <section class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+        <div class="rule mb-8" />
+        <div class="flex flex-col gap-6 pb-8 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex flex-wrap items-center gap-x-7 gap-y-3" role="group" aria-label="Filter by category">
+            <button type="button" class="filter label is-active" data-filter="all" aria-pressed="true">
+              All
+            </button>
+            {activeCategories.map((cat) => (
+              <button type="button" class="filter label" data-filter={cat.slug} aria-pressed="false">
+                {cat.title}
+              </button>
+            ))}
+          </div>
+
+          <div class="lg:w-72">
+            <label for="poem-search" class="sr-only">Search poems</label>
+            <input
+              id="poem-search"
+              type="search"
+              placeholder="Search"
+              autocomplete="off"
+              class="w-full border-0 border-b border-champagne-300 bg-transparent px-0 py-2 font-body text-lg text-ink-800 placeholder:text-ink-300 focus:border-gold-500 focus:outline-none"
+            />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Category descriptions -->
+  {
+    activeCategories.length > 0 && (
+      <section class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+        <div class="grid gap-8 border-y border-champagne-200 py-10 sm:grid-cols-3">
+          {activeCategories.slice(0, 3).map((cat) => (
+            <div class="reveal">
+              <h2 class="label label-gold mb-3">{cat.title}</h2>
+              <p class="prose-editorial text-base">{describe(cat.title, cat.description)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- The index -->
+  <section class="mx-auto max-w-[88rem] px-5 pb-24 sm:px-8 lg:px-12">
+    <div id="poem-list">
+      {
+        poems.map((poem, i) => (
+          <div
+            class="poem-entry"
+            data-category={poem.category?.slug ?? ''}
+            data-title={poem.title.toLowerCase()}
+            data-tags={(poem.tags ?? []).join(' ').toLowerCase()}
+            data-excerpt={(poem.excerpt ?? '').toLowerCase()}
+          >
+            <PoemListItem poem={poem} index={i} />
+          </div>
+        ))
+      }
+    </div>
+
+    <p id="no-results" class="hidden py-20 text-center font-display text-2xl font-light text-ink-400 italic">
+      No poems match that search.
+    </p>
+
+    {
+      poems.length === 0 && (
+        <div class="py-24 text-center">
+          <p class="font-display text-3xl font-light text-ink-400 italic">
+            The first poems are on their way.
+          </p>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .filter {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    transition: color 500ms var(--ease-editorial);
+    position: relative;
+  }
+  .filter:hover { color: var(--color-ink-900); }
+  .filter.is-active { color: var(--color-ink-900); }
+  .filter.is-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-gold-500);
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const search = document.getElementById('poem-search') as HTMLInputElement | null;
+  const entries = document.querySelectorAll<HTMLElement>('.poem-entry');
+  const empty = document.getElementById('no-results');
+
+  let category = 'all';
+  let query = '';
+
+  function apply() {
+    let visible = 0;
+
+    entries.forEach((entry) => {
+      const matchesCategory = category === 'all' || entry.dataset.category === category;
+      const haystack = [
+        entry.dataset.title ?? '',
+        entry.dataset.tags ?? '',
+        entry.dataset.excerpt ?? '',
+      ].join(' ');
+      const matchesQuery = query === '' || haystack.includes(query);
+      const show = matchesCategory && matchesQuery;
+
+      entry.hidden = !show;
+      if (show) visible++;
+    });
+
+    empty?.classList.toggle('hidden', visible > 0 || entries.length === 0);
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      category = button.dataset.filter ?? 'all';
+      buttons.forEach((b) => {
+        const active = b === button;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      apply();
+    });
+  });
+
+  let timer: ReturnType<typeof setTimeout>;
+  search?.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      query = search.value.trim().toLowerCase();
+      apply();
+    }, 140);
+  });
+</script>

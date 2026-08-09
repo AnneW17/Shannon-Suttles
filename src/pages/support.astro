@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { GIVING, GIVING_DISCLOSURE } from '@lib/site';
+---
+
+<BaseLayout
+  title="Support"
+  description="Support the work of Firebrand Revivalists."
+>
+  <section class="mx-auto max-w-[88rem] px-5 pt-16 sm:px-8 lg:px-12 lg:pt-24">
+    <p class="label reveal mb-7">Support</p>
+    <h1 class="reveal font-display text-display-lg leading-[1.02] font-light text-ink-900">
+      Support <span class="italic">the Work</span>
+    </h1>
+  </section>
+
+  <section class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12">
+    <hr class="rule-gold reveal mb-14" />
+
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <!-- Stated before any giving link, not buried underneath them. -->
+        <p class="reveal font-display text-2xl leading-snug font-light text-ink-900">
+          All contributions are made to <span class="italic">Firebrand Revivalists</span>.
+        </p>
+        <p class="prose-editorial reveal mt-6 text-base">
+          Every gift supports the ministry through which this work is carried.
+        </p>
+      </div>
+
+      <div class="lg:col-span-7 lg:col-start-6">
+        <ul>
+          {
+            GIVING.map((option, i) => (
+              <li
+                class="reveal border-b border-champagne-200/70 py-7 first:border-t"
+                style={`--delay: ${i * 80}ms`}
+              >
+                <div class="flex flex-wrap items-baseline justify-between gap-4">
+                  <div>
+                    <h2 class="font-display text-2xl font-light text-ink-900">{option.name}</h2>
+                    {option.handle && (
+                      <p class="mt-1 font-ui text-sm tracking-wide text-ink-500">{option.handle}</p>
+                    )}
+                  </div>
+
+                  {option.href ? (
+                    <a
+                      href={option.href}
+                      class="label link-editorial shrink-0 text-ink-900"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Give via {option.name} ↗
+                    </a>
+                  ) : (
+                    <span class="label shrink-0">In your banking app</span>
+                  )}
+                </div>
+
+                {option.note && (
+                  <p class="prose-editorial mt-3 max-w-lg text-base text-ink-500">{option.note}</p>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal -->
+  <section class="border-t border-champagne-200 bg-cream-50">
+    <div class="mx-auto max-w-[88rem] px-5 py-14 sm:px-8 lg:px-12">
+      <div class="grid lg:grid-cols-12">
+        <div class="lg:col-span-8 lg:col-start-3">
+          <p class="font-ui text-sm leading-relaxed text-ink-400">{GIVING_DISCLOSURE}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

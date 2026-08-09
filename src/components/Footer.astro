@@ -1,0 +1,93 @@
+---
+import { NAV, SITE, ORGANISATIONS } from '@lib/site';
+
+const year = new Date().getFullYear();
+// The footer references her work without restating the whole Work page.
+const orgs = ORGANISATIONS.filter((o) => o.name !== 'Nehemiah Alliance');
+---
+
+<footer class="mt-32 border-t border-champagne-200 bg-cream-50">
+  <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+      <!-- Mark + dedication line -->
+      <div class="lg:col-span-4">
+        <img
+          src="/brand/logo.png"
+          alt={SITE.name}
+          width="180"
+          height="120"
+          class="h-20 w-auto"
+          loading="lazy"
+          decoding="async"
+        />
+        <p class="prose-editorial mt-6 max-w-xs text-base text-ink-600 italic">
+          Every word gathered here returns to You.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="lg:col-span-2" aria-label="Footer">
+        <h2 class="label mb-5">Pages</h2>
+        <ul class="space-y-3">
+          {
+            NAV.map((item) => (
+              <li>
+                <a href={item.href} class="link-editorial font-display text-lg text-ink-700">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Her work -->
+      <div class="lg:col-span-3">
+        <h2 class="label mb-5">Her Work</h2>
+        <ul class="space-y-3">
+          {
+            orgs.map((org) => (
+              <li>
+                <a
+                  href={org.href}
+                  class="link-editorial font-display text-lg leading-snug text-ink-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {org.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="lg:col-span-3">
+        <h2 class="label mb-5">Get in Touch</h2>
+        <a
+          href={`mailto:${SITE.email}`}
+          class="link-editorial font-display text-lg break-words text-ink-700"
+        >
+          {SITE.email}
+        </a>
+        <p class="mt-6">
+          <a href="/support" class="label label-gold link-editorial">Support the Work</a>
+        </p>
+      </div>
+    </div>
+
+    <hr class="rule-gold my-12" />
+
+    <div
+      class="flex flex-col gap-5 text-sm text-ink-400 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="font-ui">© {year} {SITE.name}. All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-7 gap-y-2 font-ui">
+        <li><a href="/privacy" class="link-editorial">Privacy</a></li>
+        <li><a href="/terms" class="link-editorial">Terms</a></li>
+        <li><a href="/accessibility" class="link-editorial">Accessibility</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

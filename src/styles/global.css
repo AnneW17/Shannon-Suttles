@@ -1,0 +1,723 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   SHANNON SUTTLES — VISUAL SYSTEM
+
+   Reference points: a luxury literary journal, a fashion editorial, a
+   well-made poetry book. Not a website with a hero and some cards.
+
+   The palette and the botanical imagery both come from Shannon's own brand
+   banner — the champagne roses, gold leaves, satin and marble are cropped
+   from it, so the art direction is genuinely hers rather than stock.
+
+   Rhythm is the organising idea. Loud, layered openings; quiet cream
+   grounds where the poetry sits. A page should breathe in and out.
+   ========================================================================== */
+
+@theme {
+  /* --- Cream: the quiet ground. Poetry lives here. --- */
+  --color-cream-50:  #FDFBF7;
+  --color-cream-100: #FAF6EF;
+  --color-cream-200: #F4EDE1;
+
+  /* --- Champagne: structure, borders, warm fields. --- */
+  --color-champagne-100: #F3E9D8;
+  --color-champagne-200: #E9DAC2;
+  --color-champagne-300: #DCC7A6;
+  --color-champagne-400: #CBB088;
+
+  /* --- Blush / champagne pink: the loud grounds. Warm, not sweet. --- */
+  --color-blush-50:  #FBF1EC;
+  --color-blush-100: #F5E8E1;
+  --color-blush-200: #EBD5CA;
+  --color-blush-300: #DDBCAC;
+  --color-blush-400: #C99C87;
+
+  /* --- Gold: metallic, never yellow. --- */
+  --color-gold-300: #D9C08A;
+  --color-gold-400: #C6A667;
+  --color-gold-500: #B08D57;
+  --color-gold-600: #8B6C3F;  /* 4.52:1 on cream — WCAG AA */
+
+  /* --- Ink --- */
+  --color-ink-900: #12100E;
+  --color-ink-800: #1E1A16;
+  --color-ink-700: #332C25;
+  --color-ink-600: #4A423A;
+  --color-ink-400: #7A6F64;  /* 4.55:1 on cream — WCAG AA */
+  --color-ink-300: #A2988B;
+
+  /* --- Typography --- */
+  --font-display: "Cormorant Garamond Variable", "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Cormorant Garamond Variable", "Cormorant Garamond", Georgia, serif;
+  --font-ui:      "Jost Variable", "Jost", ui-sans-serif, system-ui, sans-serif;
+
+  /* Display scale runs deliberately large. In an editorial the headline is
+     an image, not a label. */
+  --text-colossal:   clamp(3.25rem, 0.6rem + 11.5vw, 13rem);
+  --text-display-xl: clamp(2.75rem, 1.2rem + 6.5vw, 8rem);
+  --text-display-lg: clamp(2.25rem, 1.2rem + 4.4vw, 5.5rem);
+  --text-display-md: clamp(1.875rem, 1.2rem + 2.8vw, 3.75rem);
+  --text-display-sm: clamp(1.5rem, 1.1rem + 1.7vw, 2.5rem);
+
+  --text-poem: clamp(1.175rem, 1.02rem + 0.62vw, 1.6rem);
+  --text-lede: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+
+  /* --- Motion. Slow. Luxury reads as unhurried. --- */
+  --ease-editorial: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-veil:      cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-slow:  1200ms;
+  --duration-mid:   760ms;
+  --duration-fast:  380ms;
+
+  --measure-poem:  38rem;
+  --measure-prose: 34rem;
+  --measure-wide:  72rem;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background-color: var(--color-cream-100);
+    color: var(--color-ink-800);
+    font-family: var(--font-body);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background-color: var(--color-blush-200); color: var(--color-ink-900); }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-600);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+  img { max-width: 100%; height: auto; }
+}
+
+/* ==========================================================================
+   GROUNDS
+   Sections sit on one of five grounds. Alternating them is what gives the
+   page rhythm; a single cream background from top to bottom is what made
+   the first attempt feel flat.
+   ========================================================================== */
+
+@layer components {
+  .ground-cream    { background-color: var(--color-cream-100); }
+  .ground-blush    { background-color: var(--color-blush-100); }
+  .ground-champagne{ background-color: var(--color-champagne-100); }
+  .ground-champagne-deep { background-color: var(--color-champagne-300); }
+  .ground-blush-deep     { background-color: var(--color-blush-200); }
+  .ground-ink      { background-color: var(--color-ink-900); color: var(--color-cream-100); }
+
+  /* Champagne marble, cropped from Shannon's own banner. Very low contrast —
+     it should register as warmth, not as wallpaper. */
+  .ground-texture {
+    background-color: var(--color-cream-100);
+    background-image: url('/brand/art/texture-champagne.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .ground-texture-soft {
+    position: relative;
+    background-color: var(--color-blush-50);
+  }
+  .ground-texture-soft::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/brand/art/texture-champagne.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.16;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .ground-texture-soft > * { position: relative; z-index: 1; }
+
+  /* A hairline of gold along the top of a section — the kind of detail a
+     print designer would add at a section break. */
+  .edge-gold-top {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(to right, transparent, var(--color-gold-400) 20%, var(--color-gold-400) 80%, transparent) 1;
+  }
+}
+
+/* ==========================================================================
+   TYPOGRAPHY AS ARTWORK
+   ========================================================================== */
+
+@layer components {
+
+  .label {
+    font-family: var(--font-ui);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-ink-400);
+  }
+  .label-gold  { color: var(--color-gold-600); }
+  .label-cream { color: var(--color-champagne-200); }
+
+  /* The blush and champagne grounds are darker than cream, which drops the
+     small label text just under 4.5:1. On those grounds only, labels and gold
+     accents step one shade darker. Visually indistinguishable; measurably
+     compliant. Verified against all three grounds. */
+  .ground-blush .label,
+  .ground-champagne .label,
+  .ground-texture-soft .label { color: #72685E; }
+
+  .ground-blush .label-gold,
+  .ground-champagne .label-gold,
+  .ground-texture-soft .label-gold { color: #82653B; }
+
+  /* The ink ground inverts, and must not inherit the above. */
+  .ground-ink .label { color: var(--color-champagne-200); }
+  .ground-ink .label-gold { color: var(--color-gold-300); }
+
+  /* --- OUTLINED DISPLAY TYPE ---
+     Shannon asked specifically for cream/champagne-filled letters with a
+     fine black outline rather than solid black type.
+
+     This only works over a coloured or photographic ground — cream letters
+     on a cream page would be invisible. That constraint is useful: it forces
+     the loud typographic moments onto the blush and ink sections and keeps
+     them away from the poetry, which is exactly the right rhythm. */
+  /* THE house typographic treatment: cream-filled letterforms held by a
+     fine black outline. The outline does the structural work, so this must
+     sit on champagne, blush, or photography — never on cream, where the
+     fill would disappear into the page. */
+  .type-fill-cream {
+    color: var(--color-cream-50);
+    -webkit-text-stroke: 2px var(--color-ink-900);
+    paint-order: stroke fill;
+    letter-spacing: -0.02em;
+  }
+
+  .type-fill-champagne {
+    color: var(--color-champagne-200);
+    -webkit-text-stroke: 1.25px var(--color-ink-900);
+    paint-order: stroke fill;
+  }
+
+  /* Hollow — outline only, no fill. Used at the very largest sizes. */
+  .type-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-ink-900);
+    paint-order: stroke fill;
+  }
+  .type-outline-gold {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-gold-500);
+    paint-order: stroke fill;
+  }
+  .type-outline-cream {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-cream-100);
+    paint-order: stroke fill;
+  }
+
+  /* Firefox and old Safari ignore text-stroke; fall back to solid so a
+     headline is never invisible. */
+  @supports not (-webkit-text-stroke: 1px black) {
+    .type-outline, .type-outline-gold { color: var(--color-ink-900); }
+    .type-outline-cream { color: var(--color-cream-100); }
+  }
+
+  /* Below the large breakpoint the colossal type no longer overlaps the
+     photograph, so cream lettering would sit on pale blush with almost no
+     contrast. It becomes solid ink there and keeps the outlined treatment
+     for the second line, which preserves the pairing and stays legible. */
+  /* Stroke thins slightly on small screens so the counters inside letters
+     do not close up at reduced sizes. The cream fill is never removed. */
+  @media (max-width: 1023px) {
+    .type-fill-cream, .type-fill-champagne { -webkit-text-stroke-width: 1.4px; }
+  }
+  @media (max-width: 640px) {
+    .type-fill-cream, .type-fill-champagne { -webkit-text-stroke-width: 1.1px; }
+    .type-outline, .type-outline-gold, .type-outline-cream { -webkit-text-stroke-width: 0.9px; }
+  }
+
+  /* Colossal type that runs past the edge of the page, the way a magazine
+     lets a word bleed off the trim. */
+  /* The name on the home page. Capped so it stays a headline rather than
+     growing until it collides with the copy on a wide monitor. */
+  .type-name {
+    font-size: clamp(2.75rem, 0.9rem + 6.6vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    font-weight: 300;
+  }
+
+  /* Reduced: the section heading should be a strong editorial moment, not
+     the largest thing on the site. */
+  .type-colossal {
+    font-size: clamp(2.5rem, 0.9rem + 6vw, 6.25rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    font-weight: 300;
+  }
+
+  .type-wide {
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 300;
+  }
+
+  /* Vertical label running up a margin — a small editorial signature. */
+  .type-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-family: var(--font-ui);
+    font-size: 0.625rem;
+  }
+
+  .rule { border: 0; border-top: 1px solid var(--color-champagne-300); }
+  .rule-gold {
+    border: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-gold-400) 18%, var(--color-gold-400) 82%, transparent);
+  }
+  .rule-gold-solid { border: 0; height: 1px; background: var(--color-gold-400); }
+
+  .measure-poem  { max-width: var(--measure-poem); }
+  .measure-prose { max-width: var(--measure-prose); }
+  .measure-wide  { max-width: var(--measure-wide); }
+
+  .link-editorial {
+    position: relative; display: inline-block; color: inherit; text-decoration: none;
+  }
+  .link-editorial::after {
+    content: ""; position: absolute; left: 0; bottom: -0.12em;
+    width: 100%; height: 1px; background-color: var(--color-gold-500);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform var(--duration-mid) var(--ease-editorial);
+  }
+  .link-editorial:hover::after,
+  .link-editorial:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ==========================================================================
+   BOTANICALS & LAYERING
+   Rose and gold-leaf elements cropped from Shannon's brand banner.
+   Placed as composition, never as decoration sprinkled around.
+   ========================================================================== */
+
+@layer components {
+  .botanical {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  /* Botanicals sit behind type and must never fight it for attention. */
+  .botanical-quiet  { opacity: 0.42; }
+  .botanical-medium { opacity: 0.66; }
+  .botanical-full   { opacity: 0.9; }
+
+  .layer-above { position: relative; z-index: 2; }
+  .layer-mid   { position: relative; z-index: 1; }
+
+  /* A fine gold rule offset behind an image: depth without a drop shadow. */
+  .frame-offset { position: relative; }
+  .frame-offset::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--color-gold-400);
+    transform: translate(0.9rem, 0.9rem);
+    pointer-events: none;
+    transition: transform var(--duration-slow) var(--ease-veil);
+  }
+  .frame-offset:hover::after { transform: translate(0.5rem, 0.5rem); }
+
+  .frame-inset { position: relative; }
+  .frame-inset::after {
+    content: "";
+    position: absolute;
+    inset: 0.75rem;
+    border: 1px solid rgb(255 255 255 / 0.4);
+    pointer-events: none;
+  }
+}
+/* ==========================================================================
+   POETRY RENDERING
+   The most important CSS in this file.
+
+   Poems are NOT prose. Every line break Shannon types is intentional and
+   must survive to the screen. Portable Text gives us one block per line;
+   an empty block signals a stanza break.
+   ========================================================================== */
+
+@layer components {
+  .poem {
+    font-family: var(--font-body);
+    font-size: var(--text-poem);
+    font-weight: 400;
+    line-height: 1.72;
+    color: var(--color-ink-800);
+    max-width: var(--measure-poem);
+    /* Long lines wrap with a hanging indent, so a wrapped line is always
+       visually distinct from a new line the poet actually wrote. */
+    hanging-punctuation: first last;
+  }
+
+  .poem p {
+    margin: 0;
+    /* NOTE: no `white-space: pre-wrap` here, deliberately.
+       The Portable Text renderer already converts leading and repeated
+       spaces to &nbsp; and soft line breaks to <br>, so indentation and
+       breaks survive on their own. Adding pre-wrap on top would be
+       redundant and would additionally turn any stray newline in the
+       generated markup into a visible break in the poem. Verified by
+       tests/poem-render.test.mjs. */
+    text-wrap: pretty;
+    padding-left: 1.25em;
+    text-indent: -1.25em;
+  }
+
+  /* An empty block = a stanza break. The non-breaking space guarantees the
+     paragraph occupies a full line even if line-height changes. */
+  .poem p:empty {
+    padding: 0;
+    text-indent: 0;
+  }
+
+  .poem p:empty::before {
+    content: "\00a0";
+  }
+
+  /* Soft breaks (Shift+Enter) come through as <br>. */
+  .poem br {
+    line-height: inherit;
+  }
+
+  .poem em { font-style: italic; }
+  .poem strong { font-weight: 600; }
+
+  .poem blockquote {
+    margin: 1.8em 0 1.8em 1.5em;
+    padding-left: 1.25em;
+    border-left: 1px solid var(--color-champagne-300);
+    font-style: italic;
+    color: var(--color-ink-600);
+  }
+
+  .poem h2, .poem h3 {
+    font-size: 1em;
+    font-family: var(--font-ui);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold-600);
+    margin: 2.4em 0 1.1em;
+  }
+
+  /* On small screens the measure shrinks but the leading stays generous —
+     reading comfort matters more than fitting more words per line. */
+  @media (max-width: 640px) {
+    .poem {
+      font-size: 1.125rem;
+      line-height: 1.78;
+    }
+    .poem p {
+      padding-left: 1em;
+      text-indent: -1em;
+    }
+  }
+}
+
+/* ==========================================================================
+   PROSE (About, Work — not poetry)
+   ========================================================================== */
+
+@layer components {
+  .prose-editorial {
+    font-size: var(--text-lede);
+    line-height: 1.75;
+    color: var(--color-ink-700);
+    max-width: var(--measure-prose);
+  }
+  .prose-editorial p + p { margin-top: 1.35em; }
+  .prose-editorial em { font-style: italic; }
+}
+
+/* ==========================================================================
+   MOTION
+   Scroll reveals are CSS-driven and progressive: if JS never runs, or the
+   browser is old, content is visible by default. Nothing is ever trapped
+   behind an animation.
+   ========================================================================== */
+
+@layer components {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity var(--duration-slow) var(--ease-veil),
+      transform var(--duration-slow) var(--ease-veil);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Staggering, applied via inline custom property. */
+  .reveal[style*="--delay"] {
+    transition-delay: var(--delay);
+  }
+
+  /* Image veil: a slow champagne curtain lifting off the photograph. */
+  .veil { position: relative; overflow: hidden; }
+  .veil::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-cream-200);
+    transform-origin: bottom;
+    transition: transform var(--duration-slow) var(--ease-veil);
+    z-index: 1;
+  }
+  .veil.is-visible::after { transform: scaleY(0); }
+
+  .veil img {
+    transform: scale(1.06);
+    transition: transform 1600ms var(--ease-veil);
+  }
+  .veil.is-visible img { transform: scale(1); }
+}
+
+/* --- Reduced motion: everything resolves instantly and stays legible. --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal { opacity: 1; transform: none; }
+  .veil::after { transform: scaleY(0); }
+  .veil img { transform: none; }
+}
+
+/* --- No-JS fallback: reveals must never hide content permanently. --- */
+.no-js .reveal { opacity: 1; transform: none; }
+.no-js .veil::after { transform: scaleY(0); }
+.no-js .veil img { transform: none; }
+
+/* --- Print: give someone a clean sheet of poetry. --- */
+@media print {
+  body { background: #fff; color: #000; }
+  header nav, footer, .no-print { display: none !important; }
+  .poem { font-size: 12pt; max-width: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* ==========================================================================
+   EDITORIAL MOTION — extended set
+   Still CSS plus one IntersectionObserver. No animation library.
+   Everything below degrades to "visible, no movement" under
+   prefers-reduced-motion, which is re-asserted at the end of this file.
+   ========================================================================== */
+
+@layer components {
+
+  /* --- Mask reveal: type wiped upward from behind a hidden edge, the way a
+         letterpress line appears. Requires a wrapping .mask-line. --- */
+  .mask-line { overflow: hidden; display: block; }
+  .mask-line > * {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 1250ms var(--ease-veil);
+  }
+  .is-visible > .mask-line > *,
+  .mask-line.is-visible > * { transform: translateY(0); }
+
+  /* Stagger children by index, set inline as --i. */
+  .stagger > * { transition-delay: calc(var(--i, 0) * 110ms); }
+
+  /* --- Parallax. Driven by a single scroll listener writing --scroll-y.
+         Slow and small; a large offset reads as a gimmick. --- */
+  .parallax { will-change: transform; }
+  .parallax-slow  { transform: translate3d(0, calc(var(--scroll-offset, 0px) * 0.10), 0); }
+  .parallax-mid   { transform: translate3d(0, calc(var(--scroll-offset, 0px) * 0.18), 0); }
+  .parallax-fast  { transform: translate3d(0, calc(var(--scroll-offset, 0px) * 0.28), 0); }
+  .parallax-slow-r{ transform: translate3d(0, calc(var(--scroll-offset, 0px) * -0.12), 0); }
+
+  /* --- Image reveal: a champagne curtain lifting, with the photograph
+         settling from a slight over-scale. --- */
+  .veil-slow { position: relative; overflow: hidden; }
+  .veil-slow::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-color: var(--color-blush-100);
+    transform-origin: bottom;
+    transition: transform 1500ms var(--ease-veil);
+    z-index: 1;
+  }
+  .veil-slow.is-visible::after { transform: scaleY(0); }
+  .veil-slow img {
+    transform: scale(1.1);
+    transition: transform 2200ms var(--ease-veil);
+  }
+  .veil-slow.is-visible img { transform: scale(1); }
+
+  /* --- Sophisticated hover for an image: it breathes rather than jumps. --- */
+  .hover-breathe { overflow: hidden; }
+  .hover-breathe img {
+    transition: transform 1400ms var(--ease-veil), filter 900ms var(--ease-editorial);
+  }
+  .hover-breathe:hover img { transform: scale(1.045); }
+
+  /* --- Organisation marks.
+         An earlier version greyed these out at rest, which made them
+         effectively invisible — the opposite of the brief. They are shown
+         in full colour instead. What unifies the five clashing palettes is
+         the ink ground they sit on, not a filter over the top of them. --- */
+  .mark-restrained img {
+    filter: none;
+    transition: transform 1100ms var(--ease-veil), filter 700ms var(--ease-editorial);
+  }
+  .mark-restrained:hover img,
+  .mark-restrained:focus-within img {
+    transform: scale(1.035);
+    filter: brightness(1.08);
+  }
+
+  /* A mark is presented as a struck medallion — a small warm-black disc
+     inside a fine gold ring, the way a publisher's device or a wax seal sits
+     on a title page. It keeps the black-and-gold logos legible while
+     removing the grid of rectangular tiles entirely. */
+  .medallion {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background:
+      radial-gradient(130% 130% at 50% 0%, #241E19 0%, #14110E 62%, #0E0C0A 100%);
+    box-shadow:
+      0 0 0 1px rgb(198 166 103 / 0.55),
+      0 0 0 7px rgb(250 246 239 / 0.55),
+      0 0 0 8px rgb(198 166 103 / 0.28);
+    transition: box-shadow 900ms var(--ease-editorial), transform 1100ms var(--ease-veil);
+  }
+  /* Marks drawn in navy, purple or deep blue disappear on a black disc.
+     Measured mean luminance of their visible pixels sits around 65–90, so
+     those get a cream medallion with an ink hairline instead. Same form,
+     inverted tone — the logo stays readable either way. */
+  .medallion-light {
+    background: radial-gradient(130% 130% at 50% 0%, #FFFDFA 0%, #FAF6EF 55%, #F1E7D7 100%);
+    box-shadow:
+      0 0 0 1px rgb(176 141 87 / 0.7),
+      0 0 0 7px rgb(18 16 14 / 0.06),
+      0 0 0 8px rgb(176 141 87 / 0.3);
+  }
+  a:hover > .medallion-light,
+  a:focus-visible > .medallion-light {
+    box-shadow:
+      0 0 0 1px rgb(139 108 63 / 0.95),
+      0 0 0 7px rgb(18 16 14 / 0.09),
+      0 0 0 9px rgb(176 141 87 / 0.5);
+  }
+
+  .medallion img {
+    max-width: 66%;
+    max-height: 66%;
+    object-fit: contain;
+  }
+  a:hover > .medallion,
+  a:focus-visible > .medallion {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 1px rgb(198 166 103 / 0.9),
+      0 0 0 7px rgb(250 246 239 / 0.7),
+      0 0 0 9px rgb(198 166 103 / 0.5);
+  }
+
+  /* Marks drawn on black keep their own plate rather than floating on cream. */
+  .mark-plate {
+    background-color: var(--color-ink-900);
+    position: relative;
+    overflow: hidden;
+  }
+  .mark-plate::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 90% at 50% 0%, rgb(198 166 103 / 0.16), transparent 70%);
+    pointer-events: none;
+  }
+}
+
+/* --- Reduced motion, re-asserted for the extended set. --- */
+@media (prefers-reduced-motion: reduce) {
+  .mask-line > * { transform: none !important; }
+  .parallax-slow, .parallax-mid, .parallax-fast, .parallax-slow-r { transform: none !important; }
+  .veil-slow::after { transform: scaleY(0) !important; }
+  .veil-slow img, .hover-breathe img { transform: none !important; }
+  .stagger > * { transition-delay: 0ms !important; }
+}
+
+/* --- No JavaScript: nothing may stay hidden. --- */
+.no-js .mask-line > * { transform: none; }
+.no-js .veil-slow::after { transform: scaleY(0); }
+.no-js .veil-slow img { transform: none; }
+
+
+/* ==========================================================================
+   PHOTOGRAPHY
+   Her portraits are art-directed, not filler. A viewport-height cap plus
+   object-cover was slicing the top of her head and cutting her mid-body to
+   fit a box. Portraits now render at their natural 4:5 ratio and the layout
+   is built around them.
+   ========================================================================== */
+
+@layer components {
+  .portrait {
+    display: block;
+    width: 100%;
+    height: auto;          /* never cropped to fit a container */
+    aspect-ratio: 760 / 942;
+    object-fit: cover;
+    object-position: 50% 22%;  /* keeps her face in the upper third */
+  }
+
+  /* A soft champagne edge so a photograph dissolves into the page rather
+     than ending on a hard rectangle. */
+  .portrait-soft {
+    -webkit-mask-image: radial-gradient(115% 105% at 50% 45%, #000 62%, transparent 100%);
+    mask-image: radial-gradient(115% 105% at 50% 45%, #000 62%, transparent 100%);
+  }
+}
