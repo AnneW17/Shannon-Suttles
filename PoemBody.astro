@@ -1,0 +1,14 @@
+---
+import { renderPoem } from '@lib/portableText';
+import type { PortableTextBlock } from '@portabletext/to-html';
+
+interface Props {
+  body: PortableTextBlock[];
+  class?: string;
+}
+
+const { body, class: className = '' } = Astro.props;
+const html = renderPoem(body);
+---
+
+<div class={`poem ${className}`} set:html={html} />
