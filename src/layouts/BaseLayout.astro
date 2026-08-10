@@ -62,7 +62,7 @@ const props = Astro.props;
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       /* ---------- reveals ---------- */
-      const revealTargets = document.querySelectorAll('.reveal, .veil, .veil-slow, .mask-line');
+      const revealTargets = document.querySelectorAll('.rise, .bloom, .reveal, .veil-slow');
 
       if (reduced || !('IntersectionObserver' in window)) {
         revealTargets.forEach((el) => el.classList.add('is-visible'));
@@ -114,7 +114,7 @@ const props = Astro.props;
          Each element gets its offset from its own distance to the viewport
          centre, so movement is relative to the element rather than to the
          top of the document. Values are small on purpose. */
-      const parallaxItems = Array.from(document.querySelectorAll('.parallax'));
+      const parallaxItems = Array.from(document.querySelectorAll('.drift, .parallax'));
 
       if (!reduced && parallaxItems.length && window.matchMedia('(min-width: 640px)').matches) {
         let ticking = false;

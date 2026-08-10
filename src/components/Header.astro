@@ -7,11 +7,11 @@ const isActive = (href: string) =>
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-champagne-600/20 bg-ink-950/80 backdrop-blur-md transition-colors duration-700" id="site-header"
+  class="sticky top-0 z-50 border-b border-gold-lum/15 bg-obsidian/80 backdrop-blur-md transition-colors duration-700" id="site-header"
 >
   <a
     href="#main"
-    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ivory-50 focus:px-4 focus:py-2 focus:text-ink-950"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-pearl focus:px-4 focus:py-2 focus:text-obsidian"
   >
     Skip to content
   </a>
@@ -21,7 +21,7 @@ const isActive = (href: string) =>
          name is set as a wordmark with wide tracking and room around it,
          the way a fashion house or literary imprint signs itself. -->
     <a href="/" class="group" aria-label={`${SITE.name} — home`}>
-      <span class="wordmark block text-[0.9rem] text-ivory-50 transition-colors duration-700 group-hover:text-champagne-300 sm:text-[1.15rem] lg:text-[1.3rem]">
+      <span class="wordmark block text-[0.9rem] text-pearl transition-colors duration-700 group-hover:text-gold-lum sm:text-[1.15rem] lg:text-[1.3rem]">
         Shannon Suttles
       </span>
     </a>
@@ -32,13 +32,13 @@ const isActive = (href: string) =>
         NAV.map((item) => (
           <a
             href={item.href}
-            class="label relative py-1 text-champagne-200/70 transition-colors duration-700 hover:text-ivory-50"
-            style={isActive(item.href) ? 'color: var(--color-ivory-50);' : ''}
+            class="label relative py-1 text-lilac/70 transition-colors duration-700 hover:text-pearl"
+            style={isActive(item.href) ? 'color: var(--color-pearl);' : ''}
             aria-current={isActive(item.href) ? 'page' : undefined}
           >
             {item.label}
             {isActive(item.href) && (
-              <span class="absolute -bottom-0.5 left-0 h-px w-full bg-champagne-300" aria-hidden="true" />
+              <span class="absolute -bottom-0.5 left-0 h-px w-full bg-gold-lum" aria-hidden="true" />
             )}
           </a>
         ))
@@ -56,10 +56,10 @@ const isActive = (href: string) =>
     >
       <span class="relative block h-3 w-6" aria-hidden="true">
         <span
-          class="menu-bar absolute left-0 top-0 h-px w-full bg-champagne-200 transition-transform duration-500"
+          class="menu-bar absolute left-0 top-0 h-px w-full bg-lilac transition-transform duration-500"
         ></span>
         <span
-          class="menu-bar absolute bottom-0 left-0 h-px w-full bg-champagne-200 transition-transform duration-500"
+          class="menu-bar absolute bottom-0 left-0 h-px w-full bg-lilac transition-transform duration-500"
         ></span>
       </span>
     </button>
@@ -68,16 +68,16 @@ const isActive = (href: string) =>
   <!-- Mobile menu -->
   <nav
     id="mobile-menu"
-    class="hidden border-t border-champagne-600/25 bg-ink-950 md:hidden"
+    class="hidden border-t border-gold-lum/20 bg-obsidian md:hidden"
     aria-label="Primary"
   >
     <ul class="px-5 py-3 sm:px-8">
       {
         NAV.map((item) => (
-          <li class="border-b border-champagne-600/20 last:border-0">
+          <li class="border-b border-gold-lum/15 last:border-0">
             <a
               href={item.href}
-              class="block py-4 font-display text-2xl font-normal text-ivory-50"
+              class="block py-4 font-display text-2xl font-normal text-pearl"
               aria-current={isActive(item.href) ? 'page' : undefined}
             >
               {item.label}

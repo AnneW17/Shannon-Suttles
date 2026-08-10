@@ -5,34 +5,34 @@ import { GIVING, GIVING_DISCLOSURE } from '@lib/site';
 
 <BaseLayout
   title="Support"
-  description="Support the work of Firebrand Revivalists."
+  description="Support the work of Firebrand Revivalists™."
 >
-  <section class="ground-obsidian-graded relative overflow-hidden">
-    <img src="/brand/art/rose-champagne-a.webp" alt="" aria-hidden="true"
-      class="rose rose-near parallax parallax-slow -left-20 -top-10 w-[15rem] lg:w-[25rem]" />
-    <img src="/brand/art/pearl-t2-dark.webp" alt="" aria-hidden="true"
-      class="rose rose-mid parallax parallax-mid -right-10 bottom-0 w-[12rem] lg:w-[17rem]" />
-    <img src="/brand/art/trickle-b-dark.webp" alt="" aria-hidden="true"
-      class="rose rose-deep parallax parallax-slow left-[16%] top-[24%] w-[8rem] lg:w-[11rem]" />
-    <img src="/brand/art/diamond-t1-dark.webp" alt="" aria-hidden="true"
-      class="rose rose-mid parallax parallax-mid right-[8%] top-[22%] w-[7rem] lg:w-[10rem]" />
+  <section class="g-depth relative overflow-hidden">
+    <img src="/brand/ink/quill.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-slow -left-20 -top-10 w-[15rem] lg:w-[25rem]" />
+    <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-mid -right-10 bottom-0 w-[12rem] lg:w-[17rem]" />
+    <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-slow left-[16%] top-[24%] w-[8rem] lg:w-[11rem]" />
+    <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-mid right-[8%] top-[22%] w-[7rem] lg:w-[10rem]" />
     <div class="layer-content mx-auto max-w-[94rem] px-6 pt-20 pb-16 sm:px-10 lg:px-16 lg:pt-28 lg:pb-20">
-      <p class="label label-champagne reveal mb-10">Support</p>
+      <p class="label label-gold reveal mb-10">Support</p>
       <h1 class="reveal">
-        <span class="display block text-ivory-50">Support</span>
+        <span class="display block text-pearl">Support</span>
         <span class="display block text-champagne-300 italic">the Work</span>
       </h1>
     </div>
   </section>
 
-  <section class="ground-ivory relative mx-auto max-w-none px-6 py-24 sm:px-10 lg:px-16 lg:py-32"><div class="mx-auto max-w-[94rem]">
-    <hr class="rule-hair-ivory reveal mb-14" />
+  <section class="g-pearl relative mx-auto max-w-none px-6 py-24 sm:px-10 lg:px-16 lg:py-32"><div class="mx-auto max-w-[94rem]">
+    <hr class="rule-ink reveal mb-14" />
 
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-4">
         <!-- Stated before any giving link, not buried underneath them. -->
-        <p class="reveal font-display text-[clamp(1.35rem,1.05rem+1vw,2rem)] leading-snug font-normal text-ink-900">
-          All contributions are made to <span class="italic">Firebrand Revivalists</span>.
+        <p class="reveal font-display text-[clamp(1.35rem,1.05rem+1vw,2rem)] leading-snug font-normal text-obsidian">
+          All contributions are made to <span class="italic">Firebrand Revivalists™</span>.
         </p>
         <p class="prose-editorial reveal mt-6 text-base">
           Every gift supports the ministry through which this work is carried.
@@ -44,12 +44,12 @@ import { GIVING, GIVING_DISCLOSURE } from '@lib/site';
           {
             GIVING.map((option, i) => (
               <li
-                class="reveal border-b border-ink-900/12 py-7 first:border-t"
+                class="reveal border-b border-obsidian/10 py-7 first:border-t"
                 style={`--delay: ${i * 80}ms`}
               >
                 <div class="flex flex-wrap items-baseline justify-between gap-4">
                   <div>
-                    <h2 class="font-display text-2xl font-normal text-ink-900">{option.name}</h2>
+                    <h2 class="font-display text-2xl font-normal text-obsidian">{option.name}</h2>
                     {option.handle && (
                       <p class="mt-1 font-ui text-sm tracking-wide text-ink-500">{option.handle}</p>
                     )}
@@ -83,11 +83,11 @@ import { GIVING, GIVING_DISCLOSURE } from '@lib/site';
   </div></section>
 
   <!-- Legal -->
-  <section class="ground-obsidian border-t border-champagne-600/25">
+  <section class="g-obsidian border-t border-gold-lum/20">
     <div class="mx-auto max-w-[88rem] px-5 py-14 sm:px-8 lg:px-12">
       <div class="grid lg:grid-cols-12">
         <div class="lg:col-span-8 lg:col-start-3">
-          <p class="font-ui text-sm leading-relaxed text-champagne-200/55">{GIVING_DISCLOSURE}</p>
+          <p class="font-ui text-sm leading-relaxed text-mauve">{GIVING_DISCLOSURE}</p>
         </div>
       </div>
     </div>

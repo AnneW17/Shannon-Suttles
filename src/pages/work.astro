@@ -2,159 +2,103 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { ORGANISATIONS } from '@lib/site';
 import { editorialNumber } from '@lib/format';
+
+// Ventures is entirely separate from the literary archive. No poetry, no
+// personal photography, no biography. Logos appear exactly as supplied.
+const ventures = ORGANISATIONS;
 ---
 
 <BaseLayout
-  title="Her Work"
-  description="Sophion Media & Consulting Group, Jesus Loves the Little Children Chaplaincy, Generational Legacy Foundation, Ember Ridge, and Firebrand Revivalists — different expressions of one life and one calling."
+  title="Ventures"
+  description="A life’s work, built alongside God — the organisations and initiatives founded and led by Shannon Suttles."
 >
-  <!-- Opening -->
-  <section class="ground-obsidian-graded relative overflow-hidden">
-    <img src="/brand/art/rose-champagne-a.webp" alt="" aria-hidden="true"
-      class="rose rose-near parallax parallax-slow -left-20 -top-12 w-[16rem] lg:w-[26rem]" />
-    <img src="/brand/art/rose-champagne-b-dark.webp" alt="" aria-hidden="true"
-      class="rose rose-mid parallax parallax-mid -right-20 bottom-0 w-[15rem] lg:w-[23rem]" />
-    <img src="/brand/art/pearl-t3-dark.webp" alt="" aria-hidden="true"
-      class="rose rose-mid parallax parallax-slow left-[10%] bottom-[14%] w-[9rem] lg:w-[13rem]" />
-    <img src="/brand/art/diamond-t2-dark.webp" alt="" aria-hidden="true"
-      class="rose rose-deep parallax parallax-mid right-[16%] top-[20%] w-[7rem] lg:w-[10rem]" />
-    <div class="relative z-10 mx-auto max-w-[92rem] px-5 pt-16 pb-20 sm:px-8 lg:px-12 lg:pt-24 lg:pb-28">
-      <p class="label label-champagne reveal mb-10">Beyond the Poetry</p>
-      <h1 class="reveal">
-        <span class="mask-line">
-          <span class="display block text-ivory-50">What the Story</span>
-        </span>
-        <span class="mask-line">
-          <span class="display block text-champagne-300 italic" style="transition-delay:130ms">Became</span>
-        </span>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MASTHEAD
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="g-depth relative overflow-hidden">
+    <img src="/brand/ink/confluence.webp" alt="" aria-hidden="true"
+      class="ink-art ink-mid drift drift-slow -right-[12%] top-[6%] w-[42rem] object-contain lg:right-[2%] lg:w-[52rem]" />
+
+    <div class="above mx-auto max-w-[96rem] px-7 pt-20 pb-20 sm:px-12 lg:px-20 lg:pt-24 lg:pb-24">
+      <p class="label label-gold rise mb-9">Ventures</p>
+      <h1 class="rise">
+        <span class="display block text-pearl">A Life&rsquo;s Work,</span>
+        <span class="display gilt gilt-live block italic">Built Alongside God</span>
       </h1>
+      <p class="rise mt-10 max-w-lg font-body text-lede leading-[1.9] text-lilac/80" style="--delay:280ms">
+        None of these began as a portfolio. Each one was born from something lived through with God.
+      </p>
     </div>
   </section>
 
-  <!-- Pull quote: the strongest line in everything Shannon supplied. -->
-  <section class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-    <hr class="rule-gold reveal mb-14" />
-    <div class="grid lg:grid-cols-12">
-      <div class="lg:col-span-8 lg:col-start-3">
-        <blockquote
-          class="reveal font-display text-[clamp(1.4rem,1.05rem+1.7vw,2.5rem)] leading-[1.45] font-light text-ink-800"
-        >
-          <p>Poetry is the language through which I give those experiences back to Him.</p>
-          <p class="mt-4 italic">
-            The work represented here is what that same story became when love required form and
-            structure.
-          </p>
-        </blockquote>
-      </div>
-    </div>
-  </section>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       THE GRID
+       Pearl plates so every mark sits on light and keeps its own colours.
+       Nothing is converted to monochrome and nothing is placed on black.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="g-depth relative overflow-hidden">
+    <div class="above mx-auto max-w-[96rem] px-7 py-20 sm:px-12 lg:px-20 lg:py-28">
+      <ul class="stagger grid gap-x-14 gap-y-16 sm:grid-cols-2 lg:gap-x-20 lg:gap-y-20">
+        {ventures.map((org, i) => (
+          <li class="rise" style={`--i:${i % 2}`}>
+            <article>
+              <p class="label label-gold mb-5">{editorialNumber(i + 1)}</p>
 
-  <!-- Intro -->
-  <section class="mx-auto max-w-[88rem] px-5 pb-16 sm:px-8 lg:px-12">
-    <div class="grid gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-7 lg:col-start-3">
-        <div class="prose-editorial reveal">
-          <p>
-            None of these began as a portfolio. Each one was born from something I lived through
-            with God. They share a common thread: restoration, family, prayer, wisdom, and service.
-          </p>
-          <p class="italic">
-            The questions that once kept us awake can become wisdom for another person's journey.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════ ORGANISATIONS
-       Each one is a full-width editorial entry: number, name, descriptor,
-       paragraph, link, and its logo given room on its own. Deliberately not
-       a grid of logo cards — see the note in src/lib/site.ts. -->
-  <section class="border-t border-champagne-200">
-    {
-      ORGANISATIONS.map((org, i) => (
-        <div class={i % 2 === 1 ? 'border-b border-ink-900/10 ground-ivory-warm' : 'border-b border-ink-900/10 ground-ivory'}>
-          <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-            <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-              <!-- Number -->
-              <div class="lg:col-span-1">
-                <span class="label label-gold reveal">{editorialNumber(i + 1)}</span>
+              <!-- Original colours, untouched. Marks drawn on black sit on
+                   obsidian and show no edge; marks drawn on white or with
+                   transparency get a pearl frame so they stay legible. -->
+              <div class={`mb-7 flex aspect-[5/4] items-center justify-center overflow-hidden border p-5 sm:p-7 ${
+                org.markTone === 'light'
+                  ? 'border-gold-lum/25 bg-pearl'
+                  : 'border-gold-lum/20 bg-obsidian'
+              }`}>
+                <img src={org.logo} alt={org.name}
+                  class="h-full w-full object-contain"
+                  loading="lazy" decoding="async" />
               </div>
 
-              <!-- Text -->
-              <div class="lg:col-span-6">
-                <h2 class="reveal font-display text-display-sm leading-[1.1] font-normal text-ink-900">
-                  {org.name}
-                </h2>
+              <h2 class="font-display text-[clamp(1.35rem,1.05rem+1.2vw,2.1rem)] leading-tight font-normal text-pearl">
+                {org.name}
+              </h2>
 
-                {org.descriptor && (
-                  <p class="reveal mt-3 font-body text-lg text-ink-600 italic">{org.descriptor}</p>
-                )}
-
-                {org.role && <p class="label reveal mt-5">{org.role}</p>}
-
-                <p class="prose-editorial reveal mt-7">{org.body}</p>
-
-                <p class="reveal mt-8">
-                  <a
-                    href={org.href}
-                    class="label link-editorial text-ink-900"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Visit {org.name} ↗
-                  </a>
+              {org.descriptor && (
+                <p class="mt-3 font-body text-lg italic" style="color: var(--color-lavender)">
+                  {org.descriptor}
                 </p>
-              </div>
-
-              <!-- The mark, given real presence: a full panel, on an ink
-                   plate when the logo was drawn for black, monochrome at rest
-                   so five clashing palettes can share one page. -->
-              {org.logo && (
-                <div class="lg:col-span-4 lg:col-start-9">
-                  <a href={org.href} target="_blank" rel="noopener noreferrer"
-                    class="reveal block" aria-label={`Visit ${org.name}`}>
-                    <div class="mx-auto flex w-full items-center justify-center border border-ink-900/12 bg-ink-950 p-10">
-                      <img src={org.logo} alt={`${org.name} mark`} class="max-h-32 w-auto object-contain"
-                        loading="lazy" decoding="async" />
-                    </div>
-                  </a>
-                </div>
               )}
-            </div>
-          </div>
-        </div>
-      ))
-    }
-  </section>
 
-  <!-- A plate of pearls and diamond bands before the closing statement -->
-  <section class="ground-obsidian relative overflow-hidden">
-    <figure class="veil-slow photo-frame photo-scrim-light relative">
-      <img src="/brand/art/pearl-band.webp" alt="Pearls and diamond bands"
-        width="1422" height="900"
-        class="photo w-full object-cover"
-        style="height: clamp(15rem, 40vh, 26rem); object-position: 50% 50%;"
-        loading="lazy" decoding="async" />
-    </figure>
-  </section>
+              <p class="mt-5 max-w-md font-body text-base leading-[1.85]" class="text-lavender/65">
+                {org.body}
+              </p>
 
-  <!-- Closing -->
-  <section class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-    <div class="grid lg:grid-cols-12">
-      <div class="lg:col-span-8 lg:col-start-3">
-        <p
-          class="reveal font-display text-[clamp(1.4rem,1.1rem+1.4vw,2.25rem)] leading-[1.5] font-light text-ink-900"
-        >
-          These are not separate projects or accomplishments. They are different expressions of one
-          life and one calling, each giving form to something God has placed within us.
-        </p>
-
-        <div class="reveal mt-12 flex flex-wrap gap-x-10 gap-y-4">
-          <a href="/poetry" class="label link-editorial text-ink-900">Read the Poetry</a>
-          <a href="/support" class="label link-editorial">Support the Work</a>
-        </div>
-      </div>
+              <p class="mt-7">
+                <a href={org.href} target="_blank" rel="noopener noreferrer"
+                  class="label label-gold link-ink">
+                  Visit Website ↗
+                </a>
+              </p>
+            </article>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CLOSE
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="g-obsidian relative overflow-hidden">
+    <div class="plate plate-bleed bloom">
+      <img src="/brand/ink/ribbon.webp" alt="" aria-hidden="true"
+        class="h-[clamp(10rem,24vh,16rem)] w-full object-cover" width="1920" height="664"
+        loading="lazy" decoding="async" />
+    </div>
+    <div class="above mx-auto max-w-3xl px-7 py-16 text-center sm:px-12 lg:py-20">
+      <p class="rise font-display text-[clamp(1.4rem,1.05rem+1.7vw,2.4rem)] leading-[1.45] text-pearl">
+        Different expressions of one life and one calling.
+      </p>
+    </div>
+  </section>
+
 </BaseLayout>

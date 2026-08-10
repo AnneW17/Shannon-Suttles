@@ -6,25 +6,25 @@ const year = new Date().getFullYear();
 const orgs = ORGANISATIONS.filter((o) => o.name !== 'Nehemiah Alliance');
 ---
 
-<footer class="ground-obsidian relative mt-0 overflow-hidden border-t border-champagne-600/25">
+<footer class="g-depth relative mt-0 overflow-hidden border-t border-gold-lum/15">
   <div class="mx-auto max-w-[88rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
     <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
       <!-- Mark + dedication line -->
       <div class="lg:col-span-4">
-        <p class="wordmark text-[0.95rem] text-ivory-50 lg:text-[1.1rem]">Shannon Suttles</p>
-        <p class="mt-8 max-w-xs font-body text-base leading-relaxed text-champagne-200/60 italic">
+        <p class="wordmark text-[0.95rem] text-pearl lg:text-[1.1rem]">Shannon Suttles</p>
+        <p class="mt-8 max-w-xs font-body text-base leading-relaxed text-lavender/60 italic">
           Every word gathered here returns to You.
         </p>
       </div>
 
       <!-- Navigation -->
       <nav class="lg:col-span-2" aria-label="Footer">
-        <h2 class="label label-champagne mb-5">Pages</h2>
+        <h2 class="label label-gold mb-5">Pages</h2>
         <ul class="space-y-3">
           {
             NAV.map((item) => (
               <li>
-                <a href={item.href} class="link-editorial font-display text-lg text-ivory-100">
+                <a href={item.href} class="link-ink font-display text-lg text-lilac">
                   {item.label}
                 </a>
               </li>
@@ -35,14 +35,14 @@ const orgs = ORGANISATIONS.filter((o) => o.name !== 'Nehemiah Alliance');
 
       <!-- Her work -->
       <div class="lg:col-span-3">
-        <h2 class="label label-champagne mb-5">Her Work</h2>
+        <h2 class="label label-gold mb-5">Her Work</h2>
         <ul class="space-y-3">
           {
             orgs.map((org) => (
               <li>
                 <a
                   href={org.href}
-                  class="link-editorial font-display text-lg leading-snug text-ivory-100"
+                  class="link-ink font-display text-lg leading-snug text-lilac"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -56,29 +56,32 @@ const orgs = ORGANISATIONS.filter((o) => o.name !== 'Nehemiah Alliance');
 
       <!-- Contact -->
       <div class="lg:col-span-3">
-        <h2 class="label label-champagne mb-5">Get in Touch</h2>
+        <h2 class="label label-gold mb-5">Get in Touch</h2>
         <a
           href={`mailto:${SITE.email}`}
-          class="link-editorial font-display text-lg break-words text-ivory-100"
+          class="link-ink font-display text-lg break-words text-lilac"
         >
           {SITE.email}
         </a>
-        <p class="mt-6">
-          <a href="/support" class="label label-champagne link-editorial">Support the Work</a>
+        <p class="mt-8">
+          <a href="/support" class="label label-gold link-ink">Support the Work</a>
+        </p>
+        <p class="mt-3 font-ui text-xs leading-relaxed text-mauve">
+          Contributions are made to Firebrand Revivalists™.
         </p>
       </div>
     </div>
 
-    <hr class="rule-hair my-12" />
+    <hr class="rule-fine my-12" />
 
     <div
-      class="flex flex-col gap-5 text-sm text-champagne-200/50 sm:flex-row sm:items-center sm:justify-between"
+      class="flex flex-col gap-5 text-sm text-mauve sm:flex-row sm:items-center sm:justify-between"
     >
       <p class="font-ui">© {year} {SITE.name}. All rights reserved.</p>
       <ul class="flex flex-wrap gap-x-7 gap-y-2 font-ui">
-        <li><a href="/privacy" class="link-editorial">Privacy</a></li>
-        <li><a href="/terms" class="link-editorial">Terms</a></li>
-        <li><a href="/accessibility" class="link-editorial">Accessibility</a></li>
+        <li><a href="/privacy" class="link-ink">Privacy</a></li>
+        <li><a href="/terms" class="link-ink">Terms</a></li>
+        <li><a href="/accessibility" class="link-ink">Accessibility</a></li>
       </ul>
     </div>
   </div>

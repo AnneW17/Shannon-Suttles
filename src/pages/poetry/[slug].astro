@@ -75,36 +75,36 @@ const schema = {
   <article>
     <!-- ══════════════════════════════════════════════ TITLE
          No card, no container, no border. The poem is given the page. -->
-    <header class="ground-obsidian-graded relative overflow-hidden">
-      <img src="/brand/art/rose-champagne-a-dark.webp" alt="" aria-hidden="true"
-        class="rose rose-mid parallax parallax-slow -left-20 -top-10 w-[15rem] lg:w-[24rem]" />
-      <img src="/brand/art/rose-champagne-c-dark.webp" alt="" aria-hidden="true"
-        class="rose rose-deep parallax parallax-mid -right-16 bottom-0 w-[13rem] lg:w-[20rem]" />
-      <img src="/brand/art/pearl-t2-dark.webp" alt="" aria-hidden="true"
-        class="rose rose-mid parallax parallax-slow right-[20%] top-[10%] w-[8rem] lg:w-[11rem]" />
-      <img src="/brand/art/diamond-t1-dark.webp" alt="" aria-hidden="true"
-        class="rose rose-deep parallax parallax-mid left-[26%] bottom-[8%] w-[7rem] lg:w-[9rem]" />
+    <header class="g-depth relative overflow-hidden">
+      <img src="/brand/ink/quill.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-slow -left-20 -top-10 w-[15rem] lg:w-[24rem]" />
+      <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-mid -right-16 bottom-0 w-[13rem] lg:w-[20rem]" />
+      <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-slow right-[20%] top-[10%] w-[8rem] lg:w-[11rem]" />
+      <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-mid left-[26%] bottom-[8%] w-[7rem] lg:w-[9rem]" />
       <div class="layer-content mx-auto max-w-[94rem] px-6 pt-14 pb-16 sm:px-10 lg:px-16 lg:pt-20 lg:pb-20">
       <nav aria-label="Breadcrumb" class="mb-12">
-        <a href="/poetry" class="label link-editorial label-champagne">← Poetry</a>
+        <a href="/poetry" class="label link-editorial label-gold">← Poetry</a>
       </nav>
 
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-8">
-          <h1 class="reveal font-display text-[clamp(2.25rem,1.3rem+3.6vw,4.75rem)] leading-[1.04] font-normal text-ivory-50">
+          <h1 class="reveal font-display text-[clamp(2.25rem,1.3rem+3.6vw,4.75rem)] leading-[1.04] font-normal text-pearl">
             {poem.title}
           </h1>
 
           <div class="reveal mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <time datetime={isoDate(poem.publishedAt)} class="label label-champagne">
+            <time datetime={isoDate(poem.publishedAt)} class="label label-gold">
               {formatDate(poem.publishedAt)}
             </time>
-            {poem.category && <span class="label label-champagne">{poem.category.title}</span>}
+            {poem.category && <span class="label label-gold">{poem.category.title}</span>}
           </div>
 
           {
             poem.excerpt && (
-              <p class="reveal mt-8 max-w-xl font-body text-xl leading-relaxed text-champagne-200/70 italic">
+              <p class="reveal mt-8 max-w-xl font-body text-xl leading-relaxed text-lavender/70 italic">
                 {poem.excerpt}
               </p>
             )
@@ -140,7 +140,7 @@ const schema = {
          Offset left of centre rather than dead-centred: the eye returns to
          a consistent left margin on every line, which is how poetry is set
          in print and considerably easier to read than centred verse. -->
-    <div class="ground-ivory relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16 lg:py-36"><div class="mx-auto max-w-[94rem]">
+    <div class="g-pearl relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16 lg:py-36"><div class="mx-auto max-w-[94rem]">
       <div class="grid lg:grid-cols-12">
         <div class="lg:col-span-7 lg:col-start-3">
           <PoemBody body={poem.body} class="reveal" />
@@ -157,7 +157,7 @@ const schema = {
             )
           }
 
-          <hr class="rule-hair-ivory mt-14" />
+          <hr class="rule-ink mt-14" />
 
           <div class="mt-8">
             <ShareControls title={poem.title} url={`/poetry/${poem.slug}`} />
@@ -170,14 +170,14 @@ const schema = {
   <!-- ══════════════════════════════════════════════ RELATED -->
   {
     related.length > 0 && (
-      <section class="ground-obsidian relative overflow-hidden border-t border-champagne-600/25">
+      <section class="g-obsidian relative overflow-hidden border-t border-gold-lum/20">
         <div class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12">
-          <h2 class="reveal label label-champagne mb-10">Continue Reading</h2>
+          <h2 class="reveal label label-gold mb-10">Continue Reading</h2>
           {related.map((item) => (
             <PoemListItem poem={item} showImage={false} />
           ))}
           <p class="mt-12">
-            <a href="/poetry" class="label link-editorial label-champagne">All Poetry</a>
+            <a href="/poetry" class="label link-editorial label-gold">All Poetry</a>
           </p>
         </div>
       </section>

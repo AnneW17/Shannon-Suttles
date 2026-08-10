@@ -21,9 +21,8 @@ export const SITE = {
 export const NAV = [
   { label: 'Poetry', href: '/poetry' },
   { label: 'About', href: '/about' },
-  { label: 'Her Work', href: '/work' },
-  { label: 'Support', href: '/support' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Ventures', href: '/work' },
+  { label: "Contact Shannon's Team", href: '/contact' },
 ] as const;
 
 /**
@@ -56,7 +55,8 @@ export const ORGANISATIONS: Organisation[] = [
     role: 'President and Founder',
     body: 'Grew from years of responsibility and complex leadership. It brings together the leadership team’s collective discernment, strategic insight, and operational wisdom to help organisations find clarity and become healthy.',
     href: 'https://sophionhq.com/',
-    logo: '/brand/orgs/sophion-onink.webp',
+    logo: '/brand/orgs/sophion-mark.webp',
+    markTone: 'dark',
     logoOnDark: true,
   },
   {
@@ -65,7 +65,7 @@ export const ORGANISATIONS: Organisation[] = [
     role: 'President',
     body: 'Grew from a burden for children, and from knowing what it means for a child to need safety, healing, and the faithful presence of someone who sees beyond outward behaviour to the heart beneath it.',
     href: 'https://www.firebrandrevivalists.com/jllc',
-    logo: '/brand/orgs/jllc-onink.webp',
+    logo: '/brand/orgs/jllc-mark.webp',
     markTone: 'light',
   },
   {
@@ -74,7 +74,7 @@ export const ORGANISATIONS: Organisation[] = [
     role: 'President',
     body: 'Born from Shannon’s own experiences with adoption, family separation, custody struggles, and miraculous restoration — created to help remove financial barriers between children and safe, loving families.',
     href: 'https://www.thegenerationallegacy.org/',
-    logo: '/brand/orgs/generational-legacy-onink.webp',
+    logo: '/brand/orgs/generational-legacy-mark.webp',
     markTone: 'light',
   },
   {
@@ -83,16 +83,18 @@ export const ORGANISATIONS: Organisation[] = [
     role: 'President',
     body: 'Being formed first as a house of worship and prayer — a place set apart for the Lord, where ministers and leaders who have grown weary can rest, be restored, and return strengthened to the assignments He has given them.',
     href: 'https://www.theemberridge.com/',
-    logo: '/brand/orgs/ember-ridge.png',
+    logo: '/brand/orgs/ember-ridge-mark.webp',
+    markTone: 'dark',
     logoOnDark: true,
   },
   {
-    name: 'Firebrand Revivalists',
+    name: 'Firebrand Revivalists™',
     descriptor: 'Igniting Hearts. Awakening Destiny. Reviving Glory.',
     role: 'President and CEO',
     body: 'The ministry through which much of this work is carried, and to which all contributions are made.',
     href: 'https://www.firebrandrevivalists.com/',
-    logo: '/brand/orgs/firebrand-onink.webp',
+    logo: '/brand/orgs/firebrand-mark.webp',
+    markTone: 'dark',
     logoOnDark: true,
   },
   {
@@ -101,7 +103,7 @@ export const ORGANISATIONS: Organisation[] = [
     role: 'National Leader',
     body: 'Shannon serves as a national leader with the Nehemiah Alliance and its 52-Day National Rebuild Initiative.',
     href: 'https://na52.org/',
-    logo: '/brand/orgs/nehemiah.png',
+    logo: '/brand/orgs/nehemiah-mark.webp',
     markTone: 'light',
   },
 ];
@@ -109,7 +111,7 @@ export const ORGANISATIONS: Organisation[] = [
 /**
  * GIVING
  *
- * All contributions go to Firebrand Revivalists. Zelle has no web link by
+ * All contributions go to Firebrand Revivalists™. Zelle has no web link by
  * design — it is used inside a person's own banking app — so it carries
  * instructions instead of a url.
  */
@@ -142,7 +144,7 @@ export const GIVING: GivingOption[] = [
   },
   {
     name: 'Zelle',
-    handle: 'Firebrand Revivalists',
+    handle: 'Firebrand Revivalists™',
     note: 'Send through your own banking app. Please list your email in the memo line.',
   },
 ];
