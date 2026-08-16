@@ -1,0 +1,574 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   SHANNON SUTTLES — LIQUID INK
+   A poet's world, not a website.
+
+   The system is built from one idea: ink becoming light. Everything the
+   visitor sees is a stage in that transformation — obsidian at rest, plum
+   and indigo as it stirs, violet as it rises, gold at the moment it becomes
+   language, pearl where the words land on the page.
+
+   That progression is not decorative. It is the reading order, the colour
+   order, and the motion order, in that sequence, on every page.
+   ========================================================================== */
+
+@theme {
+  /* ── The descent: ink at rest ── */
+  --color-obsidian:  #050308;
+  --color-plum:      #181127;
+  --color-indigo:    #281B57;
+  --color-violet:    #5C348F;
+
+  /* ── The rise: ink catching light ── */
+  --color-iris:      #A26BC3;
+  --color-lilac:     #D2AAD6;
+  --color-blush:     #D8AA9B;
+
+  /* ── The illumination: ink becoming word ── */
+  --color-gold-warm: #D19A71;
+  --color-gold-lum:  #ECC06A;
+  --color-gold-pearl:#FBE9D1;
+  --color-pearl:     #FBF5F2;
+
+  /* ── Shadow and midtone, for depth rather than decoration ── */
+  --color-graphite:  #1E2028;
+  --color-umber:     #271817;
+  --color-blackviolet:#271829;
+  --color-burgundy:  #33272D;
+  --color-amethyst-d:#352B4A;
+  --color-cobalt:    #4548A6;
+  --color-mulberry:  #4B324E;
+  --color-pewter:    #524A51;
+  --color-aubergine: #583065;
+  --color-mauve:     #68596D;
+  --color-amethyst:  #6D5593;
+  --color-periwinkle:#7D8BD9;
+  --color-orchid:    #966A9B;
+  --color-lavender:  #AD97D4;
+  --color-pearlblue: #B6BFF6;
+
+  /* ── Warm metallics, for the Ventures plates and fine rules ── */
+  --color-wine:      #4C312D;
+  --color-bronze-sh: #512F1E;
+  --color-taupe:     #5B4335;
+  --color-bronze:    #6D4835;
+  --color-rosebrown: #70514C;
+  --color-copper:    #975E44;
+  --color-rosetaupe: #976A5D;
+  --color-pewterrose:#A8939A;
+  --color-rosegold:  #B1876D;
+  --color-rosepearl: #E8D0D6;
+  --color-peach:     #F1CDB0;
+  --color-champagne: #F2CDA1;
+
+  /* ── Type ──
+     Bodoni for the voice of the house. Cormorant for the poems, where a
+     Didone's hairlines would fight the verse at reading size. Jost for
+     anything functional, kept quiet and wide. */
+  --font-display: "Bodoni Moda Variable", "Bodoni Moda", Didot, Georgia, serif;
+  --font-body:    "Cormorant Garamond Variable", "Cormorant Garamond", Georgia, serif;
+  --font-ui:      "Jost Variable", Jost, ui-sans-serif, system-ui, sans-serif;
+
+  --text-monument: clamp(3rem, 0.8rem + 9vw, 12rem);
+  --text-hero:     clamp(2.5rem, 1rem + 6.4vw, 7.5rem);
+  --text-display:  clamp(2rem, 1.1rem + 3.8vw, 4.5rem);
+  --text-title:    clamp(1.5rem, 1.05rem + 2vw, 2.75rem);
+  --text-poem:     clamp(1.175rem, 1.02rem + 0.62vw, 1.6rem);
+  --text-lede:     clamp(1.1rem, 0.98rem + 0.55vw, 1.4rem);
+
+  /* Motion: ink through water. Nothing here is quick. */
+  --ease-ink:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drift: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --measure-poem:  38rem;
+  --measure-prose: 34rem;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background-color: var(--color-obsidian);
+    color: var(--color-pearl);
+    font-family: var(--font-body);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background-color: var(--color-violet); color: var(--color-pearl); }
+
+  :focus-visible { outline: 1px solid var(--color-gold-lum); outline-offset: 4px; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  img { max-width: 100%; height: auto; }
+}
+
+/* ==========================================================================
+   GROUNDS — the descent, top to bottom of the page
+   ========================================================================== */
+
+@layer components {
+  .g-obsidian { background-color: var(--color-obsidian); color: var(--color-pearl); }
+  .g-plum     { background-color: var(--color-plum);     color: var(--color-pearl); }
+  .g-indigo   { background-color: var(--color-indigo);   color: var(--color-pearl); }
+  .g-pearl    { background-color: var(--color-pearl);    color: var(--color-obsidian); }
+  .g-goldpearl{ background-color: var(--color-gold-pearl); color: var(--color-obsidian); }
+
+  /* The liquid gradient, used once per page at most — it is the brand's
+     full statement and loses its force if repeated. */
+  .g-liquid {
+    background-image: linear-gradient(178deg,
+      #050308 0%, #181127 16%, #281B57 34%, #5C348F 52%,
+      #A26BC3 68%, #D8AA9B 82%, #FBE9D1 93%, #FBF5F2 100%);
+    color: var(--color-obsidian);
+  }
+
+  /* A vertical breath of plum through black, so a long dark section is
+     never a flat field. */
+  .g-depth {
+    background-image:
+      radial-gradient(120% 80% at 50% 0%,  rgb(40 27 87 / 0.42) 0%, transparent 62%),
+      radial-gradient(100% 70% at 50% 100%, rgb(24 17 39 / 0.55) 0%, transparent 60%),
+      linear-gradient(180deg, #050308, #0A0611 55%, #050308);
+    color: var(--color-pearl);
+  }
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+
+@layer components {
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .monument { font-family: var(--font-display); font-size: var(--text-monument); line-height: 0.9; letter-spacing: -0.02em; }
+  .hero     { font-family: var(--font-display); font-size: var(--text-hero);     line-height: 0.96; }
+  .display  { font-family: var(--font-display); font-size: var(--text-display);  line-height: 1.04; }
+  .title    { font-family: var(--font-display); font-size: var(--text-title);    line-height: 1.1; }
+
+  /* Gold that behaves like light on a liquid surface, not a flat fill. */
+  .gilt {
+    background-image: linear-gradient(100deg,
+      #D19A71 0%, #ECC06A 28%, #FBE9D1 50%, #ECC06A 72%, #D19A71 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .label {
+    font-family: var(--font-ui);
+    font-size: 0.6875rem;
+    font-weight: 300;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+  }
+  .label-gold   { color: var(--color-gold-lum); }
+  .label-lilac  { color: var(--color-lilac); }
+  .label-quiet  { color: var(--color-mauve); }
+
+  .rule-gilt { border: 0; height: 1px;
+    background-image: linear-gradient(to right, transparent, var(--color-gold-warm) 22%, var(--color-gold-lum) 50%, var(--color-gold-warm) 78%, transparent); }
+  .rule-fine { border: 0; border-top: 1px solid rgb(236 192 106 / 0.28); }
+  .rule-ink  { border: 0; border-top: 1px solid rgb(5 3 8 / 0.14); }
+  .rule-short{ width: 4rem; }
+
+  .measure-poem { max-width: var(--measure-poem); }
+  .measure-prose{ max-width: var(--measure-prose); }
+
+  .link-ink { position: relative; display: inline-block; color: inherit; text-decoration: none; }
+  .link-ink::after {
+    content: ""; position: absolute; left: 0; bottom: -0.22em; width: 100%; height: 1px;
+    background-image: linear-gradient(to right, var(--color-gold-warm), var(--color-gold-lum));
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 900ms var(--ease-ink);
+  }
+  .link-ink:hover::after, .link-ink:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+
+  .btn-ink {
+    display: inline-block; font-family: var(--font-ui);
+    font-size: 0.6875rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 1.15rem 2.6rem;
+    border: 1px solid rgb(236 192 106 / 0.45);
+    color: var(--color-gold-pearl); background: transparent;
+    transition: background-color 800ms var(--ease-drift), color 800ms var(--ease-drift),
+                border-color 800ms var(--ease-drift);
+  }
+  .btn-ink:hover, .btn-ink:focus-visible {
+    background-color: var(--color-gold-lum); border-color: var(--color-gold-lum); color: var(--color-obsidian);
+  }
+  .btn-ink-dark { border-color: rgb(5 3 8 / 0.3); color: var(--color-obsidian); }
+  .btn-ink-dark:hover, .btn-ink-dark:focus-visible {
+    background-color: var(--color-obsidian); border-color: var(--color-obsidian); color: var(--color-pearl);
+  }
+}
+
+/* ==========================================================================
+   THE ARTWORK
+   The liquid pieces are photographed on black. Screen blending lets them
+   emerge from the page rather than sit on it, and means no cut-out is ever
+   needed — the black simply disappears.
+   ========================================================================== */
+
+@layer components {
+  .ink-art { position: absolute; pointer-events: none; user-select: none; z-index: 0; mix-blend-mode: screen; }
+  .ink-far  { opacity: 0.30; }
+  .ink-mid  { opacity: 0.55; }
+  .ink-near { opacity: 0.82; }
+  .ink-full { opacity: 1; }
+  .above { position: relative; z-index: 10; }
+
+  /* A full-bleed plate of artwork used as a section transition. */
+  .plate { position: relative; overflow: hidden; }
+  .plate img { display: block; width: 100%; object-fit: cover; }
+
+  /* Feathers the top and bottom of a plate into the obsidian either side,
+     so transitions read as one continuous field rather than stacked bands. */
+  .plate-bleed::before, .plate-bleed::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 22%; pointer-events: none; z-index: 2;
+  }
+  .plate-bleed::before { top: 0;    background: linear-gradient(to bottom, var(--color-obsidian), transparent); }
+  .plate-bleed::after  { bottom: 0; background: linear-gradient(to top,    var(--color-obsidian), transparent); }
+}
+
+/* ==========================================================================
+   MOTION — ink through water
+   ========================================================================== */
+
+@layer components {
+  .rise { opacity: 0; transform: translateY(2rem); transition: opacity 1600ms var(--ease-ink), transform 1600ms var(--ease-ink); }
+  .rise.is-visible { opacity: 1; transform: none; }
+  .rise[style*="--delay"] { transition-delay: var(--delay); }
+  .stagger > * { transition-delay: calc(var(--i, 0) * 160ms); }
+
+  .bloom { position: relative; overflow: hidden; }
+  .bloom img { transform: scale(1.1); opacity: 0; transition: transform 2600ms var(--ease-ink), opacity 1800ms var(--ease-ink); }
+  .bloom.is-visible img { transform: scale(1); opacity: 1; }
+
+  .drift { will-change: transform; }
+  .drift-slow { transform: translate3d(0, calc(var(--scroll-offset, 0px) * 0.07), 0); }
+  .drift-mid  { transform: translate3d(0, calc(var(--scroll-offset, 0px) * 0.14), 0); }
+  .drift-rev  { transform: translate3d(0, calc(var(--scroll-offset, 0px) * -0.10), 0); }
+
+  /* A slow gold breath across an illuminated element. */
+  @keyframes gilt-drift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .gilt-live { background-size: 220% 100%; animation: gilt-drift 14s ease-in-out infinite; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  .rise { opacity: 1; transform: none; }
+  .bloom img { transform: none; opacity: 1; }
+  .drift-slow, .drift-mid, .drift-rev { transform: none !important; }
+  .gilt-live { animation: none; }
+}
+
+.no-js .rise { opacity: 1; transform: none; }
+.no-js .bloom img { transform: none; opacity: 1; }
+
+@media print {
+  body { background: #fff; color: #000; }
+  header nav, footer, .no-print { display: none !important; }
+  .poem { font-size: 12pt; max-width: none; }
+  .rise { opacity: 1 !important; transform: none !important; }
+}
+
+/* ==========================================================================
+   POETRY RENDERING
+   The most important CSS in this file.
+
+   Poems are NOT prose. Every line break Shannon types is intentional and
+   must survive to the screen. Portable Text gives us one block per line;
+   an empty block signals a stanza break.
+   ========================================================================== */
+
+@layer components {
+  .poem {
+    font-family: var(--font-body);
+    font-size: var(--text-poem);
+    font-weight: 400;
+    line-height: 1.72;
+    /* Poems sit on the dark ground with the rest of the site. Pearl paper
+       left a large empty field around a short poem, which read as a blank
+       block rather than as space. */
+    color: var(--color-pearl);
+    max-width: var(--measure-poem);
+    /* Long lines wrap with a hanging indent, so a wrapped line is always
+       visually distinct from a new line the poet actually wrote. */
+    hanging-punctuation: first last;
+  }
+
+  .poem p {
+    margin: 0;
+    /* NOTE: no `white-space: pre-wrap` here, deliberately.
+       The Portable Text renderer already converts leading and repeated
+       spaces to &nbsp; and soft line breaks to <br>, so indentation and
+       breaks survive on their own. Adding pre-wrap on top would be
+       redundant and would additionally turn any stray newline in the
+       generated markup into a visible break in the poem. Verified by
+       tests/poem-render.test.mjs. */
+    text-wrap: pretty;
+    padding-left: 1.25em;
+    text-indent: -1.25em;
+  }
+
+  /* An empty block = a stanza break. The non-breaking space guarantees the
+     paragraph occupies a full line even if line-height changes. */
+  .poem p:empty {
+    padding: 0;
+    text-indent: 0;
+  }
+
+  .poem p:empty::before {
+    content: "\00a0";
+  }
+
+  /* Soft breaks (Shift+Enter) come through as <br>. */
+  .poem br {
+    line-height: inherit;
+  }
+
+  .poem em { font-style: italic; }
+  .poem strong { font-weight: 600; }
+
+  .poem blockquote {
+    margin: 1.8em 0 1.8em 1.5em;
+    padding-left: 1.25em;
+    border-left: 1px solid var(--color-gold-warm);
+    font-style: italic;
+    color: var(--color-lavender);
+  }
+
+  .poem h2, .poem h3 {
+    font-size: 1em;
+    font-family: var(--font-ui);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold-lum);
+    margin: 2.4em 0 1.1em;
+  }
+
+  /* On small screens the measure shrinks but the leading stays generous —
+     reading comfort matters more than fitting more words per line. */
+  @media (max-width: 640px) {
+    .poem {
+      font-size: 1.125rem;
+      line-height: 1.78;
+    }
+    .poem p {
+      padding-left: 1em;
+      text-indent: -1em;
+    }
+  }
+}
+
+/* ==========================================================================
+   PROSE (About, Work — not poetry)
+   ========================================================================== */
+
+@layer components {
+  .prose-editorial {
+    font-size: var(--text-lede);
+    line-height: 1.75;
+    color: var(--color-graphite);
+    max-width: var(--measure-prose);
+  }
+  .prose-editorial p + p { margin-top: 1.35em; }
+
+  /* Headings on unconverted pages: Bodoni, correct scale, ink on ivory. */
+  .type-colossal { font-family: var(--font-display); font-size: var(--text-colossal); line-height: 1.02; }
+  .type-name     { font-family: var(--font-display); font-size: var(--text-name);     line-height: 0.98; }
+  .type-wide     { font-family: var(--font-display); letter-spacing: 0.3em; text-transform: uppercase; }
+  .type-vertical {
+    writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    letter-spacing: 0.38em; text-transform: uppercase;
+    font-family: var(--font-ui); font-size: 0.625rem; color: var(--color-copper);
+  }
+  .measure-wide { max-width: var(--measure-wide); }
+  .edge-gold-top { border-top: 1px solid var(--color-gold-warm); opacity: 1; }
+  .frame-offset, .frame-inset, .veil, .hover-breathe, .mark-restrained,
+  .mark-plate, .botanical, .ground-texture, .ground-texture-soft { }
+  .veil { position: relative; overflow: hidden; }
+  .botanical { position: absolute; pointer-events: none; z-index: 0; opacity: 0.5; }
+  .ground-texture, .ground-texture-soft { background-color: var(--color-ivory-100); }
+  .prose-editorial em { font-style: italic; }
+}
+
+/* ==========================================================================
+   MOTION
+   Scroll reveals are CSS-driven and progressive: if JS never runs, or the
+   browser is old, content is visible by default. Nothing is ever trapped
+   behind an animation.
+   ========================================================================== */
+
+@layer components {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity var(--duration-slow) var(--ease-veil),
+      transform var(--duration-slow) var(--ease-veil);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Staggering, applied via inline custom property. */
+  .reveal[style*="--delay"] {
+    transition-delay: var(--delay);
+  }
+
+  /* Image veil: a slow champagne curtain lifting off the photograph. */
+  .veil { position: relative; overflow: hidden; }
+  .veil::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-cream-200);
+    transform-origin: bottom;
+    transition: transform var(--duration-slow) var(--ease-veil);
+    z-index: 1;
+  }
+  .veil.is-visible::after { transform: scaleY(0); }
+
+  .veil img {
+    transform: scale(1.06);
+    transition: transform 1600ms var(--ease-veil);
+  }
+  .veil.is-visible img { transform: scale(1); }
+}
+
+/* --- Reduced motion: everything resolves instantly and stays legible. --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal { opacity: 1; transform: none; }
+  .veil::after { transform: scaleY(0); }
+  .veil img { transform: none; }
+}
+
+/* --- No-JS fallback: reveals must never hide content permanently. --- */
+.no-js .reveal { opacity: 1; transform: none; }
+.no-js .veil::after { transform: scaleY(0); }
+.no-js .veil img { transform: none; }
+
+/* --- Print: give someone a clean sheet of poetry. --- */
+@media print {
+  body { background: #fff; color: #000; }
+  header nav, footer, .no-print { display: none !important; }
+  .poem { font-size: 12pt; max-width: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+
+
+
+/* ==========================================================================
+   BRIDGE — the other pages are not yet on the liquid-ink system.
+   These map their token names onto the new palette so every page stays
+   legible and on-brand while the conversion is finished. Deleted the moment
+   the last page is rebuilt; nothing new should reference anything here.
+   ========================================================================== */
+
+@theme {
+  --color-ivory-50:  #FBF5F2;
+  --color-ivory-100: #F3ECE9;
+  --color-ink-300:   #68596D;
+  --color-ink-400:   #524A51;
+  --color-ink-500:   #3F3F43;
+  --color-ink-600:   #352B4A;
+  --color-ink-800:   #1E2028;
+  --color-ink-900:   #050308;
+  --color-champagne-200: #FBE9D1;
+  --color-champagne-300: #ECC06A;
+  --color-champagne-500: #D19A71;
+  --color-champagne-600: #975E44;
+  --text-display-lg: clamp(2.25rem, 1.2rem + 4.4vw, 5rem);
+  --text-display-md: clamp(1.875rem, 1.2rem + 2.8vw, 3.5rem);
+  --text-display-sm: clamp(1.5rem, 1.1rem + 1.7vw, 2.5rem);
+}
+
+@layer components {
+  .ground-obsidian, .ground-obsidian-graded, .ground-ink { background-color: var(--color-obsidian); color: var(--color-pearl); }
+  .ground-obsidian-graded {
+    background-image:
+      radial-gradient(120% 80% at 50% 0%, rgb(40 27 87 / 0.40) 0%, transparent 62%),
+      linear-gradient(180deg, #050308, #0A0611 55%, #050308);
+  }
+  .ground-ivory, .ground-ivory-warm { background-color: var(--color-pearl); color: var(--color-obsidian); }
+
+  .label-champagne { color: var(--color-gold-lum); }
+  .rule-hair       { border: 0; border-top: 1px solid rgb(236 192 106 / 0.28); }
+  .rule-hair-ivory { border: 0; border-top: 1px solid rgb(5 3 8 / 0.14); }
+
+  .link-editorial { position: relative; display: inline-block; color: inherit; text-decoration: none; }
+  .link-editorial::after {
+    content: ""; position: absolute; left: 0; bottom: -0.2em; width: 100%; height: 1px;
+    background-image: linear-gradient(to right, var(--color-gold-warm), var(--color-gold-lum));
+    transform: scaleX(0); transform-origin: right; transition: transform 900ms var(--ease-ink);
+  }
+  .link-editorial:hover::after, .link-editorial:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+
+  .btn {
+    display: inline-block; font-family: var(--font-ui);
+    font-size: 0.6875rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 1.15rem 2.6rem; border: 1px solid rgb(236 192 106 / 0.45);
+    color: var(--color-gold-pearl); background: transparent;
+    transition: background-color 800ms var(--ease-drift), color 800ms var(--ease-drift), border-color 800ms var(--ease-drift);
+  }
+  .btn:hover, .btn:focus-visible { background-color: var(--color-gold-lum); border-color: var(--color-gold-lum); color: var(--color-obsidian); }
+  .btn-ivory { border-color: rgb(5 3 8 / 0.3); color: var(--color-obsidian); }
+  .btn-ivory:hover, .btn-ivory:focus-visible { background-color: var(--color-obsidian); border-color: var(--color-obsidian); color: var(--color-pearl); }
+
+  /* Rose and pearl cut-outs stay in place on the unconverted pages, held
+     back so they read as atmosphere against the deeper palette. */
+  .rose { position: absolute; pointer-events: none; z-index: 0; mix-blend-mode: screen; }
+  .rose-deep { opacity: 0.14; } .rose-mid { opacity: 0.24; }
+  .rose-near { opacity: 0.34; } .rose-feature { opacity: 0.46; }
+  .ground-ivory .rose, .ground-ivory-warm .rose { mix-blend-mode: multiply; opacity: 0.10; }
+  .layer-content { position: relative; z-index: 10; }
+
+  .photo, .photo-portrait { display: block; width: 100%; height: auto; }
+  .photo-portrait { object-fit: cover; object-position: 50% 20%; }
+  .photo-frame { position: relative; overflow: hidden; }
+  .photo-scrim-light::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgb(5 3 8 / 0.94) 0%, rgb(5 3 8 / 0.7) 26%, rgb(5 3 8 / 0.28) 56%, transparent 100%);
+  }
+  .veil-slow { position: relative; overflow: hidden; }
+  .reveal { opacity: 0; transform: translateY(1.25rem); transition: opacity 1300ms var(--ease-ink), transform 1300ms var(--ease-ink); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .parallax { will-change: transform; }
+  .parallax-slow { transform: translate3d(0, calc(var(--scroll-offset,0px) * 0.07), 0); }
+  .parallax-mid  { transform: translate3d(0, calc(var(--scroll-offset,0px) * 0.14), 0); }
+  .parallax-slow-r { transform: translate3d(0, calc(var(--scroll-offset,0px) * -0.09), 0); }
+}

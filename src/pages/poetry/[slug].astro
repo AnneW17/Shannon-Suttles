@@ -1,0 +1,186 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PoemBody from '@components/PoemBody.astro';
+import Signature from '@components/Signature.astro';
+import ShareControls from '@components/ShareControls.astro';
+import PoemListItem from '@components/PoemListItem.astro';
+import {
+  getAllPoems,
+  getPoemBySlug,
+  getRelatedPoems,
+  getSiteSettings,
+} from '@lib/sanity/queries';
+import { imageUrl, imageSrcSet, ogImageUrl, hasImage } from '@lib/sanity/image';
+import { poemToPlainText, firstLine } from '@lib/portableText';
+import { formatDate, isoDate } from '@lib/format';
+import { SITE } from '@lib/site';
+
+// Every published poem becomes a static page at build time.
+export async function getStaticPaths() {
+  const poems = await getAllPoems();
+  return poems.map((poem) => ({ params: { slug: poem.slug } }));
+}
+
+const { slug } = Astro.params;
+const poem = await getPoemBySlug(slug!);
+
+// getStaticPaths only ever emits slugs that exist, so this is a build-time
+// integrity check rather than a runtime branch.
+if (!poem) {
+  throw new Error(`Poem "${slug}" was in the slug list but could not be fetched.`);
+}
+
+const [related, settings] = await Promise.all([
+  getRelatedPoems(poem._id, poem.category?.slug),
+  getSiteSettings(),
+]);
+
+const image = poem.featureImage;
+const description =
+  poem.seoDescription || poem.excerpt || poemToPlainText(poem.body, 155);
+const shareImage = hasImage(image)
+  ? ogImageUrl(image)
+  : hasImage(settings?.defaultShareImage)
+    ? ogImageUrl(settings!.defaultShareImage!)
+    : undefined;
+
+// Structured data. Poems are `CreativeWork`, not `BlogPosting` — the
+// distinction is small but it is what the work actually is.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  '@id': new URL(`/poetry/${poem.slug}`, SITE.url).href,
+  name: poem.title,
+  headline: poem.title,
+  genre: 'Poetry',
+  datePublished: poem.publishedAt,
+  description,
+  inLanguage: 'en',
+  author: { '@type': 'Person', name: SITE.name, url: SITE.url },
+  publisher: { '@type': 'Person', name: SITE.name },
+  ...(shareImage ? { image: shareImage } : {}),
+  ...(poem.tags?.length ? { keywords: poem.tags.join(', ') } : {}),
+};
+---
+
+<BaseLayout
+  title={poem.seoTitle || poem.title}
+  description={description}
+  image={shareImage}
+  type="article"
+  publishedTime={poem.publishedAt}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+
+  <article>
+    <!-- ══════════════════════════════════════════════ TITLE
+         No card, no container, no border. The poem is given the page. -->
+    <header class="g-depth relative overflow-hidden">
+      <img src="/brand/ink/quill.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-slow -left-20 -top-10 w-[15rem] lg:w-[24rem]" />
+      <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-mid -right-16 bottom-0 w-[13rem] lg:w-[20rem]" />
+      <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-slow right-[20%] top-[10%] w-[8rem] lg:w-[11rem]" />
+      <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+        class="ink-art ink-far drift drift-mid left-[26%] bottom-[8%] w-[7rem] lg:w-[9rem]" />
+      <div class="layer-content mx-auto max-w-[94rem] px-6 pt-14 pb-16 sm:px-10 lg:px-16 lg:pt-20 lg:pb-20">
+      <nav aria-label="Breadcrumb" class="mb-12">
+        <a href="/poetry" class="label link-editorial label-gold">← Poetry</a>
+      </nav>
+
+      <div class="grid gap-8 lg:grid-cols-12">
+        <div class="lg:col-span-8">
+          <h1 class="reveal font-display text-[clamp(2.25rem,1.3rem+3.6vw,4.75rem)] leading-[1.04] font-normal text-pearl">
+            {poem.title}
+          </h1>
+
+          <div class="reveal mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
+            <time datetime={isoDate(poem.publishedAt)} class="label label-gold">
+              {formatDate(poem.publishedAt)}
+            </time>
+            {poem.category && <span class="label label-gold">{poem.category.title}</span>}
+          </div>
+
+          {
+            poem.excerpt && (
+              <p class="reveal mt-8 max-w-xl font-body text-xl leading-relaxed text-lavender/70 italic">
+                {poem.excerpt}
+              </p>
+            )
+          }
+        </div>
+      </div>
+
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════ IMAGE -->
+    {
+      hasImage(image) && (
+        <figure class="veil mx-auto mt-14 max-w-[88rem] px-5 sm:px-8 lg:px-12">
+          <img
+            src={imageUrl(image, 1440)}
+            srcset={imageSrcSet(image)}
+            sizes="(min-width: 1024px) 76rem, 100vw"
+            alt={image.alt || ''}
+            class="max-h-[70vh] w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+          {image.alt && (
+            <figcaption class="label label-quiet mt-4">{image.alt}</figcaption>
+          )}
+        </figure>
+      )
+    }
+
+    <!-- ══════════════════════════════════════════════ THE POEM
+         Offset left of centre rather than dead-centred: the eye returns to
+         a consistent left margin on every line, which is how poetry is set
+         in print and considerably easier to read than centred verse. -->
+    <div class="g-depth relative overflow-hidden px-6 py-16 sm:px-10 lg:px-16 lg:py-20"><div class="mx-auto max-w-[94rem]">
+      <div class="grid lg:grid-cols-12">
+        <div class="lg:col-span-7 lg:col-start-3">
+          <PoemBody body={poem.body} class="reveal" />
+
+          {poem.showSignature !== false && <Signature settings={settings} />}
+
+          {
+            poem.tags && poem.tags.length > 0 && (
+              <ul class="mt-12 flex flex-wrap gap-x-5 gap-y-2">
+                {poem.tags.map((tag) => (
+                  <li class="label label-quiet">{tag}</li>
+                ))}
+              </ul>
+            )
+          }
+
+          <hr class="rule-fine mt-14" />
+
+          <div class="mt-8">
+            <ShareControls title={poem.title} url={`/poetry/${poem.slug}`} />
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </article>
+
+  <!-- ══════════════════════════════════════════════ RELATED -->
+  {
+    related.length > 0 && (
+      <section class="g-obsidian relative overflow-hidden border-t border-gold-lum/20">
+        <div class="mx-auto max-w-[88rem] px-5 py-20 sm:px-8 lg:px-12">
+          <h2 class="reveal label label-gold mb-10">Continue Reading</h2>
+          {related.map((item) => (
+            <PoemListItem poem={item} showImage={false} />
+          ))}
+          <p class="mt-12">
+            <a href="/poetry" class="label link-editorial label-gold">All Poetry</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

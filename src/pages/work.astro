@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { ORGANISATIONS } from '@lib/site';
+import { editorialNumber } from '@lib/format';
+
+// Ventures is entirely separate from the literary archive. No poetry, no
+// personal photography, no biography. Logos appear exactly as supplied.
+const ventures = ORGANISATIONS;
+---
+
+<BaseLayout
+  title="Ventures"
+  description="A life’s work, built alongside God — the organisations and initiatives founded and led by Shannon Suttles."
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MASTHEAD
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="g-depth relative overflow-hidden">
+    <img src="/brand/ink/confluence.webp" alt="" aria-hidden="true"
+      class="ink-art ink-mid drift drift-slow -right-[12%] top-[6%] w-[42rem] object-contain lg:right-[2%] lg:w-[52rem]" />
+
+    <div class="above mx-auto max-w-[96rem] px-7 pt-20 pb-20 sm:px-12 lg:px-20 lg:pt-24 lg:pb-24">
+      <p class="label label-gold rise mb-9">Ventures</p>
+      <h1 class="rise">
+        <span class="display block text-pearl">A Life&rsquo;s Work,</span>
+        <span class="display gilt gilt-live block italic">Built Alongside God</span>
+      </h1>
+      <p class="rise mt-10 max-w-lg font-body text-lede leading-[1.9] text-lilac/80" style="--delay:280ms">
+        None of these began as a portfolio. Each one was born from something lived through with God.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       THE GRID
+       Pearl plates so every mark sits on light and keeps its own colours.
+       Nothing is converted to monochrome and nothing is placed on black.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="g-depth relative overflow-hidden">
+    <div class="above mx-auto max-w-[96rem] px-7 py-20 sm:px-12 lg:px-20 lg:py-28">
+      <ul class="stagger grid gap-x-14 gap-y-16 sm:grid-cols-2 lg:gap-x-20 lg:gap-y-20">
+        {ventures.map((org, i) => (
+          <li class="rise" style={`--i:${i % 2}`}>
+            <article>
+              <p class="label label-gold mb-5">{editorialNumber(i + 1)}</p>
+
+              <!-- Original colours, untouched. Marks drawn on black sit on
+                   obsidian and show no edge; marks drawn on white or with
+                   transparency get a pearl frame so they stay legible. -->
+              <div class={`mb-7 flex aspect-[5/4] items-center justify-center overflow-hidden border p-5 sm:p-7 ${
+                org.markTone === 'light'
+                  ? 'border-gold-lum/25 bg-pearl'
+                  : 'border-gold-lum/20 bg-obsidian'
+              }`}>
+                <img src={org.logo} alt={org.name}
+                  class="h-full w-full object-contain"
+                  loading="lazy" decoding="async" />
+              </div>
+
+              <h2 class="font-display text-[clamp(1.35rem,1.05rem+1.2vw,2.1rem)] leading-tight font-normal text-pearl">
+                {org.name}
+              </h2>
+
+              {org.descriptor && (
+                <p class="mt-3 font-body text-lg italic" style="color: var(--color-lavender)">
+                  {org.descriptor}
+                </p>
+              )}
+
+              <p class="mt-5 max-w-md font-body text-base leading-[1.85]" class="text-lavender/65">
+                {org.body}
+              </p>
+
+              <p class="mt-7">
+                <a href={org.href} target="_blank" rel="noopener noreferrer"
+                  class="label label-gold link-ink">
+                  Visit Website ↗
+                </a>
+              </p>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CLOSE
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="g-obsidian relative overflow-hidden">
+    <div class="plate plate-bleed bloom">
+      <img src="/brand/ink/ribbon.webp" alt="" aria-hidden="true"
+        class="h-[clamp(10rem,24vh,16rem)] w-full object-cover" width="1920" height="664"
+        loading="lazy" decoding="async" />
+    </div>
+    <div class="above mx-auto max-w-3xl px-7 py-16 text-center sm:px-12 lg:py-20">
+      <p class="rise font-display text-[clamp(1.4rem,1.05rem+1.7vw,2.4rem)] leading-[1.45] text-pearl">
+        Different expressions of one life and one calling.
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>

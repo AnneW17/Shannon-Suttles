@@ -1,0 +1,116 @@
+---
+import { NAV, SITE } from '@lib/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-gold-lum/15 bg-obsidian/80 backdrop-blur-md transition-colors duration-700" id="site-header"
+>
+  <a
+    href="#main"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-pearl focus:px-4 focus:py-2 focus:text-obsidian"
+  >
+    Skip to content
+  </a>
+
+  <div class="mx-auto flex max-w-[92rem] items-center justify-between px-5 py-3 sm:px-8 sm:py-4 lg:px-12">
+    <!-- Typographic identity. The circular emblem is gone by design: the
+         name is set as a wordmark with wide tracking and room around it,
+         the way a fashion house or literary imprint signs itself. -->
+    <a href="/" class="group" aria-label={`${SITE.name} — home`}>
+      <span class="wordmark block text-[0.9rem] text-pearl transition-colors duration-700 group-hover:text-gold-lum sm:text-[1.15rem] lg:text-[1.3rem]">
+        Shannon Suttles
+      </span>
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class="label relative py-1 text-lilac/70 transition-colors duration-700 hover:text-pearl"
+            style={isActive(item.href) ? 'color: var(--color-pearl);' : ''}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+            {isActive(item.href) && (
+              <span class="absolute -bottom-0.5 left-0 h-px w-full bg-gold-lum" aria-hidden="true" />
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Mobile toggle -->
+    <button
+      id="menu-toggle"
+      type="button"
+      class="flex h-11 w-11 items-center justify-center md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <span class="relative block h-3 w-6" aria-hidden="true">
+        <span
+          class="menu-bar absolute left-0 top-0 h-px w-full bg-lilac transition-transform duration-500"
+        ></span>
+        <span
+          class="menu-bar absolute bottom-0 left-0 h-px w-full bg-lilac transition-transform duration-500"
+        ></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-gold-lum/20 bg-obsidian md:hidden"
+    aria-label="Primary"
+  >
+    <ul class="px-5 py-3 sm:px-8">
+      {
+        NAV.map((item) => (
+          <li class="border-b border-gold-lum/15 last:border-0">
+            <a
+              href={item.href}
+              class="block py-4 font-display text-2xl font-normal text-pearl"
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+    menu?.classList.toggle('hidden', open);
+
+    const [top, bottom] = toggle.querySelectorAll<HTMLElement>('.menu-bar');
+    if (top && bottom) {
+      top.style.transform = open ? '' : 'translateY(5.5px) rotate(45deg)';
+      bottom.style.transform = open ? '' : 'translateY(-5.5px) rotate(-45deg)';
+    }
+  });
+
+  // Close the menu when a link is chosen, so back-navigation feels correct.
+  menu?.querySelectorAll('a').forEach((link) =>
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+    })
+  );
+</script>

@@ -1,0 +1,33 @@
+---
+import { imageUrl, hasImage } from '@lib/sanity/image';
+import type { SiteSettings } from '@lib/sanity/types';
+
+interface Props {
+  settings: SiteSettings | null;
+}
+
+const { settings } = Astro.props;
+const image = settings?.signatureImage;
+const fallback = settings?.signatureFallback || 'Shannon';
+---
+
+<div class="mt-14 flex flex-col items-start">
+  <hr class="rule-fine mb-8 w-16" />
+  {
+    hasImage(image) ? (
+      <img
+        src={imageUrl(image, 440)}
+        alt={image.alt || 'Shannon Suttles'}
+        width="220"
+        height="80"
+        class="h-auto w-40 opacity-90 sm:w-52"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <p class="font-display text-3xl font-light text-lavender italic sm:text-4xl">
+        — {fallback}
+      </p>
+    )
+  }
+</div>

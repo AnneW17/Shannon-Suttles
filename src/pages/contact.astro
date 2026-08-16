@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@lib/site';
+---
+
+<BaseLayout title="Contact Shannon&rsquo;s Team" description={`For inquiries and correspondence: ${SITE.email}`}>
+  <section class="g-depth relative min-h-[74vh] overflow-hidden">
+    <img src="/brand/ink/current.webp" alt="" aria-hidden="true"
+      class="ink-art ink-mid drift drift-slow inset-x-0 bottom-[8%] w-full object-cover" />
+    <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-rev -right-[10%] top-0 w-[30rem] object-contain lg:right-[2%] lg:w-[38rem]" />
+
+    <div class="above mx-auto flex min-h-[74vh] max-w-[96rem] flex-col justify-center px-7 py-20 sm:px-12 lg:px-20">
+      <p class="label label-gold rise mb-9">Contact</p>
+      <h1 class="rise">
+        <span class="display block text-pearl">Contact</span>
+        <span class="display gilt gilt-live block italic">Shannon&rsquo;s Team</span>
+      </h1>
+      <hr class="rule-fine rule-short rise my-9" />
+      <p class="rise max-w-md font-body text-lede leading-[1.9] text-lilac/80">
+        For inquiries, speaking requests, or to reach the team.
+      </p>
+      <p class="rise mt-8" style="--delay:220ms">
+        <a href={`mailto:${SITE.email}`}
+          class="link-ink font-display text-[clamp(1.3rem,1rem+1.6vw,2.4rem)] leading-tight break-words text-pearl">
+          {SITE.email}
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,33 @@
+# dependencies — never uploaded, rebuilt by Netlify from package.json
+node_modules/
+studio/node_modules/
+
+# build output — regenerated on every deploy
+dist/
+studio/dist/
+.astro/
+.netlify/
+
+# secrets — must never reach GitHub
+.env
+.env.local
+.env.production
+*.local
+studio/.env
+studio/.env.local
+
+# sanity local state
+studio/.sanity/
+
+# editor / os
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

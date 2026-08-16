@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@lib/site';
+const year = new Date().getFullYear();
+---
+
+<BaseLayout title="Terms" description="Terms of use." noindex>
+  <section class="mx-auto max-w-[88rem] px-5 pt-16 pb-24 sm:px-8 lg:px-12 lg:pt-24">
+    <div class="grid lg:grid-cols-12">
+      <div class="lg:col-span-7 lg:col-start-3">
+        <p class="label mb-7">Legal</p>
+        <h1 class="font-display text-display-md leading-tight font-light text-ink-900">
+          Terms of Use
+        </h1>
+
+        <div class="mt-10 border border-gold-400/50 bg-gold-500/5 p-6">
+          <p class="label label-gold mb-2">Placeholder — needs real content</p>
+          <p class="prose-editorial text-base">
+            Terms of use should be written or reviewed by someone qualified. The copyright
+            statement below reflects the actual position and is a reasonable starting point.
+          </p>
+        </div>
+
+        <div class="prose-editorial mt-12">
+          <h2 class="mt-10 font-display text-2xl font-light text-ink-900">Copyright</h2>
+          <p>
+            All poetry, writing, photography, and other content on this website is © {year}
+            {' '}Shannon Suttles, unless stated otherwise. All rights reserved.
+          </p>
+          <p>
+            The poems may be read, shared by link, and quoted briefly with attribution. They may
+            not be reproduced in full, republished, adapted, set to music, printed for
+            distribution, or used commercially without written permission.
+          </p>
+
+          <h2 class="mt-10 font-display text-2xl font-light text-ink-900">Trademarks</h2>
+          <p>
+            Firebrand Revivalists™ and the names and logos of the organisations referenced on this
+            site remain the property of their respective owners.
+          </p>
+
+          <h2 class="mt-10 font-display text-2xl font-light text-ink-900">Links</h2>
+          <p>
+            This site links to other websites and to third-party giving services. Those sites are
+            governed by their own terms and privacy policies.
+          </p>
+
+          <h2 class="mt-10 font-display text-2xl font-light text-ink-900">Permissions</h2>
+          <p>
+            Requests to reprint or reuse any of this work can be sent to
+            <a href={`mailto:${SITE.email}`} class="link-editorial">{SITE.email}</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

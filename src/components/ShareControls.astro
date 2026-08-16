@@ -1,0 +1,67 @@
+---
+import { SITE } from '@lib/site';
+
+interface Props {
+  title: string;
+  url: string;
+}
+
+const { title, url } = Astro.props;
+const full = new URL(url, SITE.url).href;
+const encodedUrl = encodeURIComponent(full);
+const encodedTitle = encodeURIComponent(title);
+
+// Deliberately small and text-led. Social icons at any real size would
+// compete with the poem, which is the one thing that must not happen.
+const links = [
+  { label: 'X', href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}` },
+  { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+  {
+    label: 'Email',
+    href: `mailto:?subject=${encodedTitle}&body=${encodedTitle}%0A%0A${encodedUrl}`,
+  },
+];
+---
+
+<div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+  <span class="label label-quiet">Share</span>
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        class="link-ink font-ui text-sm text-lavender/70"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {link.label}
+      </a>
+    ))
+  }
+  <button
+    type="button"
+    class="copy-link link-ink font-ui text-sm text-lavender/70"
+    data-url={full}
+  >
+    Copy link
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const url = button.dataset.url;
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+        const original = button.textContent;
+        button.textContent = 'Copied';
+        setTimeout(() => {
+          button.textContent = original;
+        }, 2000);
+      } catch {
+        // Clipboard access can be refused; the other share links still work.
+        button.textContent = 'Press ⌘C to copy';
+      }
+    });
+  });
+</script>
