@@ -125,7 +125,7 @@ export interface GivingOption {
 export const GIVING: GivingOption[] = [
   {
     name: 'PayPal',
-    href: 'https://www.paypal.com/biz/profile/firebrandrevivalists',
+    href: 'https://www.paypal.com/donate/?hosted_button_id=7WKL2AJ6W4XJN',
   },
   {
     name: 'Venmo',
