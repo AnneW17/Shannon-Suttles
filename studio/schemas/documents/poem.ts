@@ -13,7 +13,7 @@ import { defineField, defineType } from 'sanity';
  */
 export default defineType({
   name: 'poem',
-  title: 'Poem',
+  title: 'Word or Prayer',
   type: 'document',
 
   groups: [
@@ -29,16 +29,16 @@ export default defineType({
       title: 'Title',
       type: 'string',
       group: 'write',
-      validation: (Rule) => Rule.required().error('Every poem needs a title.'),
+      validation: (Rule) => Rule.required().error('Every entry needs a title.'),
     }),
 
     defineField({
       name: 'body',
-      title: 'The poem',
+      title: 'The words',
       type: 'array',
       group: 'write',
       description:
-        'Write or paste your poem here. Press Enter to start a new line. Press Enter twice to leave a blank line between stanzas. Your line breaks and spacing appear on the website exactly as you type them.',
+        'Write or paste the word or prayer here. Press Enter to start a new line. Press Enter twice to leave a blank line between sections. Your line breaks and spacing appear on the website exactly as you type them.',
       of: [
         {
           type: 'block',
@@ -74,7 +74,7 @@ export default defineType({
           },
         },
       ],
-      validation: (Rule) => Rule.required().error('The poem cannot be empty.'),
+      validation: (Rule) => Rule.required().error('This cannot be empty.'),
     }),
 
     defineField({
@@ -84,7 +84,7 @@ export default defineType({
       rows: 3,
       group: 'write',
       description:
-        'Optional. One or two lines shown beneath the title on the poetry page and when the poem is shared. If you leave this blank, the opening of the poem is used.',
+        'Optional. One or two lines shown beneath the title in the list and when shared. If you leave this blank, the opening lines are used.',
       validation: (Rule) =>
         Rule.max(280).warning('Shorter reads better here — aim for under 280 characters.'),
     }),
@@ -116,7 +116,7 @@ export default defineType({
       title: 'Date',
       type: 'datetime',
       group: 'details',
-      description: 'The date shown with the poem. Defaults to today.',
+      description: 'The date shown with it. Defaults to today.',
       initialValue: () => new Date().toISOString(),
       validation: (Rule) => Rule.required(),
     }),
@@ -127,7 +127,7 @@ export default defineType({
       type: 'reference',
       to: [{ type: 'category' }],
       group: 'details',
-      description: 'Which part of the collection does this poem belong to?',
+      description: 'Which part of the collection does this belong to?',
     }),
 
     defineField({
@@ -138,7 +138,7 @@ export default defineType({
       of: [{ type: 'string' }],
       options: { layout: 'tags' },
       description:
-        'Optional. A few words describing the poem — grief, motherhood, surrender. Type a word and press Enter.',
+        'Optional. A few words describing it — prayer, declaration, surrender. Type a word and press Enter.',
     }),
 
     defineField({
@@ -148,7 +148,7 @@ export default defineType({
       group: 'details',
       options: { hotspot: true },
       description:
-        'Optional. Appears at the top of the poem. After uploading, you can drag the circle to choose which part stays visible when the image is cropped.',
+        'Optional. Appears at the top of the page. After uploading, you can drag the circle to choose which part stays visible when the image is cropped.',
       fields: [
         defineField({
           name: 'alt',
@@ -175,17 +175,17 @@ export default defineType({
       group: 'details',
       initialValue: false,
       description:
-        'Only one poem is featured at a time. Turning this on for a new poem replaces the previous one.',
+        'Only one is featured at a time. Turning this on for a new entry replaces the previous one.',
     }),
 
     defineField({
       name: 'showSignature',
-      title: 'Sign this poem',
+      title: 'Sign this',
       type: 'boolean',
       group: 'details',
       initialValue: true,
       description:
-        'Adds your signature to the end of the poem. Your signature is set once under Settings.',
+        'Adds your signature to the end. Your signature is set once under Settings.',
     }),
 
     // ------------------------------------------------------------------ SEO
@@ -195,7 +195,7 @@ export default defineType({
       type: 'string',
       group: 'seo',
       description:
-        'Optional. Leave blank to use the poem title. Around 60 characters works best.',
+        'Optional. Leave blank to use the title. Around 60 characters works best.',
       validation: (Rule) => Rule.max(70).warning('Longer titles get cut off in search results.'),
     }),
 

@@ -31,11 +31,11 @@ export default defineConfig({
           .title('Content')
           .items([
             S.listItem()
-              .title('Poems')
+              .title('Words & Prayers')
               .schemaType('poem')
               .child(
                 S.documentTypeList('poem')
-                  .title('Poems')
+                  .title('Words & Prayers')
                   .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
               ),
 

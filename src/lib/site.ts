@@ -11,15 +11,15 @@
 
 export const SITE = {
   name: 'Shannon Suttles',
-  tagline: 'Poetry · Testimony · Living Legacy',
+  tagline: 'Words from the Lord · Written Prayers to Pray',
   description:
-    'The poetry of Shannon Suttles — prayers, remembrances, laments, and honest conversations with God.',
+    'Words from the Lord and written prayers to pray — shared by Shannon Suttles.',
   email: 'info@firebrandrevivalists.com',
   url: import.meta.env.PUBLIC_SITE_URL || 'https://shannonsuttles.com',
 } as const;
 
 export const NAV = [
-  { label: 'Poetry', href: '/poetry' },
+  { label: 'Words & Prayers', href: '/poetry' },
   { label: 'About', href: '/about' },
   { label: 'Ventures', href: '/work' },
   { label: "Contact Shannon's Team", href: '/contact' },

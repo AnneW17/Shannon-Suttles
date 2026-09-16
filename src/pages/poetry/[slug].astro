@@ -52,7 +52,7 @@ const schema = {
   '@id': new URL(`/poetry/${poem.slug}`, SITE.url).href,
   name: poem.title,
   headline: poem.title,
-  genre: 'Poetry',
+  genre: 'Devotional',
   datePublished: poem.publishedAt,
   description,
   inLanguage: 'en',
@@ -86,7 +86,7 @@ const schema = {
         class="ink-art ink-far drift drift-mid left-[26%] bottom-[8%] w-[7rem] lg:w-[9rem]" />
       <div class="layer-content mx-auto max-w-[94rem] px-6 pt-14 pb-16 sm:px-10 lg:px-16 lg:pt-20 lg:pb-20">
       <nav aria-label="Breadcrumb" class="mb-12">
-        <a href="/poetry" class="label link-editorial label-gold">← Poetry</a>
+        <a href="/poetry" class="label link-editorial label-gold">← Words &amp; Prayers</a>
       </nav>
 
       <div class="grid gap-8 lg:grid-cols-12">
@@ -177,7 +177,7 @@ const schema = {
             <PoemListItem poem={item} showImage={false} />
           ))}
           <p class="mt-12">
-            <a href="/poetry" class="label link-editorial label-gold">All Poetry</a>
+            <a href="/poetry" class="label link-editorial label-gold">All Words &amp; Prayers</a>
           </p>
         </div>
       </section>
