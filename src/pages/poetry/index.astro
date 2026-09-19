@@ -35,8 +35,8 @@ const hasWork = poems.length > 0;
   </section>
 
   {hasWork ? (
-    <section class="g-pearl relative overflow-hidden">
-      <div class="mx-auto max-w-[96rem] px-7 py-20 sm:px-12 lg:px-20 lg:py-28">
+    <section class="g-depth relative overflow-hidden">
+      <div class="above mx-auto max-w-[96rem] px-7 py-16 sm:px-12 lg:px-20 lg:py-20">
         {poems.map((poem, i) => <PoemListItem poem={poem} index={i} />)}
       </div>
     </section>
