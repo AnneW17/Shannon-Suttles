@@ -4,64 +4,106 @@ import { SITE } from '@lib/site';
 interface Props {
   title: string;
   url: string;
+  excerpt?: string;
 }
 
-const { title, url } = Astro.props;
+const { title, url, excerpt } = Astro.props;
 const full = new URL(url, SITE.url).href;
 const encodedUrl = encodeURIComponent(full);
 const encodedTitle = encodeURIComponent(title);
+const encodedBody = encodeURIComponent(`${title}\n\n${excerpt ? excerpt + '\n\n' : ''}${full}`);
 
-// Deliberately small and text-led. Social icons at any real size would
-// compete with the poem, which is the one thing that must not happen.
+/**
+ * SHARING
+ *
+ * The primary control is the device's own share sheet, via the Web Share API.
+ * On a phone that opens Facebook, Messages, WhatsApp, Instagram, email — all
+ * of it — with the title and link already filled in. It is the thing people
+ * actually mean when they say "share this".
+ *
+ * The named links below are the desktop fallback, shown only when the browser
+ * has no share sheet. Facebook is deliberately not among them: it stopped
+ * accepting a title or description through sharer.php, so that link opens a
+ * bare compose box rather than a preview. What produces the preview card is
+ * the Open Graph tags on the page (see SEO.astro) — which means pasting the
+ * link straight into Facebook gives a *better* result than the button did.
+ */
 const links = [
   { label: 'X', href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}` },
-  { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
-  {
-    label: 'Email',
-    href: `mailto:?subject=${encodedTitle}&body=${encodedTitle}%0A%0A${encodedUrl}`,
-  },
+  { label: 'Email', href: `mailto:?subject=${encodedTitle}&body=${encodedBody}` },
 ];
 ---
 
-<div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+<div class="share flex flex-wrap items-center gap-x-6 gap-y-3" data-url={full} data-title={title}>
   <span class="label label-quiet">Share</span>
-  {
-    links.map((link) => (
-      <a
-        href={link.href}
-        class="link-ink font-ui text-sm text-lavender/70"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {link.label}
-      </a>
-    ))
-  }
-  <button
-    type="button"
-    class="copy-link link-ink font-ui text-sm text-lavender/70"
-    data-url={full}
-  >
+
+  <!-- Shown only where the device has a share sheet. Hidden by default so it
+       never appears without working. -->
+  <button type="button" class="share-native link-ink font-ui text-sm text-gold-lum" hidden>
+    Share this
+  </button>
+
+  <span class="share-fallback flex flex-wrap items-center gap-x-6 gap-y-3">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class="link-ink font-ui text-sm text-lavender/70"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </span>
+
+  <button type="button" class="copy-link link-ink font-ui text-sm text-lavender/70">
     Copy link
   </button>
 </div>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((button) => {
-    button.addEventListener('click', async () => {
-      const url = button.dataset.url;
-      if (!url) return;
+  document.querySelectorAll<HTMLElement>('.share').forEach((root) => {
+    const url = root.dataset.url ?? '';
+    const title = root.dataset.title ?? '';
+    const nativeBtn = root.querySelector<HTMLButtonElement>('.share-native');
+    const fallback = root.querySelector<HTMLElement>('.share-fallback');
+    const copyBtn = root.querySelector<HTMLButtonElement>('.copy-link');
+
+    // Prefer the device's share sheet where one exists — phones and tablets,
+    // and Safari on the desktop.
+    if (nativeBtn && typeof navigator.share === 'function') {
+      nativeBtn.hidden = false;
+      fallback?.remove();
+
+      nativeBtn.addEventListener('click', async () => {
+        try {
+          await navigator.share({ title, url });
+        } catch {
+          // The sheet was dismissed, which is not an error worth surfacing.
+        }
+      });
+    }
+
+    copyBtn?.addEventListener('click', async () => {
+      const original = copyBtn.textContent;
       try {
         await navigator.clipboard.writeText(url);
-        const original = button.textContent;
-        button.textContent = 'Copied';
-        setTimeout(() => {
-          button.textContent = original;
-        }, 2000);
+        copyBtn.textContent = 'Link copied';
       } catch {
-        // Clipboard access can be refused; the other share links still work.
-        button.textContent = 'Press ⌘C to copy';
+        // Clipboard access can be refused over http or in a locked-down
+        // browser. Select the url so the reader can copy it by hand.
+        const field = document.createElement('input');
+        field.value = url;
+        root.appendChild(field);
+        field.select();
+        copyBtn.textContent = 'Press Ctrl+C';
+        setTimeout(() => field.remove(), 4000);
       }
+      setTimeout(() => {
+        copyBtn.textContent = original;
+      }, 2500);
     });
   });
 </script>
