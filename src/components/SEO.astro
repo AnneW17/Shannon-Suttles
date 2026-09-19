@@ -21,7 +21,11 @@ const {
 
 const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — Poetry, Testimony, Living Legacy`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href.replace(/\/$/, '') || SITE.url;
-const ogImage = image ? new URL(image, SITE.url).href : new URL('/brand/banner.png', SITE.url).href;
+// The preview card a link shows when it is pasted into Facebook, a text
+// message or an email. A post's own image wins; otherwise the branded card,
+// built at the 1200x630 the platforms expect. This used to fall back to the
+// old champagne banner, which no longer looks anything like the site.
+const ogImage = image ? new URL(image, SITE.url).href : new URL('/brand/share-card.jpg', SITE.url).href;
 ---
 
 <title>{pageTitle}</title>
