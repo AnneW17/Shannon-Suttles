@@ -315,24 +315,34 @@
   }
 
   .poem p {
-    margin: 0;
-    /* NOTE: no `white-space: pre-wrap` here, deliberately.
-       The Portable Text renderer already converts leading and repeated
-       spaces to &nbsp; and soft line breaks to <br>, so indentation and
-       breaks survive on their own. Adding pre-wrap on top would be
-       redundant and would additionally turn any stray newline in the
-       generated markup into a visible break in the poem. Verified by
-       tests/poem-render.test.mjs. */
+    /* Paragraphs are separated by space, the way prose is set. Shannon
+       writes teaching and prayers in full paragraphs, not verse. */
+    margin: 0 0 1.15em;
+
+    /* NO hanging indent.
+       An earlier version used padding-left with a negative text-indent, so
+       every wrapped line stepped to the right. That is correct for verse,
+       where a wrapped line must look different from a line the poet chose
+       to break — but on a paragraph of prose it reads as broken formatting.
+
+       NOTE: no `white-space: pre-wrap` here either, deliberately. The
+       Portable Text renderer already converts leading and repeated spaces
+       to &nbsp; and soft line breaks to <br>, so deliberate indentation and
+       breaks still survive. Verified by tests/poem-render.test.mjs. */
+    padding-left: 0;
+    text-indent: 0;
     text-wrap: pretty;
-    padding-left: 1.25em;
-    text-indent: -1.25em;
   }
+
+  .poem p:last-child { margin-bottom: 0; }
 
   /* An empty block = a stanza break. The non-breaking space guarantees the
      paragraph occupies a full line even if line-height changes. */
   .poem p:empty {
     padding: 0;
     text-indent: 0;
+    margin: 0;
+    height: 0.75em;
   }
 
   .poem p:empty::before {
@@ -373,8 +383,7 @@
       line-height: 1.78;
     }
     .poem p {
-      padding-left: 1em;
-      text-indent: -1em;
+      margin-bottom: 1.05em;
     }
   }
 }
