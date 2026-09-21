@@ -317,7 +317,7 @@
   .poem p {
     /* Paragraphs are separated by space, the way prose is set. Shannon
        writes teaching and prayers in full paragraphs, not verse. */
-    margin: 0 0 1.15em;
+    margin: 0 0 1.05em;
 
     /* NO hanging indent.
        An earlier version used padding-left with a negative text-indent, so
@@ -342,12 +342,12 @@
     padding: 0;
     text-indent: 0;
     margin: 0;
-    height: 0.75em;
+    height: 0;
+    overflow: hidden;
   }
 
-  .poem p:empty::before {
-    content: "\00a0";
-  }
+  /* No &nbsp; filler: the paragraph margin already separates the text, and
+     the filler was adding a second gap on top of it. */
 
   /* Soft breaks (Shift+Enter) come through as <br>. */
   .poem br {
@@ -383,7 +383,7 @@
       line-height: 1.78;
     }
     .poem p {
-      margin-bottom: 1.05em;
+      margin-bottom: 0.95em;
     }
   }
 }
