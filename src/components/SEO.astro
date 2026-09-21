@@ -19,7 +19,12 @@ const {
   noindex = false,
 } = Astro.props;
 
-const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — Poetry, Testimony, Living Legacy`;
+// The home page has no title of its own, so it falls back to this. It used
+// to carry "Poetry, Testimony, Living Legacy" hard-coded here, which survived
+// the rename everywhere else and kept showing up in search results and
+// Facebook previews. It now reads from SITE.tagline, so there is one place
+// to change it rather than two.
+const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href.replace(/\/$/, '') || SITE.url;
 // The preview card a link shows when it is pasted into Facebook, a text
 // message or an email. A post's own image wins; otherwise the branded card,
