@@ -26,6 +26,24 @@ import { toHTML, type PortableTextBlock } from '@portabletext/to-html';
  * file; they are documented here because the stylesheet depends on them and
  * tests/poem-render.test.mjs asserts them.
  */
+/**
+ * Is this paragraph visually blank?
+ *
+ * Trimming alone is not enough. A blank line typed with Shift+Enter arrives
+ * as a newline inside the text, which the serializer turns into `<br>`, so
+ * the paragraph is `<p><br></p>` — not empty by any CSS measure, and it takes
+ * a full line. Pasting from email produces these constantly.
+ *
+ * Stripping the break tags and the non-breaking spaces first means a line
+ * that looks blank is treated as blank, whichever way it was made.
+ */
+function isBlank(html: string): boolean {
+  return html
+    .replace(/<br\s*\/?>/gi, '')
+    .replace(/&nbsp;|&#160;|\u00a0/gi, ' ')
+    .trim() === '';
+}
+
 export function renderPoem(blocks: PortableTextBlock[] | undefined): string {
   if (!blocks?.length) return '';
 
@@ -33,10 +51,8 @@ export function renderPoem(blocks: PortableTextBlock[] | undefined): string {
     components: {
       block: {
         normal: ({ children }) => {
-          // `children` is an empty string for a blank line. Emitting an empty
-          // paragraph (rather than nothing) is what preserves the stanza gap.
           const content = typeof children === 'string' ? children : String(children ?? '');
-          return content.trim() === '' ? '<p></p>' : `<p>${content}</p>`;
+          return isBlank(content) ? '<p></p>' : `<p>${content}</p>`;
         },
         h2: ({ children }) => `<h2>${children}</h2>`,
         h3: ({ children }) => `<h3>${children}</h3>`,
