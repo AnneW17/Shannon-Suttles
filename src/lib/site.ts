@@ -19,7 +19,7 @@ export const SITE = {
 } as const;
 
 export const NAV = [
-  { label: 'Words & Prayers', href: '/poetry' },
+  { label: 'Words & Prayers', href: '/words' },
   { label: 'About', href: '/about' },
   { label: 'Ventures', href: '/work' },
   { label: "Contact Shannon's Team", href: '/contact' },

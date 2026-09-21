@@ -27,7 +27,10 @@ export default defineConfig({
       // Never advertise a page that carries a noindex tag. Privacy and terms
       // are placeholders until real legal copy lands — remove them from this
       // list at the same time as the noindex prop on those pages.
-      filter: (page) => !['/privacy', '/terms'].some((p) => page.includes(p)),
+      // /poetry is only a redirect to /words now, so it is kept out — a
+      // sitemap should list destinations, not signposts. Privacy and terms
+      // carry noindex until real legal copy lands.
+      filter: (page) => !['/privacy', '/terms', '/poetry'].some((p) => page.includes(p)),
     }),
   ],
 

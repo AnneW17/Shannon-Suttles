@@ -23,3 +23,24 @@
 # The site is fully static — no serverless function in front of any page.
 # The draft-preview route is disabled (see astro.config.mjs), so its header
 # rule has been removed with it.
+
+# ── Address change: /poetry became /words ──
+# Every link already shared — on Facebook, in a message, in an email — still
+# works. A 301 tells search engines the move is permanent, so the pages keep
+# whatever standing they have built up.
+#
+# The `force = true` matters: without it Netlify serves a matching file in
+# preference to a redirect, and any leftover page at the old address would
+# win instead.
+
+[[redirects]]
+  from = "/poetry/*"
+  to = "/words/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/poetry"
+  to = "/words"
+  status = 301
+  force = true
