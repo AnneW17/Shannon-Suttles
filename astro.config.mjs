@@ -30,11 +30,7 @@ export default defineConfig({
       // /poetry is only a redirect to /words now, so it is kept out — a
       // sitemap should list destinations, not signposts. Privacy and terms
       // carry noindex until real legal copy lands.
-      // /contact/thanks is a post-submission landing page carrying noindex —
-      // someone arriving there from a search result would be thanked for a
-      // message they never sent.
-      filter: (page) =>
-        !['/privacy', '/terms', '/poetry', '/contact/thanks'].some((p) => page.includes(p)),
+      filter: (page) => !['/privacy', '/terms', '/poetry'].some((p) => page.includes(p)),
     }),
   ],
 

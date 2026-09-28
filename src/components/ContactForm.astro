@@ -2,36 +2,41 @@
 /**
  * CONTACT FORM
  *
- * Handled by Netlify Forms. There is no server here and no database: Netlify
- * reads this markup when the site deploys, recognises `data-netlify`, and
- * from then on catches every submission itself. Entries are stored in the
- * Netlify dashboard under Forms, where they can be read, searched and
- * exported to CSV, and Netlify emails a copy to whichever address is set up
- * in the notification settings.
+ * This posts to Buttondown, not to a form service. Everyone who writes in is
+ * added to the mailing list, and everything they typed — their name, their
+ * organisation, what they were writing about, and the message itself — is
+ * stored against their record as subscriber metadata. One list, one place to
+ * look, nothing kept in two systems that then disagree.
  *
- * That is what makes this trackable without anything to maintain — and it is
- * why the form must ship in plain HTML rather than being built by JavaScript
- * after the page loads. Netlify has to be able to see the fields in the
- * deployed file. Do not convert this to a client-rendered component.
+ * Buttondown's own documentation is explicit that this endpoint must be the
+ * `action` of a real HTML form and must NOT be called with fetch(), because
+ * the visitor sometimes has to follow the response to clear a CAPTCHA or fix
+ * a validation error. So: no JavaScript here, and do not add any.
  *
- * FREE TIER: 100 submissions a month. Past that Netlify stops accepting them
- * rather than charging, so if this page ever gets busy it needs watching.
+ * Buttondown then emails the person a confirmation link. They are not on the
+ * list until they click it — that double step is what keeps the list clean
+ * and keeps the ministry out of spam folders. Until they click, they appear
+ * in Buttondown as unactivated, with their message intact, so nothing said
+ * here is ever lost.
  *
- * SPAM: `netlify-honeypot` adds an invisible field. A person never sees it,
- * so never fills it; automated scripts fill every field they find, and
- * anything with that field filled is discarded silently. No CAPTCHA, which
- * would otherwise be one more obstacle between a real person and reaching
- * Shannon.
+ * The `tag` marks where the person came from, so enquiries can be told apart
+ * from people who simply signed up for the writing.
  */
 
-import { SITE } from '@lib/site';
+import { SITE, SUBSCRIBE } from '@lib/site';
 
 interface Props {
-  /** Where Netlify sends the visitor after a successful submission. */
+  /** Overrides the endpoint. Present for testing; leave unset in the site. */
   action?: string;
 }
 
-const { action = '/contact/thanks' } = Astro.props;
+const { action } = Astro.props;
+
+const endpoint =
+  action ??
+  (SUBSCRIBE.username
+    ? `https://buttondown.com/api/emails/embed-subscribe/${SUBSCRIBE.username}`
+    : null);
 
 const field =
   'w-full border-0 border-b border-gold-lum/30 bg-transparent px-0 py-3 font-body text-lg ' +
@@ -40,33 +45,17 @@ const field =
 const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-lavender/70 mb-1';
 ---
 
-<form
-  name="contact"
-  method="POST"
-  action={action}
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  class="rise mt-12 max-w-2xl"
->
-  {/* Netlify matches the submission to the form by this value. Without it
-      every entry arrives unlabelled. */}
-  <input type="hidden" name="form-name" value="contact" />
-
-  {/* The honeypot. Hidden from sight and from screen readers, and never
-      focusable by keyboard, so no real visitor can reach it by accident. */}
-  <p class="hidden" aria-hidden="true">
-    <label>
-      Leave this field empty
-      <input name="bot-field" tabindex="-1" autocomplete="off" />
-    </label>
-  </p>
+{endpoint && (
+<form method="post" action={endpoint} target="_blank" class="rise mt-12 max-w-2xl">
+  <input type="hidden" name="embed" value="1" />
+  <input type="hidden" name="tag" value="website-enquiry" />
 
   <div class="grid gap-8 sm:grid-cols-2">
     <div>
       <label for="cf-name" class={labelClass}>Full name</label>
       <input
         id="cf-name"
-        name="name"
+        name="metadata__first_name"
         type="text"
         required
         autocomplete="name"
@@ -93,7 +82,7 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
     </label>
     <input
       id="cf-org"
-      name="organisation"
+      name="metadata__organisation"
       type="text"
       required
       autocomplete="organization"
@@ -109,7 +98,7 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
       selection alongside the message. */}
   <div class="mt-8">
     <label for="cf-subject" class={labelClass}>Nature of enquiry</label>
-    <select id="cf-subject" name="subject" required class={`${field} cf-select appearance-none`}>
+    <select id="cf-subject" name="metadata__enquiry_type" required class={`${field} cf-select appearance-none`}>
       <option value="" disabled selected>Please select</option>
       <option value="General enquiry">General enquiry</option>
       <option value="Speaking or ministry invitation">Speaking or ministry invitation</option>
@@ -123,7 +112,7 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
     <label for="cf-message" class={labelClass}>Message</label>
     <textarea
       id="cf-message"
-      name="message"
+      name="metadata__message"
       required
       rows="6"
       class={`${field} resize-y`}></textarea>
@@ -137,29 +126,31 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
   <div class="mt-10 flex gap-4">
     <input
       id="cf-consent"
-      name="consent"
+      name="metadata__consent"
       type="checkbox"
       required
-      value="agreed"
+      value="Agreed via website contact form"
       class="mt-1.5 h-4 w-4 shrink-0 accent-[var(--color-gold-lum)]"
     />
     <label for="cf-consent" class="font-ui text-sm leading-relaxed text-lavender/75">
-      I consent to the details provided above being retained and used by
-      Firebrand Revivalists&trade; for the purpose of responding to this
-      enquiry.
+      I consent to the details above being retained by Firebrand
+      Revivalists&trade; in order to respond to this enquiry, and I would like
+      to receive Shannon&rsquo;s words and written prayers by email. I may
+      unsubscribe at any time.
     </label>
   </div>
 
   <p class="mt-5 max-w-xl font-ui text-xs leading-relaxed text-mauve">
-    Submitting this form does not add you to any mailing list. Submissions are
-    received privately by Shannon&rsquo;s team and are used solely to respond
-    to your enquiry. Your information is never sold, rented, or disclosed to
-    third parties. To request its removal at any time, write to{' '}
+    You will be sent a confirmation email; please click the link inside it so
+    that your message reaches the team and your subscription begins. Your
+    details are held privately and are never sold, rented, or disclosed to
+    third parties. To request removal at any time, write to{' '}
     <a href={`mailto:${SITE.email}`} class="link-ink text-lilac">{SITE.email}</a>.
   </p>
 
   <button type="submit" class="btn-ink mt-10">Submit enquiry</button>
 </form>
+)}
 
 <style>
   /**
