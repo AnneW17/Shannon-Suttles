@@ -18,6 +18,23 @@ export const SITE = {
   url: import.meta.env.PUBLIC_SITE_URL || 'https://shannonsuttles.com',
 } as const;
 
+/**
+ * MAILING LIST
+ *
+ * Fill in `username` with the Buttondown username once the account exists —
+ * it is the name in the dashboard address, buttondown.com/<username>.
+ *
+ * While it is empty the signup form renders nothing at all, so the site never
+ * shows a form that quietly fails. Nothing else needs changing.
+ */
+export const SUBSCRIBE = {
+  // Verified against buttondown.com/AWHALEY17 — the account resolves and the
+  // capitalisation is the canonical form (lowercase redirects to it). Left
+  // exactly as Buttondown spells it rather than tidied to lowercase, because
+  // the subscribe endpoint is built from this string.
+  username: 'AWHALEY17',
+} as const;
+
 export const NAV = [
   { label: 'Words & Prayers', href: '/words' },
   { label: 'About', href: '/about' },

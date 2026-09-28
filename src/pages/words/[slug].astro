@@ -4,6 +4,7 @@ import PoemBody from '@components/PoemBody.astro';
 import Signature from '@components/Signature.astro';
 import ShareControls from '@components/ShareControls.astro';
 import PoemListItem from '@components/PoemListItem.astro';
+import Subscribe from '@components/Subscribe.astro';
 import {
   getAllPoems,
   getPoemBySlug,
@@ -166,6 +167,11 @@ const schema = {
       </div>
     </div></div>
   </article>
+
+  <!-- ══════════════════════════════════════════════ SUBSCRIBE
+       Placed after the words rather than before them: the moment someone
+       has just finished reading is the only moment the ask is welcome. -->
+  <Subscribe tone="dark" />
 
   <!-- ══════════════════════════════════════════════ RELATED -->
   {

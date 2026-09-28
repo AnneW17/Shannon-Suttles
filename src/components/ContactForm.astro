@@ -1,0 +1,147 @@
+---
+/**
+ * CONTACT FORM
+ *
+ * Handled by Netlify Forms. There is no server here and no database: Netlify
+ * reads this markup when the site deploys, recognises `data-netlify`, and
+ * from then on catches every submission itself. Entries are stored in the
+ * Netlify dashboard under Forms, where they can be read, searched and
+ * exported to CSV, and Netlify emails a copy to whichever address is set up
+ * in the notification settings.
+ *
+ * That is what makes this trackable without anything to maintain — and it is
+ * why the form must ship in plain HTML rather than being built by JavaScript
+ * after the page loads. Netlify has to be able to see the fields in the
+ * deployed file. Do not convert this to a client-rendered component.
+ *
+ * FREE TIER: 100 submissions a month. Past that Netlify stops accepting them
+ * rather than charging, so if this page ever gets busy it needs watching.
+ *
+ * SPAM: `netlify-honeypot` adds an invisible field. A person never sees it,
+ * so never fills it; automated scripts fill every field they find, and
+ * anything with that field filled is discarded silently. No CAPTCHA, which
+ * would otherwise be one more obstacle between a real person and reaching
+ * Shannon.
+ */
+
+interface Props {
+  /** Where Netlify sends the visitor after a successful submission. */
+  action?: string;
+}
+
+const { action = '/contact/thanks' } = Astro.props;
+
+const field =
+  'w-full border-0 border-b border-gold-lum/30 bg-transparent px-0 py-3 font-body text-lg ' +
+  'text-pearl placeholder:text-lavender/40 focus:border-gold-lum focus:outline-none';
+
+const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-lavender/70 mb-1';
+---
+
+<form
+  name="contact"
+  method="POST"
+  action={action}
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="rise mt-12 max-w-2xl"
+>
+  {/* Netlify matches the submission to the form by this value. Without it
+      every entry arrives unlabelled. */}
+  <input type="hidden" name="form-name" value="contact" />
+
+  {/* The honeypot. Hidden from sight and from screen readers, and never
+      focusable by keyboard, so no real visitor can reach it by accident. */}
+  <p class="hidden" aria-hidden="true">
+    <label>
+      Leave this field empty
+      <input name="bot-field" tabindex="-1" autocomplete="off" />
+    </label>
+  </p>
+
+  <div class="grid gap-8 sm:grid-cols-2">
+    <div>
+      <label for="cf-name" class={labelClass}>Name</label>
+      <input
+        id="cf-name"
+        name="name"
+        type="text"
+        required
+        autocomplete="name"
+        placeholder="Your name"
+        class={field}
+      />
+    </div>
+
+    <div>
+      <label for="cf-email" class={labelClass}>Email</label>
+      <input
+        id="cf-email"
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        placeholder="you@example.com"
+        class={field}
+      />
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <label for="cf-org" class={labelClass}>
+      Church, ministry, or organisation
+    </label>
+    <input
+      id="cf-org"
+      name="organisation"
+      type="text"
+      required
+      autocomplete="organization"
+      placeholder="Or write N/A"
+      class={field}
+    />
+    <p class="mt-2 font-ui text-xs text-mauve">
+      If you are writing personally, put N/A.
+    </p>
+  </div>
+
+  <div class="mt-8">
+    <label for="cf-message" class={labelClass}>Message</label>
+    <textarea
+      id="cf-message"
+      name="message"
+      required
+      rows="6"
+      placeholder="How can the team help?"
+      class={`${field} resize-y`}></textarea>
+  </div>
+
+  {/* CONSENT
+      Required, so the form cannot be submitted without it, and the answer is
+      stored alongside the message — which is the point of recording consent
+      rather than merely displaying a notice. Deliberately written to stand on
+      its own: it does not depend on the visitor having read another page. */}
+  <div class="mt-10 flex gap-4">
+    <input
+      id="cf-consent"
+      name="consent"
+      type="checkbox"
+      required
+      value="agreed"
+      class="mt-1.5 h-4 w-4 shrink-0 accent-[var(--color-gold-lum)]"
+    />
+    <label for="cf-consent" class="font-ui text-sm leading-relaxed text-lavender/75">
+      I agree that the information I am submitting may be stored and used to
+      respond to me, and that a member of Shannon&rsquo;s team may contact me
+      about this message.
+    </label>
+  </div>
+
+  <p class="mt-5 font-ui text-xs leading-relaxed text-mauve">
+    Your details are used only to reply to you. They are never sold, rented, or
+    shared, and you may ask for them to be deleted at any time by writing to
+    the team.
+  </p>
+
+  <button type="submit" class="btn-ink mt-10">Send message</button>
+</form>

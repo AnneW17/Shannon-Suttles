@@ -1,0 +1,99 @@
+---
+import { SUBSCRIBE } from '@lib/site';
+
+interface Props {
+  /** 'dark' sits on obsidian, 'light' on the pearl ground. */
+  tone?: 'dark' | 'light';
+  heading?: string;
+  note?: string;
+}
+
+const {
+  tone = 'dark',
+  heading = 'Receive each word',
+  note = 'New words from the Lord and prayers to pray, sent as they are published.',
+} = Astro.props;
+
+const dark = tone === 'dark';
+
+/**
+ * SUBSCRIBE
+ *
+ * Posts straight to the email service, so there is no form handler, no
+ * database and no subscriber list for anyone here to maintain. The service
+ * stores the address, sends the confirmation, and handles unsubscribes —
+ * which is what keeps this compliant without Shannon administering anything.
+ *
+ * Until SUBSCRIBE.username is filled in (see src/lib/site.ts) this renders
+ * nothing at all, rather than showing a form that silently fails.
+ */
+const action = SUBSCRIBE.username
+  ? `https://buttondown.com/api/emails/embed-subscribe/${SUBSCRIBE.username}`
+  : null;
+---
+
+{
+  action && (
+    <section class={`relative overflow-hidden ${dark ? 'g-depth' : 'g-pearl'}`}>
+      <div class="mx-auto max-w-[96rem] px-7 py-16 sm:px-12 lg:px-20 lg:py-20">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div class="lg:col-span-5">
+            <p class="label rise mb-4" style={dark ? '' : 'color: var(--color-copper)'}>
+              {dark ? <span class="label-gold">Stay with the words</span> : 'Stay with the words'}
+            </p>
+            <h2
+              class={`font-display text-[clamp(1.4rem,1.1rem+1.4vw,2.2rem)] leading-tight font-normal rise ${
+                dark ? 'text-pearl' : 'text-obsidian'
+              }`}
+            >
+              {heading}
+            </h2>
+          </div>
+
+          <div class="lg:col-span-6 lg:col-start-7">
+            <p
+              class={`rise font-body text-lede leading-[1.8] ${dark ? 'text-lavender/75' : ''}`}
+              style={dark ? '' : 'color: var(--color-mauve)'}
+            >
+              {note}
+            </p>
+
+            <form
+              class="rise mt-8 flex flex-col gap-4 sm:flex-row sm:items-end"
+              action={action}
+              method="post"
+              target="_blank"
+            >
+              <div class="flex-1">
+                <label for="bd-email" class="sr-only">Email address</label>
+                <input
+                  id="bd-email"
+                  type="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="Your email address"
+                  class={`w-full border-0 border-b bg-transparent px-0 py-3 font-body text-lg focus:outline-none ${
+                    dark
+                      ? 'border-gold-lum/30 text-pearl placeholder:text-lavender/40 focus:border-gold-lum'
+                      : 'border-obsidian/20 text-obsidian placeholder:text-obsidian/35 focus:border-copper'
+                  }`}
+                />
+              </div>
+              <button type="submit" class={`btn-ink shrink-0 ${dark ? '' : 'btn-ink-dark'}`}>
+                Subscribe
+              </button>
+            </form>
+
+            <p
+              class={`rise mt-5 font-ui text-xs leading-relaxed ${dark ? 'text-mauve' : ''}`}
+              style={dark ? '' : 'color: var(--color-pewter)'}
+            >
+              No more than the words themselves. Unsubscribe at any time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

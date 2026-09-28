@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@lib/site';
+
+/**
+ * Where Netlify sends someone after their message is accepted.
+ *
+ * Netlify has its own generic confirmation page, but it is unbranded and
+ * lands the visitor somewhere that looks nothing like the site they were
+ * just on — which reads, for a moment, like something went wrong. This page
+ * exists so the handoff is quiet.
+ *
+ * noindex: there is no reason for this to appear in search results, and
+ * someone arriving here from Google would see a thank-you for a message
+ * they never sent.
+ */
+---
+
+<BaseLayout
+  title="Thank you"
+  description="Your message has been received."
+  noindex={true}
+>
+  <section class="g-depth relative min-h-[70vh] overflow-hidden">
+    <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-rev -right-[10%] top-0 w-[30rem] object-contain lg:right-[2%] lg:w-[38rem]" />
+
+    <div class="above mx-auto flex min-h-[70vh] max-w-[96rem] flex-col justify-center px-7 py-20 sm:px-12 lg:px-20">
+      <p class="label label-gold rise mb-9">Received</p>
+      <h1 class="rise">
+        <span class="display block text-pearl">Thank you</span>
+      </h1>
+      <hr class="rule-fine rule-short rise my-9" />
+      <p class="rise max-w-md font-body text-lede leading-[1.9] text-lilac/80">
+        Your message has reached Shannon&rsquo;s team. Someone will read it and
+        reply to the address you gave.
+      </p>
+      <p class="rise mt-10 font-ui text-sm text-mauve" style="--delay:220ms">
+        <a href="/words" class="link-ink text-lilac">Return to the words</a>
+        <span class="px-3 text-mauve">&middot;</span>
+        <a href={`mailto:${SITE.email}`} class="link-ink text-lilac">{SITE.email}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
