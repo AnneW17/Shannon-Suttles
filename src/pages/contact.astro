@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactForm from '@components/ContactForm.astro';
-import Subscribe from '@components/Subscribe.astro';
 import { SITE } from '@lib/site';
 ---
 
@@ -24,18 +23,6 @@ import { SITE } from '@lib/site';
         all correspondence with Shannon&rsquo;s team.
       </p>
 
-      {/* Two doors, and the smaller one is offered first. Most people arriving
-          here want the writing, not a conversation — and asking them to scroll
-          past a six-field enquiry form to find a single email box loses them.
-          The enquiry form follows for those who actually came to write. */}
-      <p class="rise mt-14 max-w-xl font-ui text-sm leading-relaxed text-lavender/70">
-        Only here for the writing?{' '}
-        <a href="#subscribe" class="link-ink text-lilac">
-          Sign up for the free newsletter
-        </a>{' '}
-        &mdash; it takes one field and no message.
-      </p>
-
       <ContactForm />
 
       {/* The address stays. A form can fail in ways a visitor cannot see —
@@ -50,12 +37,7 @@ import { SITE } from '@lib/site';
     </div>
   </section>
 
-  {/* Signing up and writing in are separate acts, and they stay separate
-      forms. Someone who asks a question has not asked to be emailed, and
-      quietly adding them is how a ministry ends up marked as spam. So the
-      newsletter gets its own plainly-labelled box on this page instead. */}
-  <Subscribe
-    heading="Sign up for the free newsletter"
-    note="Shannon's words from the Lord and written prayers to pray, sent to your inbox as they are published. There is no charge, and you may leave at any time."
-  />
+  {/* No signup box here. The newsletter has its own page in the navigation
+      now, so repeating it under the enquiry form only competed with the form
+      itself. Contact is for writing to the team; /subscribe is for the list. */}
 </BaseLayout>
