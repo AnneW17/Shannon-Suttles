@@ -39,6 +39,7 @@ export const NAV = [
   { label: 'Words & Prayers', href: '/words' },
   { label: 'About', href: '/about' },
   { label: 'Ventures', href: '/work' },
+  { label: 'Subscribe', href: '/subscribe' },
   { label: "Contact Shannon's Team", href: '/contact' },
 ] as const;
 

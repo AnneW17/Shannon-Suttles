@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Subscribe from '@components/Subscribe.astro';
+import { SITE, SUBSCRIBE } from '@lib/site';
+
+/**
+ * THE SUBSCRIBE PAGE
+ *
+ * A destination of its own, so the newsletter can be linked to directly —
+ * from the navigation, from a post on Facebook, from the bottom of an email.
+ * "Go to shannonsuttles.com and scroll down" loses people; a single address
+ * does not.
+ *
+ * If SUBSCRIBE.username is ever emptied, the form component renders nothing,
+ * and this page would become a heading with an empty space beneath it. So the
+ * fallback below takes over in that case and points at the email address
+ * instead, rather than leaving a page that looks broken.
+ */
+---
+
+<BaseLayout
+  title="Subscribe"
+  description="Receive Shannon Suttles' words from the Lord and written prayers to pray by email, free, as they are published."
+>
+  <section class="g-depth relative overflow-hidden">
+    <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
+      class="ink-art ink-far drift drift-rev -right-[10%] top-0 w-[30rem] object-contain lg:right-[2%] lg:w-[38rem]" />
+    <img src="/brand/ink/current.webp" alt="" aria-hidden="true"
+      class="ink-art ink-mid drift drift-slow inset-x-0 bottom-0 w-full object-cover" />
+
+    <div class="above mx-auto max-w-[96rem] px-7 pt-20 pb-4 sm:px-12 lg:px-20 lg:pt-28">
+      <p class="label label-gold rise mb-9">The Free Newsletter</p>
+      <h1 class="rise">
+        <span class="display block text-pearl">Receive her</span>
+        <span class="display gilt gilt-live block italic">words by email</span>
+      </h1>
+      <hr class="rule-fine rule-short rise my-9" />
+      <p class="rise max-w-xl font-body text-lede leading-[1.9] text-lilac/80">
+        Words from the Lord and written prayers to pray, sent as they are
+        published. There is no charge, nothing else is ever sent, and you may
+        leave at any time.
+      </p>
+    </div>
+  </section>
+
+  <Subscribe
+    heading="Sign up"
+    note="Enter your details below. A confirmation email will follow — please click the link inside it, and you will be added to the list."
+  />
+
+  {!SUBSCRIBE.username && (
+    <section class="g-depth relative overflow-hidden">
+      <div class="mx-auto max-w-[96rem] px-7 py-20 sm:px-12 lg:px-20">
+        <p class="rise max-w-xl font-body text-lede leading-[1.9] text-lilac/80">
+          The mailing list is being prepared. In the meantime, write to{' '}
+          <a href={`mailto:${SITE.email}`} class="link-ink text-lilac">{SITE.email}</a>
+          {' '}and the team will add you.
+        </p>
+      </div>
+    </section>
+  )}
+</BaseLayout>
