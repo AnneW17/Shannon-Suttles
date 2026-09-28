@@ -30,6 +30,16 @@ const dark = tone === 'dark';
 const action = SUBSCRIBE.username
   ? `https://buttondown.com/api/emails/embed-subscribe/${SUBSCRIBE.username}`
   : null;
+
+const labelClass = `block font-ui text-xs uppercase tracking-[0.18em] mb-1 ${
+  dark ? 'text-lavender/70' : ''
+}`;
+
+const fieldClass = `w-full border-0 border-b bg-transparent px-0 py-3 font-body text-lg focus:outline-none ${
+  dark
+    ? 'border-gold-lum/30 text-pearl placeholder:text-lavender/40 focus:border-gold-lum'
+    : 'border-obsidian/20 text-obsidian placeholder:text-obsidian/35 focus:border-copper'
+}`;
 ---
 
 {
@@ -58,29 +68,62 @@ const action = SUBSCRIBE.username
               {note}
             </p>
 
-            <form
-              class="rise mt-8 flex flex-col gap-4 sm:flex-row sm:items-end"
-              action={action}
-              method="post"
-              target="_blank"
-            >
-              <div class="flex-1">
-                <label for="bd-email" class="sr-only">Email address</label>
-                <input
-                  id="bd-email"
-                  type="email"
-                  name="email"
-                  required
-                  autocomplete="email"
-                  placeholder="Your email address"
-                  class={`w-full border-0 border-b bg-transparent px-0 py-3 font-body text-lg focus:outline-none ${
-                    dark
-                      ? 'border-gold-lum/30 text-pearl placeholder:text-lavender/40 focus:border-gold-lum'
-                      : 'border-obsidian/20 text-obsidian placeholder:text-obsidian/35 focus:border-copper'
-                  }`}
-                />
+            <form class="rise mt-8" action={action} method="post" target="_blank">
+              {/* Buttondown expects this on embedded forms. Without it the
+                  endpoint treats the post as coming from its own hosted page
+                  and the subscriber can land somewhere unexpected. */}
+              <input type="hidden" name="embed" value="1" />
+
+              <div class="grid gap-7 sm:grid-cols-2">
+                <div>
+                  <label for="bd-name" class={labelClass}>Name</label>
+                  <input
+                    id="bd-name"
+                    type="text"
+                    name="metadata__first_name"
+                    required
+                    autocomplete="name"
+                    class={fieldClass}
+                  />
+                </div>
+
+                <div>
+                  <label for="bd-email" class={labelClass}>Email address</label>
+                  <input
+                    id="bd-email"
+                    type="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    class={fieldClass}
+                  />
+                </div>
               </div>
-              <button type="submit" class={`btn-ink shrink-0 ${dark ? '' : 'btn-ink-dark'}`}>
+
+              {/* Underscores, not hyphens: Buttondown's own docs note that a
+                  hyphenated key cannot be referenced when writing an email,
+                  because {{ subscriber.metadata.first-name }} is a syntax
+                  error in their template language. */}
+              <div class="mt-7">
+                <label for="bd-org" class={labelClass}>
+                  Church, ministry, or organisation
+                </label>
+                <input
+                  id="bd-org"
+                  type="text"
+                  name="metadata__organisation"
+                  autocomplete="organization"
+                  class={fieldClass}
+                />
+                <p
+                  class={`mt-2 font-ui text-xs ${dark ? 'text-mauve' : ''}`}
+                  style={dark ? '' : 'color: var(--color-pewter)'}
+                >
+                  Optional. Please enter N/A if you are subscribing personally.
+                </p>
+              </div>
+
+              <button type="submit" class={`btn-ink mt-9 ${dark ? '' : 'btn-ink-dark'}`}>
                 Subscribe
               </button>
             </form>

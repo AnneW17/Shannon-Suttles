@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactForm from '@components/ContactForm.astro';
+import Subscribe from '@components/Subscribe.astro';
 import { SITE } from '@lib/site';
 ---
 
@@ -36,4 +37,13 @@ import { SITE } from '@lib/site';
       </p>
     </div>
   </section>
+
+  {/* Signing up and writing in are separate acts, and they stay separate
+      forms. Someone who asks a question has not asked to be emailed, and
+      quietly adding them is how a ministry ends up marked as spam. So the
+      newsletter gets its own plainly-labelled box on this page instead. */}
+  <Subscribe
+    heading="Sign up for the free newsletter"
+    note="Shannon's words from the Lord and written prayers to pray, sent to your inbox as they are published. There is no charge, and you may leave at any time."
+  />
 </BaseLayout>

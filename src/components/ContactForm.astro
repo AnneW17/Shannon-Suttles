@@ -109,7 +109,7 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
       selection alongside the message. */}
   <div class="mt-8">
     <label for="cf-subject" class={labelClass}>Nature of enquiry</label>
-    <select id="cf-subject" name="subject" required class={`${field} appearance-none`}>
+    <select id="cf-subject" name="subject" required class={`${field} cf-select appearance-none`}>
       <option value="" disabled selected>Please select</option>
       <option value="General enquiry">General enquiry</option>
       <option value="Speaking or ministry invitation">Speaking or ministry invitation</option>
@@ -151,11 +151,53 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
   </div>
 
   <p class="mt-5 max-w-xl font-ui text-xs leading-relaxed text-mauve">
-    Submissions are received privately by Shannon&rsquo;s team and are used
-    solely to respond to your enquiry. Your information is never sold, rented,
-    or disclosed to third parties. To request its removal at any time, write to{' '}
+    Submitting this form does not add you to any mailing list. Submissions are
+    received privately by Shannon&rsquo;s team and are used solely to respond
+    to your enquiry. Your information is never sold, rented, or disclosed to
+    third parties. To request its removal at any time, write to{' '}
     <a href={`mailto:${SITE.email}`} class="link-ink text-lilac">{SITE.email}</a>.
   </p>
 
   <button type="submit" class="btn-ink mt-10">Submit enquiry</button>
 </form>
+
+<style>
+  /**
+   * THE DROPDOWN LIST
+   *
+   * The closed select is styled by the page, but the open list of options is
+   * drawn by the operating system, not by CSS on the page — so it ignored the
+   * pale text colour's surroundings and painted white on white, which made
+   * every choice invisible.
+   *
+   * Two things fix it. `color-scheme: dark` tells the browser to draw its own
+   * widgets in dark mode, which handles Safari and the arrow. The explicit
+   * colours on `option` handle Windows and Firefox, which need to be told.
+   * Both are needed; neither is sufficient alone.
+   *
+   * Hex values rather than var() on purpose: Firefox has long-standing trouble
+   * resolving custom properties inside native option rendering, and a failure
+   * here is invisible text again.
+   */
+  .cf-select {
+    color-scheme: dark;
+    /* Restores the dropdown arrow removed by appearance-none. */
+    background-image: linear-gradient(45deg, transparent 50%, #AD97D4 50%),
+      linear-gradient(135deg, #AD97D4 50%, transparent 50%);
+    background-position:
+      calc(100% - 14px) calc(50% + 1px),
+      calc(100% - 9px) calc(50% + 1px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2rem;
+  }
+
+  .cf-select option {
+    background-color: #050308;
+    color: #FBF5F2;
+  }
+
+  .cf-select option[disabled] {
+    color: #68596D;
+  }
+</style>
