@@ -1,0 +1,197 @@
+<!--
+  ============================================================
+  SHANNON SUTTLES — EMAIL TEMPLATE FOR BUTTONDOWN
+  ============================================================
+
+  HOW TO USE
+
+  1. Open this file in Notepad (right-click > Open with > Notepad).
+  2. Select all (Ctrl+A), copy (Ctrl+C).
+  3. In Buttondown, start a new email and switch the editor to
+     "Markdown mode" or "Naked mode" — NOT Fancy mode, which
+     rewrites HTML and will undo the styling.
+  4. Paste.
+  5. Replace the three marked places: title, date, and the words.
+
+  Anything between <!-- REPLACE --> markers is yours to change.
+  Leave the rest alone.
+
+  ============================================================
+  THE LOGO AT THE TOP
+
+  It loads from the website:
+
+      https://shannonsuttles.com/brand/email/wordmark-email.jpg
+
+  That file has to be live before the logo will appear, so push
+  the site once before sending the first email. After that it
+  works forever and needs no attention.
+
+  It is a JPEG with the black baked in, not a transparent PNG,
+  because Outlook mishandles PNG transparency and would have put
+  a grey box behind the mark.
+
+  ============================================================
+  WHY THE TOP IS BLACK AND THE MIDDLE IS NOT
+
+  You asked whether the whole thing should be black like the
+  site. My honest answer is no, and here is the reasoning so you
+  can overrule me if you disagree.
+
+  A website is something a person chooses to look at. An email is
+  read in a queue, often one-handed, often in sunlight. Long
+  passages of pale text on black measurably slow reading and tire
+  the eye. Worse, Gmail and Outlook on phones apply their own
+  dark-mode inversion: they see a dark email, invert parts of it,
+  and produce grey text on grey, or a black band across a white
+  page. It is the single most common way a carefully built email
+  arrives looking broken, and it cannot be prevented reliably.
+
+  So the ink stays where it does its work — the masthead and the
+  footer, wrapping her words top and bottom — and the words
+  themselves sit on the site's own pearl, which is the colour
+  they already sit on when someone reads them on the website.
+  The brand is unmistakable; the writing stays readable.
+
+  If you want it black throughout anyway, change the two
+  background-color values marked BODY BACKGROUND to #050308 and
+  the two text colours marked BODY TEXT to #fbf5f2.
+
+  ============================================================
+  WHAT EMAIL CANNOT DO
+
+  - Bodoni Moda and Cormorant Garamond do not load in Gmail or
+    Outlook. Georgia is used instead: on every device, same warm
+    high-contrast serif feeling.
+  - No SVG — most clients refuse to render it.
+  - No modern CSS. Everything here is inline and would have
+    worked in 2005, which is roughly where Gmail's support sits.
+
+  ============================================================
+-->
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;background-color:#050308;">
+  <tr>
+    <td align="center" style="padding:0;">
+
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+
+        <!-- MASTHEAD: the logo -->
+        <tr>
+          <td style="background-color:#050308;padding:0;font-size:0;line-height:0;">
+            <a href="https://shannonsuttles.com" style="text-decoration:none;">
+              <img
+                src="https://shannonsuttles.com/brand/email/wordmark-email.jpg"
+                width="600"
+                height="212"
+                alt="Shannon Suttles"
+                style="display:block;width:100%;max-width:600px;height:auto;border:0;outline:none;background-color:#050308;color:#e8cf9a;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-style:italic;text-align:center;"
+              />
+            </a>
+          </td>
+        </tr>
+
+        <!-- STRAPLINE -->
+        <tr>
+          <td style="background-color:#050308;padding:0 40px 30px 40px;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#ad97d4;">
+            Words from the Lord &nbsp;&middot;&nbsp; Written Prayers to Pray
+          </td>
+        </tr>
+
+        <!-- GOLD HAIRLINE -->
+        <tr>
+          <td style="font-size:0;line-height:0;height:2px;background-color:#c9a86a;">&nbsp;</td>
+        </tr>
+
+        <!-- TITLE -->
+        <tr>
+          <!-- BODY BACKGROUND -->
+          <td style="background-color:#fbf5f2;padding:46px 44px 0 44px;">
+            <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.3;font-weight:normal;color:#271829;">
+              <!-- REPLACE: the title of the word -->
+              Title of This Word
+              <!-- END REPLACE -->
+            </h1>
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#68596d;padding-top:14px;">
+              <!-- REPLACE: the date -->
+              September 28, 2026
+              <!-- END REPLACE -->
+            </div>
+          </td>
+        </tr>
+
+        <!-- SHORT RULE -->
+        <tr>
+          <!-- BODY BACKGROUND -->
+          <td style="background-color:#fbf5f2;padding:26px 44px 0 44px;">
+            <table role="presentation" width="54" cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="font-size:0;line-height:0;height:1px;background-color:#c9a86a;">&nbsp;</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- THE WORDS -->
+        <tr>
+          <!-- BODY BACKGROUND and BODY TEXT -->
+          <td style="background-color:#fbf5f2;padding:30px 44px 8px 44px;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.85;color:#2c2430;">
+
+            <!-- REPLACE: everything down to END REPLACE.
+                 Wrap each paragraph in <p style="margin:0 0 20px 0;"> ... </p>
+                 so the spacing stays even. -->
+
+            <p style="margin:0 0 20px 0;">First paragraph goes here.</p>
+
+            <p style="margin:0 0 20px 0;">Second paragraph goes here.</p>
+
+            <!-- For a scripture passage or anything set apart: -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:6px 0 24px 0;">
+              <tr>
+                <td style="border-left:2px solid #c9a86a;padding:2px 0 2px 20px;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.8;font-style:italic;color:#4a3f50;">
+                  A scripture passage or set-apart line goes here.
+                </td>
+              </tr>
+            </table>
+
+            <!-- END REPLACE -->
+
+          </td>
+        </tr>
+
+        <!-- SIGNATURE -->
+        <tr>
+          <!-- BODY BACKGROUND and BODY TEXT -->
+          <td style="background-color:#fbf5f2;padding:14px 44px 44px 44px;font-family:Georgia,'Times New Roman',serif;font-size:19px;font-style:italic;color:#7a5c86;">
+            Shannon
+          </td>
+        </tr>
+
+        <!-- GOLD HAIRLINE -->
+        <tr>
+          <td style="font-size:0;line-height:0;height:1px;background-color:#c9a86a;">&nbsp;</td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="background-color:#050308;padding:34px 44px;text-align:center;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.7;color:#ad97d4;padding-bottom:18px;">
+              Read more at
+              <a href="https://shannonsuttles.com/words" style="color:#e8cf9a;text-decoration:underline;">shannonsuttles.com</a>
+            </div>
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:12px;line-height:1.8;color:#68596d;">
+              Firebrand Revivalists&trade;<br />
+              <a href="mailto:info@firebrandrevivalists.com" style="color:#8d7a93;text-decoration:underline;">info@firebrandrevivalists.com</a>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+<!--
+  DO NOT remove Buttondown's unsubscribe link. It is added
+  automatically below this template; removing it breaks both
+  Buttondown's terms and the CAN-SPAM Act.
+-->
