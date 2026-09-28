@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Subscribe from '@components/Subscribe.astro';
 import { SITE } from '@lib/site';
 
 // The home page holds no poetry, no biography and no ventures. It exists to
@@ -98,7 +99,19 @@ const doors = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       V. THE DEDICATION — the full gradient, once
+       V. THE INVITATION — before the dedication closes the page
+
+       Placed here rather than at the very bottom because the dedication is
+       an ending: once someone has read "let these pages be an altar", the
+       page is over, and an email box underneath it reads as an intrusion.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <Subscribe
+    heading="Receive her words by email"
+    note="Words from the Lord and written prayers to pray, sent as they are published. Free, and you may leave at any time."
+  />
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       VI. THE DEDICATION — the full gradient, once
        ═══════════════════════════════════════════════════════════════════ -->
   <section class="g-liquid relative overflow-hidden">
     <div class="mx-auto max-w-3xl px-7 py-24 text-center sm:px-12 lg:py-32">
