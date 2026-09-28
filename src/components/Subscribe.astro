@@ -85,11 +85,33 @@ const action = SUBSCRIBE.username
               </button>
             </form>
 
+            {/* Express consent, required before the form will submit. The
+                confirmation email the service sends is the second half of
+                this: nobody is added to the list without clicking it. */}
+            <div class="rise mt-7 flex gap-4">
+              <input
+                id="bd-consent"
+                type="checkbox"
+                required
+                class="mt-1.5 h-4 w-4 shrink-0"
+                style={dark ? 'accent-color: var(--color-gold-lum)' : 'accent-color: var(--color-copper)'}
+              />
+              <label
+                for="bd-consent"
+                class={`font-ui text-sm leading-relaxed ${dark ? 'text-lavender/75' : ''}`}
+                style={dark ? '' : 'color: var(--color-mauve)'}
+              >
+                I consent to receiving Shannon&rsquo;s words and written prayers
+                by email, and understand I may unsubscribe at any time.
+              </label>
+            </div>
+
             <p
               class={`rise mt-5 font-ui text-xs leading-relaxed ${dark ? 'text-mauve' : ''}`}
               style={dark ? '' : 'color: var(--color-pewter)'}
             >
-              No more than the words themselves. Unsubscribe at any time.
+              Your address is used only to send these writings. It is never
+              sold, rented, or disclosed to third parties.
             </p>
           </div>
         </div>

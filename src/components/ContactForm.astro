@@ -24,6 +24,8 @@
  * Shannon.
  */
 
+import { SITE } from '@lib/site';
+
 interface Props {
   /** Where Netlify sends the visitor after a successful submission. */
   action?: string;
@@ -61,27 +63,25 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
 
   <div class="grid gap-8 sm:grid-cols-2">
     <div>
-      <label for="cf-name" class={labelClass}>Name</label>
+      <label for="cf-name" class={labelClass}>Full name</label>
       <input
         id="cf-name"
         name="name"
         type="text"
         required
         autocomplete="name"
-        placeholder="Your name"
         class={field}
       />
     </div>
 
     <div>
-      <label for="cf-email" class={labelClass}>Email</label>
+      <label for="cf-email" class={labelClass}>Email address</label>
       <input
         id="cf-email"
         name="email"
         type="email"
         required
         autocomplete="email"
-        placeholder="you@example.com"
         class={field}
       />
     </div>
@@ -97,12 +97,26 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
       type="text"
       required
       autocomplete="organization"
-      placeholder="Or write N/A"
       class={field}
     />
     <p class="mt-2 font-ui text-xs text-mauve">
-      If you are writing personally, put N/A.
+      Please enter N/A if you are writing in a personal capacity.
     </p>
+  </div>
+
+  {/* Lets the team sort what arrives before opening it, and means a prayer
+      request is never mistaken for a booking enquiry. Netlify records the
+      selection alongside the message. */}
+  <div class="mt-8">
+    <label for="cf-subject" class={labelClass}>Nature of enquiry</label>
+    <select id="cf-subject" name="subject" required class={`${field} appearance-none`}>
+      <option value="" disabled selected>Please select</option>
+      <option value="General enquiry">General enquiry</option>
+      <option value="Speaking or ministry invitation">Speaking or ministry invitation</option>
+      <option value="Prayer request">Prayer request</option>
+      <option value="Partnership or collaboration">Partnership or collaboration</option>
+      <option value="Media or press">Media or press</option>
+    </select>
   </div>
 
   <div class="mt-8">
@@ -112,7 +126,6 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
       name="message"
       required
       rows="6"
-      placeholder="How can the team help?"
       class={`${field} resize-y`}></textarea>
   </div>
 
@@ -131,17 +144,18 @@ const labelClass = 'block font-ui text-xs uppercase tracking-[0.18em] text-laven
       class="mt-1.5 h-4 w-4 shrink-0 accent-[var(--color-gold-lum)]"
     />
     <label for="cf-consent" class="font-ui text-sm leading-relaxed text-lavender/75">
-      I agree that the information I am submitting may be stored and used to
-      respond to me, and that a member of Shannon&rsquo;s team may contact me
-      about this message.
+      I consent to the details provided above being retained and used by
+      Firebrand Revivalists&trade; for the purpose of responding to this
+      enquiry.
     </label>
   </div>
 
-  <p class="mt-5 font-ui text-xs leading-relaxed text-mauve">
-    Your details are used only to reply to you. They are never sold, rented, or
-    shared, and you may ask for them to be deleted at any time by writing to
-    the team.
+  <p class="mt-5 max-w-xl font-ui text-xs leading-relaxed text-mauve">
+    Submissions are received privately by Shannon&rsquo;s team and are used
+    solely to respond to your enquiry. Your information is never sold, rented,
+    or disclosed to third parties. To request its removal at any time, write to{' '}
+    <a href={`mailto:${SITE.email}`} class="link-ink text-lilac">{SITE.email}</a>.
   </p>
 
-  <button type="submit" class="btn-ink mt-10">Send message</button>
+  <button type="submit" class="btn-ink mt-10">Submit enquiry</button>
 </form>
