@@ -3,16 +3,22 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { SITE } from '@lib/site';
 
 /**
- * Where Netlify sends someone after their message is accepted.
+ * WHERE PEOPLE LAND AFTER SUBMITTING
  *
- * Netlify has its own generic confirmation page, but it is unbranded and
- * lands the visitor somewhere that looks nothing like the site they were
- * just on — which reads, for a moment, like something went wrong. This page
- * exists so the handoff is quiet.
+ * Buttondown's own destination after a form post is the newsletter's public
+ * archive, which — with nothing published yet — reads "This author hasn't
+ * published any emails yet." Someone who has just written in for prayer sees
+ * that and reasonably assumes their message vanished.
  *
- * noindex: there is no reason for this to appear in search results, and
- * someone arriving here from Google would see a thank-you for a message
- * they never sent.
+ * This page replaces it. Set it in Buttondown under the subscribing settings
+ * as the redirect destination.
+ *
+ * The one thing it must do is tell people to go and click the confirmation
+ * link, because nothing happens until they do — not the subscription, and
+ * not the delivery of whatever they wrote.
+ *
+ * noindex: nobody should arrive here from a search result and be thanked for
+ * a message they never sent.
  */
 ---
 
@@ -21,21 +27,31 @@ import { SITE } from '@lib/site';
   description="Your message has been received."
   noindex={true}
 >
-  <section class="g-depth relative min-h-[70vh] overflow-hidden">
+  <section class="g-depth relative min-h-[76vh] overflow-hidden">
     <img src="/brand/ink/droplet.webp" alt="" aria-hidden="true"
       class="ink-art ink-far drift drift-rev -right-[10%] top-0 w-[30rem] object-contain lg:right-[2%] lg:w-[38rem]" />
 
-    <div class="above mx-auto flex min-h-[70vh] max-w-[96rem] flex-col justify-center px-7 py-20 sm:px-12 lg:px-20">
-      <p class="label label-gold rise mb-9">Received</p>
+    <div class="above mx-auto flex min-h-[76vh] max-w-[96rem] flex-col justify-center px-7 py-20 sm:px-12 lg:px-20">
+      <p class="label label-gold rise mb-9">One last step</p>
       <h1 class="rise">
-        <span class="display block text-pearl">Thank you</span>
+        <span class="display block text-pearl">Please check</span>
+        <span class="display gilt gilt-live block italic">your inbox</span>
       </h1>
       <hr class="rule-fine rule-short rise my-9" />
-      <p class="rise max-w-md font-body text-lede leading-[1.9] text-lilac/80">
-        Your message has reached Shannon&rsquo;s team. Someone will read it and
-        reply to the address you gave.
+
+      <p class="rise max-w-xl font-body text-lede leading-[1.9] text-lilac/80">
+        An email is on its way to you now with a link inside it. Please click
+        that link to confirm your address.
       </p>
-      <p class="rise mt-10 font-ui text-sm text-mauve" style="--delay:220ms">
+
+      <p class="rise mt-6 max-w-xl font-body leading-[1.9] text-lilac/70" style="--delay:140ms">
+        Until you do, nothing has gone through &mdash; so if you wrote to
+        Shannon&rsquo;s team, that message is waiting on the same click. If it
+        has not arrived within a few minutes, it is worth looking in your junk
+        or promotions folder.
+      </p>
+
+      <p class="rise mt-12 font-ui text-sm text-mauve" style="--delay:260ms">
         <a href="/words" class="link-ink text-lilac">Return to the words</a>
         <span class="px-3 text-mauve">&middot;</span>
         <a href={`mailto:${SITE.email}`} class="link-ink text-lilac">{SITE.email}</a>
