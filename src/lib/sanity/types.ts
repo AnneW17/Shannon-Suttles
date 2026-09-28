@@ -16,8 +16,17 @@ export interface Category {
   poemCount?: number;
 }
 
+/**
+ * Words and prayers share one shape and one editor; `kind` is what separates
+ * them into two pages. Entries published before the field existed have no
+ * value stored, so the queries coalesce those to 'word' — the type is
+ * therefore required here even though Sanity may not hold it.
+ */
+export type PoemKind = 'word' | 'prayer';
+
 export interface Poem {
   _id: string;
+  kind: PoemKind;
   title: string;
   slug: string;
   body: PortableTextBlock[];
@@ -35,7 +44,15 @@ export interface Poem {
 /** Lightweight shape used by archive lists and related-poem rows. */
 export type PoemCard = Pick<
   Poem,
-  '_id' | 'title' | 'slug' | 'excerpt' | 'publishedAt' | 'featureImage' | 'category' | 'tags'
+  | '_id'
+  | 'kind'
+  | 'title'
+  | 'slug'
+  | 'excerpt'
+  | 'publishedAt'
+  | 'featureImage'
+  | 'category'
+  | 'tags'
 >;
 
 export interface SiteSettings {

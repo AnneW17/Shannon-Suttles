@@ -36,7 +36,8 @@ export const SUBSCRIBE = {
 } as const;
 
 export const NAV = [
-  { label: 'Words & Prayers', href: '/words' },
+  { label: 'Words', href: '/words' },
+  { label: 'Prayers', href: '/prayers' },
   { label: 'About', href: '/about' },
   { label: 'Ventures', href: '/work' },
   { label: 'Subscribe', href: '/subscribe' },

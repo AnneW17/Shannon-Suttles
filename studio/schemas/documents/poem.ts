@@ -24,6 +24,37 @@ export default defineType({
 
   fields: [
     // ---------------------------------------------------------------- WRITE
+
+    /**
+     * WORD OR PRAYER
+     *
+     * Decides which of the two pages this appears on. Radio buttons rather
+     * than a dropdown so both choices are visible without tapping — on a
+     * phone a dropdown hides the options behind an extra step.
+     *
+     * initialValue is 'word' so that everything written before this field
+     * existed continues to behave exactly as it did. Sanity does not
+     * backfill initialValue onto existing documents, though, so the two
+     * entries already published carry no value at all — which is why the
+     * site's queries treat "missing" as "word" rather than filtering it out
+     * and making published writing disappear.
+     */
+    defineField({
+      name: 'kind',
+      title: 'Is this a Word or a Prayer?',
+      type: 'string',
+      group: 'write',
+      initialValue: 'word',
+      options: {
+        list: [
+          { title: 'A Word from the Lord', value: 'word' },
+          { title: 'A Written Prayer', value: 'prayer' },
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required().error('Please choose Word or Prayer.'),
+    }),
+
     defineField({
       name: 'title',
       title: 'Title',

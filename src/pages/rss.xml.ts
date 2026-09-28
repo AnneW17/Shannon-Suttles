@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getAllPoems, getPoemBySlug } from '@lib/sanity/queries';
 import { renderPoem, poemToPlainText } from '@lib/portableText';
 import { SITE } from '@lib/site';
+import { entryPath } from '@lib/paths';
 
 /**
  * THE FEED
@@ -32,6 +33,7 @@ const escape = (value: string) =>
     .replace(/"/g, '&quot;');
 
 export const GET: APIRoute = async () => {
+  // Both kinds, newest first — subscribers receive words and prayers alike.
   const entries = await getAllPoems();
 
   // The list query returns cards without bodies, so each full entry is
@@ -42,7 +44,7 @@ export const GET: APIRoute = async () => {
   const items = full
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
     .map((entry) => {
-      const url = new URL(`/words/${entry.slug}`, SITE.url).href;
+      const url = new URL(entryPath(entry), SITE.url).href;
       const html = renderPoem(entry.body);
       const summary = entry.excerpt || poemToPlainText(entry.body, 300);
 

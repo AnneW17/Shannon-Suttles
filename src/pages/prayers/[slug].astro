@@ -6,7 +6,7 @@ import ShareControls from '@components/ShareControls.astro';
 import PoemListItem from '@components/PoemListItem.astro';
 import Subscribe from '@components/Subscribe.astro';
 import {
-  getAllWords,
+  getAllPrayers,
   getPoemBySlug,
   getRelatedPoems,
   getSiteSettings,
@@ -16,11 +16,11 @@ import { poemToPlainText, firstLine } from '@lib/portableText';
 import { formatDate, isoDate } from '@lib/format';
 import { SITE } from '@lib/site';
 
-// Every published WORD becomes a static page here. Prayers are built by
-// src/pages/prayers/[slug].astro instead, so the two never collide on a slug
-// and each lives under the address its own section advertises.
+// The prayer half of the pair. See src/pages/words/[slug].astro for the
+// words; the two files are deliberately kept identical apart from which
+// query feeds them and which section they name.
 export async function getStaticPaths() {
-  const entries = await getAllWords();
+  const entries = await getAllPrayers();
   return entries.map((entry) => ({ params: { slug: entry.slug } }));
 }
 
@@ -34,7 +34,7 @@ if (!poem) {
 }
 
 const [related, settings] = await Promise.all([
-  getRelatedPoems(poem._id, poem.category?.slug, 3, 'word'),
+  getRelatedPoems(poem._id, poem.category?.slug, 3, 'prayer'),
   getSiteSettings(),
 ]);
 
@@ -52,7 +52,7 @@ const shareImage = hasImage(image)
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
-  '@id': new URL(`/words/${poem.slug}`, SITE.url).href,
+  '@id': new URL(`/prayers/${poem.slug}`, SITE.url).href,
   name: poem.title,
   headline: poem.title,
   genre: 'Devotional',
@@ -89,7 +89,7 @@ const schema = {
         class="ink-art ink-far drift drift-mid left-[26%] bottom-[8%] w-[7rem] lg:w-[9rem]" />
       <div class="layer-content mx-auto max-w-[94rem] px-6 pt-14 pb-16 sm:px-10 lg:px-16 lg:pt-20 lg:pb-20">
       <nav aria-label="Breadcrumb" class="mb-12">
-        <a href="/words" class="label link-editorial label-gold">← Words</a>
+        <a href="/prayers" class="label link-editorial label-gold">← Prayers</a>
       </nav>
 
       <div class="grid gap-8 lg:grid-cols-12">
@@ -163,7 +163,7 @@ const schema = {
           <hr class="rule-fine mt-14" />
 
           <div class="mt-8">
-            <ShareControls title={poem.title} url={`/words/${poem.slug}`} excerpt={poem.excerpt} />
+            <ShareControls title={poem.title} url={`/prayers/${poem.slug}`} excerpt={poem.excerpt} />
           </div>
         </div>
       </div>
@@ -185,7 +185,7 @@ const schema = {
             <PoemListItem poem={item} showImage={false} />
           ))}
           <p class="mt-12">
-            <a href="/words" class="label link-editorial label-gold">All Words</a>
+            <a href="/prayers" class="label link-editorial label-gold">All Prayers</a>
           </p>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import groq from 'groq';
 import { client, getPreviewClient } from './client';
-import type { Poem, PoemCard, Category, SiteSettings } from './types';
+import type { Poem, PoemCard, PoemKind, Category, SiteSettings } from './types';
 
 /**
  * All GROQ lives here.
@@ -25,6 +25,22 @@ const PUBLISHED = groq`
   && publishedAt <= now()
 `;
 
+/**
+ * WORDS AND PRAYERS
+ *
+ * They live in one Sanity document type and are told apart by `kind`, which
+ * keeps Shannon's writing experience identical for both: the same editor, the
+ * same fields, one extra choice at the top.
+ *
+ * The two entries published before the field existed carry no `kind` at all —
+ * Sanity does not backfill initialValue onto documents that already exist. So
+ * anything missing a `kind` is treated as a Word rather than excluded, which
+ * is the difference between her published writing staying visible and it
+ * silently vanishing from the site the moment this ships.
+ */
+const IS_WORD = groq`(kind == "word" || !defined(kind))`;
+const IS_PRAYER = groq`kind == "prayer"`;
+
 const CARD_FIELDS = groq`
   _id,
   title,
@@ -33,6 +49,7 @@ const CARD_FIELDS = groq`
   publishedAt,
   tags,
   featureImage,
+  "kind": select(defined(kind) => kind, "word"),
   category->{ title, "slug": slug.current }
 `;
 
@@ -47,9 +64,24 @@ const FULL_FIELDS = groq`
 
 /* ------------------------------------------------------------------ poems */
 
+/** Everything, both kinds. Used by the feed, which carries both. */
 export async function getAllPoems(): Promise<PoemCard[]> {
   return client.fetch(
     groq`*[${PUBLISHED}] | order(publishedAt desc) { ${CARD_FIELDS} }`
+  );
+}
+
+/** Words only — for /words. */
+export async function getAllWords(): Promise<PoemCard[]> {
+  return client.fetch(
+    groq`*[${PUBLISHED} && ${IS_WORD}] | order(publishedAt desc) { ${CARD_FIELDS} }`
+  );
+}
+
+/** Prayers only — for /prayers. */
+export async function getAllPrayers(): Promise<PoemCard[]> {
+  return client.fetch(
+    groq`*[${PUBLISHED} && ${IS_PRAYER}] | order(publishedAt desc) { ${CARD_FIELDS} }`
   );
 }
 
@@ -82,9 +114,19 @@ export async function getPoemBySlug(slug: string): Promise<Poem | null> {
   );
 }
 
-/** Every published slug — used to generate the static poem routes. */
+/** Every published slug, both kinds. */
 export async function getAllPoemSlugs(): Promise<string[]> {
   return client.fetch(groq`*[${PUBLISHED}].slug.current`);
+}
+
+/** Slugs for /words/[slug]. */
+export async function getAllWordSlugs(): Promise<string[]> {
+  return client.fetch(groq`*[${PUBLISHED} && ${IS_WORD}].slug.current`);
+}
+
+/** Slugs for /prayers/[slug]. */
+export async function getAllPrayerSlugs(): Promise<string[]> {
+  return client.fetch(groq`*[${PUBLISHED} && ${IS_PRAYER}].slug.current`);
 }
 
 /**
@@ -94,11 +136,16 @@ export async function getAllPoemSlugs(): Promise<string[]> {
 export async function getRelatedPoems(
   poemId: string,
   categorySlug?: string,
-  limit = 3
+  limit = 3,
+  kind: PoemKind = 'word'
 ): Promise<PoemCard[]> {
+  // Stay inside the same kind. Offering prayers at the foot of a word (or the
+  // reverse) would quietly re-merge the two sections Shannon asked to separate.
+  const KIND = kind === 'prayer' ? IS_PRAYER : IS_WORD;
+
   const sameCategory = categorySlug
     ? await client.fetch<PoemCard[]>(
-        groq`*[${PUBLISHED} && _id != $poemId && category->slug.current == $categorySlug]
+        groq`*[${PUBLISHED} && ${KIND} && _id != $poemId && category->slug.current == $categorySlug]
              | order(publishedAt desc) [0...$limit] { ${CARD_FIELDS} }`,
         { poemId, categorySlug, limit }
       )
@@ -108,7 +155,7 @@ export async function getRelatedPoems(
 
   const exclude = [poemId, ...sameCategory.map((p) => p._id)];
   const filler = await client.fetch<PoemCard[]>(
-    groq`*[${PUBLISHED} && !(_id in $exclude)]
+    groq`*[${PUBLISHED} && ${KIND} && !(_id in $exclude)]
          | order(publishedAt desc) [0...$limit] { ${CARD_FIELDS} }`,
     { exclude, limit: limit - sameCategory.length }
   );
