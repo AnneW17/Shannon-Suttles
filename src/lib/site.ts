@@ -40,7 +40,10 @@ export const NAV = [
   { label: 'About', href: '/about' },
   { label: 'Ventures', href: '/work' },
   { label: 'Subscribe', href: '/subscribe' },
-  { label: "Contact Shannon's Team", href: '/contact' },
+  // Shortened from "Contact Shannon's Team" — with Subscribe added the row
+  // ran long on narrower laptops. The page's own heading still carries the
+  // full name, so nothing is lost where it matters.
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 /**
