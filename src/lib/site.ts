@@ -27,6 +27,20 @@ export const SITE = {
  * While it is empty the signup form renders nothing at all, so the site never
  * shows a form that quietly fails. Nothing else needs changing.
  */
+/**
+ * GOOGLE SEARCH CONSOLE
+ *
+ * Paste the token from Search Console's "HTML tag" verification method here —
+ * only the value inside content="...", not the whole tag.
+ *
+ * Google's other method is a file whose name it generates per account, which
+ * cannot be created ahead of time; this one can. While the value is empty no
+ * tag is rendered at all, so the site never ships a broken verification claim.
+ *
+ * Once verified, leave it in place. Removing it later un-verifies the site.
+ */
+export const GOOGLE_SITE_VERIFICATION = '';
+
 export const SUBSCRIBE = {
   // Verified against buttondown.com/AWHALEY17 — the account resolves and the
   // capitalisation is the canonical form (lowercase redirects to it). Left

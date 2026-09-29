@@ -1,5 +1,5 @@
 ---
-import { SITE } from '@lib/site';
+import { SITE, GOOGLE_SITE_VERIFICATION } from '@lib/site';
 
 interface Props {
   title?: string;
@@ -32,6 +32,12 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href.replace(/\/$/, '') 
 // old champagne banner, which no longer looks anything like the site.
 const ogImage = image ? new URL(image, SITE.url).href : new URL('/brand/share-card.jpg', SITE.url).href;
 ---
+
+{/* Search Console verification. Renders only when a token is set, so an
+    empty value never ships an unverifiable claim. */}
+{GOOGLE_SITE_VERIFICATION && (
+  <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+)}
 
 <title>{pageTitle}</title>
 <meta name="description" content={description} />
