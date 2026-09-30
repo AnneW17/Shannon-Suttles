@@ -1,96 +1,110 @@
-# The email template
+# The email templates
 
-The branding is set up **once**, in Buttondown's settings. After that
-Shannon just writes her words in the editor like normal — no HTML, no
-copying, nothing to remember. Every email comes out wrapped in the
-header and footer automatically.
+There are **two looks**, and Shannon picks one per email:
 
----
-
-## Setting it up (once, about five minutes)
-
-Go to **buttondown.com/settings/email**.
-
-There are two boxes on that page: **Header** and **Footer**.
-
-Before pasting into either one, click the **⋯** (three dots) menu on that
-box and switch it to **Markdown mode**. If you skip this, the HTML will
-show up as visible code in the email instead of as a design.
-
-**1.** Open `1-HEADER-paste-into-settings.html` in Notepad, select all
-(Ctrl+A), copy (Ctrl+C), and paste it into the **Header** box.
-
-**2.** Open `2-FOOTER-paste-into-settings.html`, copy it the same way, and
-paste it into the **Footer** box.
-
-**3.** Save.
-
-While you are on that page, set the **accent colour** to `#7a5c86` so that
-links inside her writing match the rest of the design.
-
-That's it. Never needs doing again.
+- **Shannon Suttles** — her own wordmark, personal, for words and prayers.
+- **Firebrand Revivalists** — from Jason & Shannon, with the ministry links
+  at the foot. For updates, announcements, anything ministry-wide.
 
 ---
 
-## Sending an email after that
+## Important: the settings boxes must be EMPTY
 
-Write it normally in Buttondown. Type the words, or paste them from
-Sanity. The logo, the strapline, the gold rules, the signature and the
-footer all attach themselves.
+Buttondown has Header and Footer boxes under **Settings > Email**. Those apply
+to *every* email, so they cannot hold two different looks. Running two brands
+from one newsletter means **clearing both boxes** and pasting the header and
+footer into each email instead.
 
-**For a scripture passage or a line to set apart:** open
-`3-SCRIPTURE-BLOCK-optional.html`, copy it, and paste it into the email
-where the passage should go, then type over the placeholder line. The
-editor needs to be in **Markdown mode** for this — the **⋯** menu again.
-Skip this entirely if a particular word doesn't need one.
-
-**Always send a test to yourself before sending to the list.** Email
-cannot be unsent.
-
-**Never remove Buttondown's unsubscribe link.** It is added automatically
-at the very bottom. Removing it breaks Buttondown's terms and the
-CAN-SPAM Act.
+(Buttondown does sell multiple newsletters, which would allow two saved
+designs, but it is a $29/month add-on.)
 
 ---
 
-## The logo
+## Writing an email
 
-It loads from the live website:
+1. **New email.** Set the editor to **Markdown mode** or **Naked mode** using
+   the **...** menu. Never Fancy mode — it rewrites HTML.
+2. Paste the **header** for whichever look you want:
+   - `1-HEADER-paste-into-settings.html` for Shannon
+   - `5-FIREBRAND-HEADER.html` for Firebrand
+3. Press Enter a couple of times, then **type the words normally**.
+4. At the end, paste the matching **footer**:
+   - `2-FOOTER-paste-into-settings.html` for Shannon
+   - `6-FIREBRAND-FOOTER.html` for Firebrand
+5. **Send a test to yourself and check it on a phone.** Always. Email cannot
+   be unsent.
+
+Header and footer must match. A Shannon header with a Firebrand footer will
+look like a mistake, because it is one.
+
+The two files keep their old names so nothing already pasted breaks.
+
+### Optional
+
+`3-SCRIPTURE-BLOCK-optional.html` — a passage set apart with a gold bar down
+the side. Paste it into the body wherever the passage belongs.
+
+---
+
+## Never do this
+
+- **Do not add line breaks or indentation to the template files.** They are
+  each deliberately one long line. Markdown treats any line indented four or
+  more spaces as a code block, and the design will show up as visible code.
+  This broke twice before it was understood.
+- **Do not remove Buttondown's unsubscribe link.** It is added automatically
+  at the very bottom. Removing it breaks Buttondown's terms and the CAN-SPAM
+  Act.
+
+---
+
+## Previews
+
+Open these to see each look before sending. For looking at only.
+
+- `preview.html` — the Shannon version
+- `preview-firebrand.html` — the Firebrand version
+
+---
+
+## The logos
+
+They load from the live website:
 
     https://shannonsuttles.com/brand/email/wordmark-email.jpg
+    https://shannonsuttles.com/brand/email/firebrand-email.jpg
 
-So the site has to be pushed before the logo appears. It already is.
-If the logo ever stops appearing, check that this address still opens in
-a browser — that is almost always the cause.
+Both must be pushed to the site before they appear in a real email. If a logo
+ever stops showing, open that address in a browser — that is almost always
+the cause.
 
-It is a JPEG with the black baked in rather than a transparent PNG,
-because Outlook mishandles PNG transparency and would put a grey box
-behind the mark.
+Both are JPEGs with their background baked in rather than transparent PNGs,
+because Outlook mishandles PNG transparency and would put a grey box behind
+the mark.
 
 ---
 
-## Why the top and bottom are black but the middle is not
+## Why the top and bottom are dark but the middle is not
 
 A website is something a person chooses to look at. An email is read in a
 queue, often one-handed, often in sunlight. Long passages of pale text on
-black slow reading and tire the eye — and her words are long passages.
+black slow reading and tire the eye.
 
 The larger problem is that Gmail and Outlook on phones apply their own
-dark-mode inversion. They see a dark email, invert parts of it, and
-produce grey text on grey or a black band across a white page. It is the
-most common way a carefully built email arrives looking broken, and it
-cannot be prevented reliably.
+dark-mode inversion. They see a dark email, invert parts of it, and produce
+grey text on grey or a black band across a white page. It is the most common
+way a carefully built email arrives looking broken, and it cannot be
+prevented reliably.
 
-So the ink wraps her words top and bottom, and the words themselves sit
-on a pale ground where they stay readable.
+So the dark wraps the writing top and bottom, and the writing itself sits on
+a pale ground where it stays readable.
 
 ---
 
 ## What email cannot do
 
 - **Bodoni Moda and Cormorant Garamond do not load** in Gmail or Outlook.
-  Georgia is used instead: on every device, same warm high-contrast serif
-  feeling.
+  Georgia is used instead: on every device, same warm high-contrast serif.
 - **No SVG.** Most email clients refuse to render it.
 - **No modern CSS.** Everything is inline and would have worked in 2005,
   which is roughly where Gmail's support sits.
@@ -98,10 +112,9 @@ on a pale ground where they stay readable.
 
 ---
 
-## The other files in here
+## Also in this folder
 
-- `preview.html` — open this to see roughly how a finished email looks.
-  For looking at only; do not paste it anywhere.
-- `buttondown-email.html` — the whole design as one block. Only needed if
-  the Header/Footer approach above is ever unavailable. Ignore it
-  otherwise.
+- `4-SIGNUP-EMBED-for-other-sites.html` — a standalone signup form for
+  embedding on another website. Not part of the email templates.
+- `buttondown-email.html` — the whole Shannon design as one block, from an
+  earlier approach. Kept as a fallback; not needed for the steps above.
