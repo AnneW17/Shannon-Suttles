@@ -42,11 +42,11 @@ export const SITE = {
 export const GOOGLE_SITE_VERIFICATION = '';
 
 export const SUBSCRIBE = {
-  // Verified against buttondown.com/AWHALEY17 — the account resolves and the
+  // Verified against buttondown.com/JasonandShannon — the account resolves and the
   // capitalisation is the canonical form (lowercase redirects to it). Left
   // exactly as Buttondown spells it rather than tidied to lowercase, because
   // the subscribe endpoint is built from this string.
-  username: 'AWHALEY17',
+  username: 'JasonandShannon',
 } as const;
 
 export const NAV = [

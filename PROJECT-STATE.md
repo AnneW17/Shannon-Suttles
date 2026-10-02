@@ -68,11 +68,11 @@ either path in a component.
 
 ## Mailing list
 
-**Buttondown**, username **`AWHALEY17`** (capitalised; lowercase redirects).
+**Buttondown**, username **`JasonandShannon`** (capitalised; lowercase redirects).
 Free tier, 100 subscribers.
 
 Signup posts straight to
-`https://buttondown.com/api/emails/embed-subscribe/AWHALEY17` as a real HTML
+`https://buttondown.com/api/emails/embed-subscribe/JasonandShannon` as a real HTML
 form. Buttondown's docs are explicit that this endpoint must **not** be
 called with `fetch()` — the visitor sometimes has to follow the response to
 clear a CAPTCHA.
