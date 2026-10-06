@@ -79,28 +79,39 @@ const fieldClass = `w-full border-0 border-b bg-transparent px-0 py-3 font-body 
 
               <div class="grid gap-7 sm:grid-cols-2">
                 <div>
-                  <label for="bd-name" class={labelClass}>Name</label>
+                  <label for="bd-first" class={labelClass}>First name</label>
                   <input
-                    id="bd-name"
+                    id="bd-first"
                     type="text"
                     name="metadata__first_name"
                     required
-                    autocomplete="name"
+                    autocomplete="given-name"
                     class={fieldClass}
                   />
                 </div>
 
                 <div>
-                  <label for="bd-email" class={labelClass}>Email address</label>
+                  <label for="bd-last" class={labelClass}>Last name</label>
                   <input
-                    id="bd-email"
-                    type="email"
-                    name="email"
-                    required
-                    autocomplete="email"
+                    id="bd-last"
+                    type="text"
+                    name="metadata__last_name"
+                    autocomplete="family-name"
                     class={fieldClass}
                   />
                 </div>
+              </div>
+
+              <div class="mt-7">
+                <label for="bd-email" class={labelClass}>Email address</label>
+                <input
+                  id="bd-email"
+                  type="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  class={fieldClass}
+                />
               </div>
 
               {/* Underscores, not hyphens: Buttondown's own docs note that a
@@ -114,7 +125,7 @@ const fieldClass = `w-full border-0 border-b bg-transparent px-0 py-3 font-body 
                 <input
                   id="bd-org"
                   type="text"
-                  name="metadata__organisation"
+                  name="metadata__organization"
                   autocomplete="organization"
                   class={fieldClass}
                 />
