@@ -89,7 +89,7 @@ export const ORGANISATIONS: Organisation[] = [
   {
     name: 'Sophion Media & Consulting Group',
     role: 'President and Founder',
-    body: 'Grew from years of responsibility and complex leadership. It brings together the leadership team’s collective discernment, strategic insight, and operational wisdom to help organisations find clarity and become healthy.',
+    body: 'Grew from years of responsibility and complex leadership. It brings together the leadership team’s collective discernment, strategic insight, and operational wisdom to help organizations find clarity and become healthy.',
     href: 'https://sophionhq.com/',
     logo: '/brand/orgs/sophion-mark.webp',
     markTone: 'dark',
