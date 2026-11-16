@@ -1,6 +1,6 @@
 # shannonsuttles.com — where things stand
 
-Written 28 September 2026. Updated 15 October 2026. Hand this to a new chat
+Written 28 September 2026. Updated 16 November 2026. Hand this to a new chat
 as the starting point.
 
 ---
@@ -176,22 +176,93 @@ free fallback, if it ever becomes worth doing, is to make the masthead and
 footer full width so there is nothing to centre — rejected for now because on
 a very wide window it means an enormous logo, which may look worse.
 
+### The palette changed — the emails are GREY now, not cream
+
+As of 16 October 2026 the email body ground is a **true neutral grey**, after
+cream and then warm greige were both rejected as looking creamy or blue on a
+phone. The current values, used across every template and body file:
+
+| Use | Hex |
+| --- | --- |
+| Body ground, full width | `#e8e8e8` |
+| Giving / stat panels | `#d9d9d9` |
+| Body text | `#2a2a28` |
+| Scripture text | `#4a4a46` |
+| Small italic captions | `#5f5f5b` |
+| Disclosure / muted | `#55554f` |
+| Gold rules and borders | `#c9a86a` |
+| Gold labels | `#a8874a` |
+| Masthead / footer ink | `#0b0b0a` |
+
+Two things made the grey actually read as grey, and both matter:
+
+1. **The text was purple-toned** (`#2c2430`, `#4a3f50`), carried over from the
+   website palette. Purple text on grey reads blue. Neutralising the type was
+   what fixed the "it looks blue" complaint — not the background.
+2. **The grey must be painted on the full-width wrapper table, not just the
+   600px column.** Otherwise the area around and between the blocks shows
+   whatever colour sits behind, which looked cream in preview and white in
+   Buttondown. The header's old 30px bottom margin was removed and the
+   footer's 34px top margin became padding on a grey wrapper, so the ink
+   masthead runs straight into the gold rule and then into grey.
+
+### Type sizes
+
+The top kicker ("A Word from the Lord") is **16px with 4px letter-spacing** —
+it was 11px and read as fine print next to the 27px section headings. The
+reading-time line under it is 15px italic. Scripture reference labels stay at
+11px on purpose, so they read as references rather than headings.
+
 ### Emails written so far
 
-Both live in `email-template/emails/`, single-line, zero-indent, each with a
+All live in `email-template/emails/`, single-line, zero-indent, each with a
 `preview-*.html` beside it that wraps header + body + footer for eyeballing.
 
 - `BODY-dc-assembly.html` — the October 31 Reformation Day / National Mall
   fundraising letter. Six photos, inline giving panel, 501(c)(3)/508(c)(1)(A)
-  disclosure.
+  disclosure. **Still cream** — never converted to grey.
 - `BODY-waymaker-angel.html` — "The Waymaker Angel of the Lord". Shannon's
   vision, with Hebrews 1, Psalm 103, Psalm 91, Isaiah 43, Job 38 and
-  Matthew 8:8 set in gold-barred scripture blocks. Opens "Hello," (Buttondown
-  name personalisation is a paid add-on), labelled "A four minute read" at
-  Annie's instruction — the true length is ~1,260 words, nearer six. Prayer
-  request links to `firebrandrevivalists.com/#contact`. Ends with
-  `waymaker-angel.jpg` and the note that it is an AI depiction, ~85% accurate
-  to what Shannon saw.
+  Matthew 8:8 set in gold-barred scripture blocks. Opens "Hi Friends,"
+  (Buttondown name personalisation is a paid add-on), labelled "A four minute
+  read" at Annie's instruction — the true length is ~1,260 words, nearer six.
+  Order was deliberately rearranged so the **word runs uninterrupted first**,
+  then the angel image, then the Nehemiah paragraph, speakers graphic, giving
+  section and prayer request. Giving ask after the word, never before it.
+- `BODY-watchmen-update.html` — the family update letter. North Carolina
+  move, granddaughter on the beach, the America's Watchmen Facebook group as
+  a **Join the Group** button, and a "Where We Stand" panel showing $2,166
+  received of the $5,000 goal with $2,834 still needed. Signed "With love and
+  gratitude, Jason & Shannon Suttles".
+- `BODY-test-video.html` — a test email for the couple photo and the prayer
+  video.
+
+### Video does not play in email — ever
+
+Gmail, Outlook and Apple Mail all strip `<video>`. The pattern used instead:
+a **still frame with a gold play button drawn onto it**, linking out, plus a
+text button beneath it. `prayer-video-thumb.jpg` was made this way with
+ffmpeg (frame at 20s) and Pillow.
+
+The MP4 itself is hosted on the site at
+`public/brand/video/prayer-over-the-nation.mp4` (8.5 MB, 1:13, vertical
+1080×1920). Clicking opens the browser's native player. **YouTube or Vimeo
+would be better** — a real player with controls and view counts — if Shannon
+ever wants that; only the two `href` values in the body would change.
+
+### Transparent PNGs must be flattened
+
+Outlook puts a grey or black box behind PNG transparency. Any supplied PNG
+gets composited onto the email ground colour and saved as JPEG first —
+`jason-shannon-2026.jpg` was made this way.
+
+### Previews cannot load images from a folder path
+
+The file-preview panel will not load `../../public/...` images, so previews
+showed broken-image icons even when everything was correct. This caused a
+false alarm. The fix, used in `preview-test-video.html`, is to **embed the
+images as base64 `data:` URLs** when building the preview. Do that for new
+previews; it removes the ambiguity entirely.
 
 ### Images must be pushed before sending
 
@@ -204,6 +275,37 @@ before sending.
 
 When replacing an image, **change the filename** (`-v2`, `-v3`). Browsers and
 the CDN serve the cached old file otherwise.
+
+Current contents of `public/brand/email/`:
+
+| File | Used by |
+| --- | --- |
+| `wordmark-email.jpg` | Shannon masthead |
+| `firebrand-email.jpg` | Firebrand masthead |
+| `dc-banner.jpg`, `jason-shannon-v3.jpg`, `annie-shannon.jpg`, `sanzari-family.jpg`, `ember-ridge.jpg`, `generational-legacy.jpg` | DC assembly letter |
+| `waymaker-angel.jpg` | Waymaker email (840×1260, shown at 420) |
+| `na52-speakers.jpg` | Waymaker email — Nehemiah speakers lineup |
+| `beach-girl.jpg` | Watchmen update — granddaughter, from a HEIC |
+| `watchmen-banner.jpg` | Watchmen update — links to the Facebook group |
+| `prayer-video-thumb.jpg` | Video still with play button |
+| `jason-shannon-2026.jpg` | Couple photo, flattened from a transparent PNG |
+
+HEIC files from an iPhone need `pip install pillow-heif --break-system-packages`
+before Pillow can open them.
+
+### Pasting into Buttondown — the order that works
+
+1. New email → **`...` menu → Markdown mode.** Before pasting, never after.
+   Fancy mode renders HTML as visible text and rewrites markup.
+2. Paste the body.
+3. To replace existing content, click in the box and press **Ctrl+A then
+   Delete**. Selecting with the mouse leaves fragments behind — this once left
+   `erationallegacy.org/` stranded under the footer, a tail of the
+   Generational Legacy link from a half-deleted earlier paste.
+4. Send a test to yourself. Check it on a phone. Email cannot be unsent.
+
+Annie works from **code pasted directly into chat**, not from file links —
+file cards have repeatedly been missed. Paste the full block in the reply.
 
 ---
 
